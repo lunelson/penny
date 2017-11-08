@@ -138,27 +138,8 @@ function pugWare(changeTimes) {
   };
 }
 
-// ___  ___ ___ ___
-// / __|/ __/ __/ __|
-// \__ \ (__\__ \__ \
-// |___/\___|___/___/
-
-// function scssWare(changeTimes) {
-//   const ext = ".scss",
-//     cache = {};
-//   let renderTime = 0;
-//   return function(req, res, next) {
-//     const now = Date.now();
-//     if (renderTime < changeTimes[ext]) {
-//       result = `${ext} render: ${now}; change: ${changeTimes[ext]}`;
-//       cache[req.url] = result;
-//       renderTime = now;
-//     }
-//     res.end(`${cache[req.url]}; serve: ${now}`);
-//   };
-// }
-
 const scssWare = require('./serve-scss');
+
 // _
 // | |
 // | |__  ___ _   _ _ __   ___

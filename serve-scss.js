@@ -1,19 +1,25 @@
+// ___  ___ ___ ___
+// / __|/ __/ __/ __|
+// \__ \ (__\__ \__ \
+// |___/\___|___/___/
 
+const sass = require('node-sass');
+const sassUtils = require('node-sass-utils')(sass);
+const postcss = require('postcss')([require('autoprefixer')]);
+const cssEsc = require('cssesc');
 
-const fs = require("fs");
-const path = require("path");
-const { join, relative, resolve, extname } = require("path");
-const _ = require("lodash");
+const fs = require('fs');
+const path = require('path');
+const { stat } = require("fs");
+const { join, relative, resolve, extname, dirname } = require('path');
+const _ = require('lodash');
 
-const sass = require("node-sass");
-const sassUtils = require("node-sass-utils")(sass);
-const cssEsc = require("cssesc");
-const postcss = require("postcss")([require("autoprefixer")]);
-
-
+///
+/// UTILS
+///
 
 sassUtils.toSass = function(jsValue = {}) {
-  if (jsValue && !(typeof jsValue.toSass === "function")) {
+  if (jsValue && !(typeof jsValue.toSass === 'function')) {
     // Infer Sass value from JS string value.
     if (_.isString(jsValue)) {
       jsValue = sassUtils.infer(jsValue);
@@ -39,7 +45,7 @@ sassUtils.infer = function(jsValue) {
     sass.renderSync({
       data: `$_: ___(${jsValue});`,
       functions: {
-        "___($value)": value => {
+        '___($value)': value => {
           // result = sassUtils.castToJs(value);
           result = value;
           // console.log(sassUtils.typeof(value));
@@ -54,69 +60,79 @@ sassUtils.infer = function(jsValue) {
   return result;
 };
 
-module.exports = function (changeTimes) {
-  // const ext = ".scss",
+///
+/// SUBWARE
+///
+
+module.exports = function(baseDir, changeTimes) {
   const renderCache = {};
   const renderTimes = {};
-  return function(req, res, next) {
-    /*
-    receive relFile, baseDir, res, next
-    parse absFile
-    fs.stat absFile ->
+  return function(absFile, res, next) {
+    stat(absFile, (err, stats) => {
       if (err || !stats.isFile()) return next();
-      parse outFile
-      sass.render({...})
-     */
-    const filename = join(__dirname, req.url);
-    fs.readFile(filename, "utf8", (err, data) => {
-      if (err) return next();
+      const ext = extname(absFile);
       const now = Date.now();
-      if (!(filename in renderCache) || renderTimes[filename] < changeTimes[filename]) {
-        const relFilename = relative(__dirname, filename);
-        const outFilename = relFilename.replace(/\.scss$/, '.css')
-        sass.render({
-          // file: filename,
-          outFile: outFilename,
-          data: data.toString(),
-          includePaths: ["node_modules", ".", dirname(relFilename)],
-          outputStyle: "nested",
-          // sourceMap: true,
-          sourceMapEmbed: true,
-          sourceMapContents: false, //?
-          functions: {
-            "require($path)": function(path) {
-              return sassUtils.toSass(
-                require(sassUtils.sassString(path))
-              );
-            },
-            "pow($x, $y)": function(x, y) {
-              return new sass.types.Number(
-                Math.pow(x.getValue(), y.getValue())
-              );
+      if (
+        !(absFile in renderCache) ||
+        renderTimes[absFile] < changeTimes[ext]
+      ) {
+        const relFile = relative(baseDir, absFile);
+        const outFile = relFile.replace(/\.scss$/, ".css");
+        sass.render(
+          {
+            file: relFile,
+            outFile: outFile,
+            // data: data.toString(),
+            includePaths: [
+              "node_modules",
+              ".",
+              dirname(relFile)
+            ],
+            outputStyle: "nested",
+            sourceMap: true,
+            // sourceMapEmbed: true,
+            // sourceMapContents: false, //?
+            functions: {
+              "require($path)": function(path) {
+                return sassUtils.toSass(
+                  require(sassUtils.sassString(path))
+                );
+              },
+              "pow($x, $y)": function(x, y) {
+                return new sass.types.Number(
+                  Math.pow(x.getValue(), y.getValue())
+                );
+              }
             }
+          },
+          (err, data) => {
+            if (err) {
+              return (renderCache[absFile] = cssErr(
+                err.formatted,
+                "yellow"
+              ));
+            }
+            // http://api.postcss.org/global.html#processOptions
+            postcss
+              .process(data.css, {
+                from: relFile,
+                to: outFile,
+                map: data.map
+                  ? { inline: true, prev: data.map.toString() }
+                  : false
+              })
+              .then(data => {
+                data
+                  .warnings()
+                  .forEach(warning =>
+                    console.warn(warning.toString())
+                  );
+                renderCache[absFile] = data.css;
+              });
           }
-        }, (err, data) => {
-          if (err) {
-            return renderCache[filename] = cssErr(err.formatted, "yellow");
-          }
-          // http://api.postcss.org/global.html#processOptions
-          postcss.process(data.css, {
-              from: relFilename,
-              to: outFilename,
-              map: data.map
-                ? { inline: true, prev: data.map.toString() }
-                : false
-            })
-            .then(data => {
-              data.warnings().forEach(warning => console.warn(warning.toString()));
-              renderCache[filename] = data.css;
-            });
-        });
-        renderTimes[filename] = now;
+        );
+        renderTimes[absFile] = now;
       }
-      console.log(`.scss file -- changed: ${changeTimes[filename]}; rendered: ${renderTimes[filename]}; served: ${now}`);
-      res.setHeader("Content-Type", "text/css");
-      res.end(renderCache[filename]);
     });
   };
-}
+};
