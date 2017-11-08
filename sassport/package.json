@@ -1,0 +1,22 @@
+{
+  "name": "sassport-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^7.1.6",
+    "cssesc": "^1.0.0",
+    "cssmin": "^0.4.3",
+    "lodash": "^4.17.4",
+    "node-sass": "^4.5.3",
+    "node-sass-utils": "^1.1.2",
+    "postcss": "^6.0.13",
+    "sassport": "^0.8.0"
+  }
+}
