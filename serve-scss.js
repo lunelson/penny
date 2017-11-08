@@ -10,7 +10,7 @@ const cssEsc = require('cssesc');
 
 const fs = require('fs');
 const path = require('path');
-const { stat } = require("fs");
+const { stat } = require('fs');
 const { join, relative, resolve, extname, dirname } = require('path');
 const _ = require('lodash');
 
@@ -61,6 +61,56 @@ sassUtils.infer = function(jsValue) {
 };
 
 ///
+/// RENDER
+///
+
+function scssRender(relFile, errorFn, resultFn) {
+  const outFile = relFile.replace(/\.scss$/, '.css');
+  sass.render(
+    {
+      file: relFile,
+      outFile: outFile,
+      // data: data.toString(),
+      includePaths: [
+        'node_modules',
+        '.',
+        dirname(relFile)
+      ],
+      outputStyle: 'nested',
+      sourceMap: true,
+      // sourceMapEmbed: true,
+      // sourceMapContents: false, //?
+      functions: {
+        'require($path)': function(path) {
+          return sassUtils.toSass(
+            require(sassUtils.sassString(path))
+          );
+        },
+        'pow($x, $y)': function(x, y) {
+          return new sass.types.Number(
+            Math.pow(x.getValue(), y.getValue())
+          );
+        }
+      }
+    },
+    (err, data) => {
+      if (err) return errorFn(err);
+      // http://api.postcss.org/global.html#processOptions
+      postcss.process(data.css, {
+        from: relFile,
+        to: outFile,
+        map: data.map
+          ? { inline: true, prev: data.map.toString() }
+          : false
+      }).then(data => {
+        data.warnings().forEach(warning => console.warn(warning.toString()));
+        return resultFn(data);
+      });
+    }
+  );
+}
+
+///
 /// SUBWARE
 ///
 
@@ -77,61 +127,13 @@ module.exports = function(baseDir, changeTimes) {
         renderTimes[absFile] < changeTimes[ext]
       ) {
         const relFile = relative(baseDir, absFile);
-        const outFile = relFile.replace(/\.scss$/, ".css");
-        sass.render(
-          {
-            file: relFile,
-            outFile: outFile,
-            // data: data.toString(),
-            includePaths: [
-              "node_modules",
-              ".",
-              dirname(relFile)
-            ],
-            outputStyle: "nested",
-            sourceMap: true,
-            // sourceMapEmbed: true,
-            // sourceMapContents: false, //?
-            functions: {
-              "require($path)": function(path) {
-                return sassUtils.toSass(
-                  require(sassUtils.sassString(path))
-                );
-              },
-              "pow($x, $y)": function(x, y) {
-                return new sass.types.Number(
-                  Math.pow(x.getValue(), y.getValue())
-                );
-              }
-            }
-          },
-          (err, data) => {
-            if (err) {
-              return (renderCache[absFile] = cssErr(
-                err.formatted,
-                "yellow"
-              ));
-            }
-            // http://api.postcss.org/global.html#processOptions
-            postcss
-              .process(data.css, {
-                from: relFile,
-                to: outFile,
-                map: data.map
-                  ? { inline: true, prev: data.map.toString() }
-                  : false
-              })
-              .then(data => {
-                data
-                  .warnings()
-                  .forEach(warning =>
-                    console.warn(warning.toString())
-                  );
-                renderCache[absFile] = data.css;
-              });
-          }
-        );
+        scssRender(relFile, (err) => {
+          renderCache[absFile] = cssErr( err.formatted, 'yellow');
+        }, (data) => {
+          renderCache[absFile] = data.css;
+        });
         renderTimes[absFile] = now;
+        // set the headers, and send the result
       }
     });
   };
