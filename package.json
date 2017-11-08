@@ -18,6 +18,7 @@
     "browser-sync": "^2.18.13",
     "clean-urls": "^1.1.5",
     "connect-route": "^0.1.5",
+    "cosmiconfig": "^3.1.0",
     "cross-env": "^5.1.1",
     "cssesc": "^1.0.0",
     "debug": "^3.1.0",

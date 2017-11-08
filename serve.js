@@ -8,28 +8,24 @@
 /*    | |                __/ |                  */
 /*    |_|               |___/                   */
 /************************************************/
-/*
-  penguin
-    _internal
-    _javascripts
-    _stylesheets
-    _templates
-    app
 
-    src
-      mypen1
-        index.pug
-        local.scss
-        local.js
-      index.pug
-      global.js
-      global.scss
-*/
+/* COSMICONFIG -- https://github.com/davidtheclark/cosmiconfig */
+// var cosmiconfig = require('cosmiconfig');
+// var explorer = cosmiconfig('penguin');
+// explorer.load('.')
+//   .then((result) => {
+//     // result.config is the parsed configuration object
+//     // result.filepath is the path to the config file that was found
+//   })
+//   .catch((parsingError) => {
+//     // do something constructive
+//   });
 
 const path = require("path");
 const fs = require("fs");
 const { join, relative, resolve, extname } = require("path");
 const _ = require('lodash');
+
 
 //   _
 //   (_)
