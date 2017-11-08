@@ -30,6 +30,25 @@ const _ = require('lodash');
 // const pugWare = require('./serve-pug');
 // const scssWare = require('./serve-scss');
 
+//                                  _
+//                                 | |
+//   ___ ___  _ __  _ __   ___  ___| |_
+//  / __/ _ \| '_ \| '_ \ / _ \/ __| __|
+// | (_| (_) | | | | | | |  __/ (__| |_
+//  \___\___/|_| |_|_| |_|\___|\___|\__|
+
+const connect = require('connect');
+const http = require('http');
+const static = require('serve-static');
+
+// const isDev = true;
+// if (!isDev) {
+//   const app = connect();
+//   app.use(srcHandler);
+//   app.use(static(baseDir));
+//   http.createServer(app).listen(3000);
+// }
+
 // _
 // | |
 // | |__  ___ _   _ _ __   ___
@@ -40,6 +59,7 @@ const _ = require('lodash');
 //            |___/
 
 const bsync = require('browser-sync').create();
+const baseDir = __dirname;
 
 // var serveIcons = require("serve-favicon");
 // var serveIndex = require("serve-index");
@@ -47,6 +67,11 @@ const srcExts = { '.html': '.pug', '.css': '.scss', '.js': '.js' };
 const outExts = _.invert(srcExts);
 // const startTime = Date.now();
 const changeTimes = _.mapValues(outExts, Date.now);
+const srcWares = _.mapValues(srcExts, (val, key) => {
+  return require(`./serve-${key.slice(1)}.js`)(baseDir, changeTimes);
+});
+
+// Object.keys(srcExts).map((ext) => `serve-${ext.slice(1)}`)
 // const subMiddleWares = _.mapValues(srcExts, (ext) =>)
 // console.log(changeTimes);
 // const changeTimes2 = {};
@@ -61,22 +86,20 @@ const changeTimes = _.mapValues(outExts, Date.now);
 //   '.js': jsWare(changeTimes)
 // };
 
-const baseDir = __dirname;
+// const subWares = {
+//   '.html': require('./serve-html')(baseDir, changeTimes),
+//   '.css': require('./serve-css')(baseDir, changeTimes),
+//   '.js': require('./serve-js')(baseDir, changeTimes),
+// };
 
-const subWares = {
-  '.html': require('./serve-html')(baseDir, changeTimes),
-  '.css': require('./serve-css')(baseDir, changeTimes),
-  '.js': require('./serve-js')(baseDir, changeTimes),
-}
-
-function srcWare(req, res, next) {
+function srcHandler(req, res, next) {
   let ext = extname(req.url);
   if (!ext) {
     req.url = req.url.replace(/\/?$/, '/index.html');
     ext = '.html';
   }
-  if (!~Object.keys(subWares).indexOf(ext)) return next();
-  return subWares[ext](join(__dirname, req.url), res, next);
+  if (!~Object.keys(srcWares).indexOf(ext)) return next();
+  return srcWares[ext](join(baseDir, req.url), res, next);
 }
 
 bsync.init(
@@ -84,7 +107,7 @@ bsync.init(
     notify: false,
     open: false,
     server: '.',
-    middleware: [srcWare]
+    middleware: [srcHandler]
   },
   function() {
     let watcherReady = false;
@@ -92,11 +115,11 @@ bsync.init(
       Object.keys(outExts).map(ext => `./**/*${ext}`),
       { ignored: ['**/node_modules/**'], ignoreInitial: true },
       (event, file) => {
-        // console.log(event, join(__dirname, file));
+        // console.log(event, join(baseDir, file));
         const srcExt = extname(file);
         // const outExt = outExts[srcExt];
         changeTimes[srcExt] = Date.now();
-        // changeTimes2[join(__dirname, file)] = Date.now();
+        // changeTimes2[join(baseDir, file)] = Date.now();
         if (watcherReady) bsync.reload(`*${outExts[srcExt]}`);
       }
     ).on('ready', () => {
