@@ -1,5 +1,5 @@
 const { readFile } = require('fs');
-const { relative, dirname, join } = require("path");
+const { relative, dirname, join } = require('path');
 const filename = join(__dirname, 'subdir');
 console.log(filename);
 readFile(filename, 'utf-8', (err, data) => {
@@ -9,7 +9,7 @@ readFile(filename, 'utf-8', (err, data) => {
   }
 });
 
-const test = { a: "b " };
+const test = { a: 'b ' };
 
-const dirlog = require("./other/nest.js");
+const dirlog = require('./other/nest.js');
 dirlog();

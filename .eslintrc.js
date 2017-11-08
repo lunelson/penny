@@ -1,5 +1,6 @@
 module.exports = {
     "env": {
+        "node": true,
         "browser": true,
         "commonjs": true,
         "es6": true
@@ -10,6 +11,7 @@ module.exports = {
     },
     "rules": {
         "no-unused-vars": "off",
+        "no-console": "off",
         "indent": [
             "error",
             2

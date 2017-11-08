@@ -21,9 +21,9 @@
 //     // do something constructive
 //   });
 
-const path = require("path");
-const fs = require("fs");
-const { join, relative, resolve, extname } = require("path");
+const path = require('path');
+const fs = require('fs');
+const { join, relative, resolve, extname } = require('path');
 const _ = require('lodash');
 
 
@@ -36,12 +36,12 @@ const _ = require('lodash');
 //  _/ |
 // |__/
 
-const Rollup = require("rollup");
-const nodeResolve = require("rollup-plugin-node-resolve");
-const commonJS = require("rollup-plugin-commonjs");
+const Rollup = require('rollup');
+const nodeResolve = require('rollup-plugin-node-resolve');
+const commonJS = require('rollup-plugin-commonjs');
 
 function jsWare(changeTimes) {
-  const ext = ".js",
+  const ext = '.js',
     renderCache = {},
     bundleCache = {},
     config = {
@@ -64,36 +64,36 @@ function jsWare(changeTimes) {
       // const now = Date.now();
       if (renderTime < changeTimes[ext]) {
         Rollup.rollup(Object.assign({}, config, { input: filename, cache: bundleCache[req.url] }))
-        .then((bundle) => {
-          bundleCache[req.url] = bundle;
-          renderCache[req.url] = bundle.generate({
-            format: "es",
-            sourcemap: "inline"
-          }).code;
-          renderTime = Date.now();
-        }, (err) => {
-          if (err.code === "PARSE_ERROR") {
-            console.error(
-              "%s:%d:%d: %s",
-              relative(resolve(process.cwd(), prefix), err.loc.file),
-              err.loc.line,
-              err.loc.column,
-              err.message
-            );
-            console.error();
-            console.error(err.frame);
-            console.error();
-            res.writeHead(500);
-            res.end();
-          } else if (err.code === "UNRESOLVED_ENTRY") {
-            // Pass 404s on to the next middleware
-            next();
-          } else {
-            next(err);
-          }
-        });
+          .then((bundle) => {
+            bundleCache[req.url] = bundle;
+            renderCache[req.url] = bundle.generate({
+              format: 'es',
+              sourcemap: 'inline'
+            }).code;
+            renderTime = Date.now();
+          }, (err) => {
+            if (err.code === 'PARSE_ERROR') {
+              console.error(
+                '%s:%d:%d: %s',
+                relative(__dirname, err.loc.file),
+                err.loc.line,
+                err.loc.column,
+                err.message
+              );
+              console.error();
+              console.error(err.frame);
+              console.error();
+              res.writeHead(500);
+              res.end();
+            } else if (err.code === 'UNRESOLVED_ENTRY') {
+              // Pass 404s on to the next middleware
+              next();
+            } else {
+              next(err);
+            }
+          });
       }
-      res.setHeader("Content-Type", "text/javascript");
+      res.setHeader('Content-Type', 'text/javascript');
       // res.end('IS THIS THING ON???');
       res.end(renderCache[req.url]);
     });
@@ -114,12 +114,12 @@ const Pug = require('pug');
   - add pug-error rendering to HTML
 */
 function pugWare(changeTimes) {
-  const ext = ".pug",
+  const ext = '.pug',
     cache = {}, locals = {};
   let renderTime = 0, timeStats = '';
   return function(req, res, next) {
     const filename = join(__dirname, req.url);
-    fs.readFile(filename, "utf8", (err, data) => {
+    fs.readFile(filename, 'utf8', (err, data) => {
       if (!data) return next();
       const now = Date.now();
       if (renderTime < changeTimes[ext]) {
@@ -168,11 +168,11 @@ const scssWare = require('./serve-scss');
 //             __/ |
 //            |___/
 
-const bsync = require("browser-sync").create();
+const bsync = require('browser-sync').create();
 
 // var serveIcons = require("serve-favicon");
 // var serveIndex = require("serve-index");
-const srcExts = { ".html": ".pug", ".css": ".scss", ".js": ".es" };
+const srcExts = { '.html': '.pug', '.css': '.scss', '.js': '.es' };
 const outExts = _.invert(srcExts);
 const startTime = Date.now();
 const changeTimes = _.mapValues(outExts, () => startTime);
@@ -183,9 +183,9 @@ const changeTimes2 = {};
 //   ".js": startTime
 // };
 const srcMiddleWares = {
-  ".pug": pugWare(changeTimes),
-  ".scss": scssWare(changeTimes2),
-  ".js": jsWare(changeTimes)
+  '.pug': pugWare(changeTimes),
+  '.scss': scssWare(changeTimes2),
+  '.js': jsWare(changeTimes)
 };
 
 const chokidarOptions = { ignored: ['**/node_modules/**'] };
@@ -194,7 +194,7 @@ bsync.init(
   {
     notify: false,
     open: false,
-    server: ".",
+    server: '.',
     middleware: [
       // serveIcons,
       // serveIndex,
@@ -202,8 +202,8 @@ bsync.init(
         // console.log(req.url);
         let ext = extname(req.url);
         if (!ext) {
-          req.url = req.url.replace(/\/?$/, "/index.html");
-          ext = ".html";
+          req.url = req.url.replace(/\/?$/, '/index.html');
+          ext = '.html';
         }
         if (!~Object.keys(srcExts).indexOf(ext)) return next();
         /*
