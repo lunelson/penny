@@ -26,9 +26,9 @@ const fs = require('fs');
 const { join, relative, resolve, extname } = require('path');
 const _ = require('lodash');
 
-const jsWare = require('./serve-js');
-const pugWare = require('./serve-pug');
-const scssWare = require('./serve-scss');
+// const jsWare = require('./serve-js');
+// const pugWare = require('./serve-pug');
+// const scssWare = require('./serve-scss');
 
 // _
 // | |
@@ -62,10 +62,21 @@ const changeTimes = _.mapValues(outExts, Date.now);
 // };
 
 const baseDir = __dirname;
+
 const subWares = {
   '.html': require('./serve-html')(baseDir, changeTimes),
   '.css': require('./serve-css')(baseDir, changeTimes),
   '.js': require('./serve-js')(baseDir, changeTimes),
+}
+
+function srcWare(req, res, next) {
+  let ext = extname(req.url);
+  if (!ext) {
+    req.url = req.url.replace(/\/?$/, '/index.html');
+    ext = '.html';
+  }
+  if (!~Object.keys(subWares).indexOf(ext)) return next();
+  return subWares[ext](join(__dirname, req.url), res, next);
 }
 
 bsync.init(
@@ -73,29 +84,7 @@ bsync.init(
     notify: false,
     open: false,
     server: '.',
-    middleware: [
-      function(req, res, next) {
-        let ext = extname(req.url);
-        if (!ext) {
-          req.url = req.url.replace(/\/?$/, '/index.html');
-          ext = '.html';
-        }
-        if (!~Object.keys(subWares).indexOf(ext)) return next();
-        return subWares[ext](join(__dirname, req.url), res, next);
-        // /*
-        //   parse absFile from req.url
-        //   call subWare[srcExt](relPath, baseDir, res, next)
-        // */
-        // fs.stat(path.join(__dirname, req.url), (err, stats) => {
-        //   if (!err && stats.isFile()) { return next(); }
-        //   else {
-        //     const srcExt = srcExts[ext];
-        //     req.url = req.url.replace(new RegExp(`${ext}$`), srcExt);
-        //     return srcMiddleWares[srcExt](req, res, next);
-        //   }
-        // });
-      }
-    ]
+    middleware: [srcWare]
   },
   function() {
     let watcherReady = false;
@@ -105,10 +94,10 @@ bsync.init(
       (event, file) => {
         // console.log(event, join(__dirname, file));
         const srcExt = extname(file);
-        const outExt = outExts[srcExt];
+        // const outExt = outExts[srcExt];
         changeTimes[srcExt] = Date.now();
         // changeTimes2[join(__dirname, file)] = Date.now();
-        if (watcherReady) bsync.reload(`*${outExt}`);
+        if (watcherReady) bsync.reload(`*${outExts[srcExt]}`);
       }
     ).on('ready', () => {
       watcherReady = true;
