@@ -133,8 +133,10 @@ module.exports = function(baseDir, changeTimes) {
           renderCache[absFile] = data.css;
         });
         renderTimes[absFile] = now;
-        // set the headers, and send the result
       }
+      console.log(`${ext} file -- \n changed: ${changeTimes[ext]} \n rendered: ${renderTimes[absFile]} \n served: ${now}`);
+      res.setHeader('Content-Type', 'text/css');
+      res.end(renderCache[absFile]);
     });
   };
 };

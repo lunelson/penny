@@ -23,5 +23,8 @@ module.exports = function(baseDir, changeTimes) {
         // process this shit
       }
     });
+    console.log(`${ext} file -- \n changed: ${changeTimes[ext]} \n rendered: ${renderTimes[absFile]} \n served: ${now}`);
+    res.setHeader('Content-Type', 'text/html');
+    res.end(renderCache[absFile]);
   };
 };
