@@ -24,15 +24,13 @@ sassUtils.toSass = function(jsValue = {}) {
     if (_.isString(jsValue)) {
       jsValue = sassUtils.infer(jsValue);
 
-    // Check each item in array for inferable values.
+      // Check each item in array for inferable values.
     } else if (_.isArray(jsValue)) {
       jsValue = _.map(jsValue, item => sassUtils.toSass(item));
 
-    // Check each value in object for inferable values.
+      // Check each value in object for inferable values.
     } else if (_.isObject(jsValue)) {
-      jsValue = _.mapValues(jsValue, subval =>
-        sassUtils.toSass(subval)
-      );
+      jsValue = _.mapValues(jsValue, subval => sassUtils.toSass(subval));
     }
   }
   return sassUtils.castToSass(jsValue);
@@ -60,6 +58,27 @@ sassUtils.infer = function(jsValue) {
   return result;
 };
 
+function cssErr(message, bgcolor) {
+  return `
+  html { font-size: 1em; position: relative; }
+  html:before {
+    position: absolute;
+    top: 0; left: 0;
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    font-family: monospace;
+    content: '${message}';
+    white-space: pre-wrap;
+    background-color: ${bgcolor};
+  }`;
+}
+
+function sassErr(err) {
+  var file = path.relative(process.cwd(), err.file);
+  return cssEsc(`Sass Error: ${err.toString()}\n\n${file}:${err.line}`);
+}
+
 ///
 /// RENDER
 ///
@@ -71,41 +90,33 @@ function scssRender(relFile, errorFn, resultFn) {
       file: relFile,
       outFile: outFile,
       // data: data.toString(),
-      includePaths: [
-        'node_modules',
-        '.',
-        dirname(relFile)
-      ],
+      includePaths: ['node_modules', '.', dirname(relFile)],
       outputStyle: 'nested',
       sourceMap: true,
       // sourceMapEmbed: true,
       // sourceMapContents: false, //?
       functions: {
         'require($path)': function(path) {
-          return sassUtils.toSass(
-            require(sassUtils.sassString(path))
-          );
+          return sassUtils.toSass(require(sassUtils.sassString(path)));
         },
         'pow($x, $y)': function(x, y) {
-          return new sass.types.Number(
-            Math.pow(x.getValue(), y.getValue())
-          );
+          return new sass.types.Number(Math.pow(x.getValue(), y.getValue()));
         }
       }
     },
     (err, data) => {
       if (err) return errorFn(err);
       // http://api.postcss.org/global.html#processOptions
-      postcss.process(data.css, {
-        from: relFile,
-        to: outFile,
-        map: data.map
-          ? { inline: true, prev: data.map.toString() }
-          : false
-      }).then(data => {
-        data.warnings().forEach(warning => console.warn(warning.toString()));
-        return resultFn(data);
-      });
+      postcss
+        .process(data.css, {
+          from: relFile,
+          to: outFile,
+          map: data.map ? { inline: true, prev: data.map.toString() } : false
+        })
+        .then(data => {
+          data.warnings().forEach(warning => console.warn(warning.toString()));
+          return resultFn(data);
+        });
     }
   );
 }
@@ -122,19 +133,24 @@ module.exports = function(baseDir, changeTimes) {
       if (err || !stats.isFile()) return next();
       const ext = extname(absFile);
       const now = Date.now();
-      if (
-        !(absFile in renderCache) ||
-        renderTimes[absFile] < changeTimes[ext]
-      ) {
+      if (!(absFile in renderCache) || renderTimes[absFile] < changeTimes[ext]) {
         const relFile = relative(baseDir, absFile);
-        scssRender(relFile, (err) => {
-          renderCache[absFile] = cssErr( err.formatted, 'yellow');
-        }, (data) => {
-          renderCache[absFile] = data.css;
-        });
+        scssRender(
+          relFile,
+          err => {
+            renderCache[absFile] = cssErr(err.formatted, 'yellow');
+          },
+          data => {
+            renderCache[absFile] = data.css;
+          }
+        );
         renderTimes[absFile] = now;
       }
-      console.log(`${ext} file -- \n changed: ${changeTimes[ext]} \n rendered: ${renderTimes[absFile]} \n served: ${now}`);
+      console.log(
+        `${ext} file -- \n changed: ${changeTimes[ext]} \n rendered: ${
+          renderTimes[absFile]
+        } \n served: ${now}`
+      );
       res.setHeader('Content-Type', 'text/css');
       res.end(renderCache[absFile]);
     });

@@ -5,7 +5,7 @@ const { stat } = require('fs');
 /// SUBWARE
 ///
 
-module.exports = function(baseDir, changeTimes) {
+module.exports = function subWare(baseDir, changeTimes) {
   const renderCache = {};
   const renderTimes = {};
   return function(absFile, res, next) {
@@ -15,14 +15,15 @@ module.exports = function(baseDir, changeTimes) {
       if (err || !stats.isFile()) return next();
       const ext = extname(absFile);
       const now = Date.now();
-      if (
-        !(absFile in renderCache) ||
-        renderTimes[absFile] < changeTimes[ext]
-      ) {
+      if (!(absFile in renderCache) || renderTimes[absFile] < changeTimes[ext]) {
         // process this shit
       }
     });
-    console.log(`${ext} file -- \n changed: ${changeTimes[ext]} \n rendered: ${renderTimes[absFile]} \n served: ${now}`);
+    console.log(
+      `${ext} file -- \n changed: ${changeTimes[ext]} \n rendered: ${
+        renderTimes[absFile]
+      } \n served: ${now}`
+    );
     res.setHeader('Content-Type', 'text/javascript');
     res.end(renderCache[absFile]);
   };
@@ -49,30 +50,33 @@ function jsWare(changeTimes) {
       external: [],
       plugins: [
         nodeResolve(),
-        commonJS(),
+        commonJS()
         // babel(),
         // replace({
         //   ENV: JSON.stringify(process.env.NODE_ENV || "development")
         // })
-      ],
+      ]
     };
   let renderTime = 0;
 
-  return function (req, res, next) {
+  return function(req, res, next) {
     const filename = join(__dirname, req.url);
-    fs.stat(filename, (err, stats) => {
+    stat(filename, (err, stats) => {
       if (!stats.isFile()) return next();
       // const now = Date.now();
       if (renderTime < changeTimes[ext]) {
-        Rollup.rollup(Object.assign({}, config, { input: filename, cache: bundleCache[req.url] }))
-          .then((bundle) => {
+        Rollup.rollup(
+          Object.assign({}, config, { input: filename, cache: bundleCache[req.url] })
+        ).then(
+          bundle => {
             bundleCache[req.url] = bundle;
             renderCache[req.url] = bundle.generate({
               format: 'es',
               sourcemap: 'inline'
             }).code;
             renderTime = Date.now();
-          }, (err) => {
+          },
+          err => {
             if (err.code === 'PARSE_ERROR') {
               console.error(
                 '%s:%d:%d: %s',
@@ -92,7 +96,8 @@ function jsWare(changeTimes) {
             } else {
               next(err);
             }
-          });
+          }
+        );
       }
       res.setHeader('Content-Type', 'text/javascript');
       // res.end('IS THIS THING ON???');

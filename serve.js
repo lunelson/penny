@@ -39,13 +39,14 @@ const _ = require('lodash');
 
 const connect = require('connect');
 const http = require('http');
-const static = require('serve-static');
+const serveStatic = require('serve-static');
+const serveIndex = require('serve-index');
 
 // const isDev = true;
 // if (!isDev) {
 //   const app = connect();
 //   app.use(srcHandler);
-//   app.use(static(baseDir));
+//   app.use(serveStatic(baseDir));
 //   http.createServer(app).listen(3000);
 // }
 
@@ -111,20 +112,22 @@ bsync.init(
   },
   function() {
     let watcherReady = false;
-    const watcher = bsync.watch(
-      Object.keys(outExts).map(ext => `./**/*${ext}`),
-      { ignored: ['**/node_modules/**'], ignoreInitial: true },
-      (event, file) => {
-        // console.log(event, join(baseDir, file));
-        const srcExt = extname(file);
-        // const outExt = outExts[srcExt];
-        changeTimes[srcExt] = Date.now();
-        // changeTimes2[join(baseDir, file)] = Date.now();
-        if (watcherReady) bsync.reload(`*${outExts[srcExt]}`);
-      }
-    ).on('ready', () => {
-      watcherReady = true;
-      // console.log(changeTimes2);
-    });
+    const watcher = bsync
+      .watch(
+        Object.keys(outExts).map(ext => `./**/*${ext}`),
+        { ignored: ['**/node_modules/**'], ignoreInitial: true },
+        (event, file) => {
+          // console.log(event, join(baseDir, file));
+          const srcExt = extname(file);
+          // const outExt = outExts[srcExt];
+          changeTimes[srcExt] = Date.now();
+          // changeTimes2[join(baseDir, file)] = Date.now();
+          if (watcherReady) bsync.reload(`*${outExts[srcExt]}`);
+        }
+      )
+      .on('ready', () => {
+        watcherReady = true;
+        // console.log(changeTimes2);
+      });
   }
 );
