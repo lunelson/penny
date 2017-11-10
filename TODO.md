@@ -1,22 +1,18 @@
+# next
+
+- tweak babel config to also apply polyfills
+  https://babeljs.io/docs/plugins/preset-env/
+  https://github.com/babel/babel-preset-env/issues/365
+  http://2ality.com/2017/02/babel-preset-env.html#usebuiltins-boolean-default-false
+  https://leanpub.com/setting-up-es6/read#ch_babel-helpers-standard-library
+  https://stackoverflow.com/questions/43282214/is-it-better-to-have-polyfills-as-import-statements-with-babel-preset-env-or-add
+  https://jaketrent.com/post/simplify-babel-setup-with-babel-preset-env/
+
+
 # questions
 
 - how to use debug correctly, to log the change/render/serve information??
 
-- how to pass browserslist options directly via API to autoprefixer and babel-env
-```js
-  const browsersList = ["last 2 versions", "safari 7"];
-  var prefixer  = postcss([ autoprefixer({ browsers: browsersList }) ]);
-  var babelrc = {
-    "presets": [
-      ["@babel/env", {
-        "targets": {
-          "chrome": 52,
-          "browsers": browsersList
-        }
-      }]
-    ]
-  }
-```
 - what exactly is the server config of browser-sync, what other middlewares are used and in what order
   - seems to be: [user-middleware], serve-index, serve-static
 
