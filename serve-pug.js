@@ -16,7 +16,10 @@ const Pug = require('pug');
   - add pug-error rendering to HTML
 */
 
-const locals = {};
+const locals = {
+  cache: false,
+  doctype: 'html'
+};
 
 ///
 /// EXPORT
@@ -41,8 +44,7 @@ module.exports = function(baseDir, changeTimes) {
           renderCache[srcFile] = Pug.renderFile(
             srcFile,
             Object.assign({}, locals, {
-              cache: false,
-              pretty: true,
+              pretty: true, // TODO: dev dependent
               basedir: baseDir,
               pathname: relative(baseDir, srcFile)
             })

@@ -1,0 +1,36 @@
+extends _layout
+include _mixins
+
+block head
+  style.
+    body { font-family: sans-serif; }
+
+block body
+  != JSON.stringify(Object.keys(locals))
+  h1 Hello world!
+  p We have to think about all the stuff we are going to stick in here
+
+  ul NATIVE
+    li filename
+    li basedir
+    li pretty
+    li filters
+    li debug
+    li globals
+    li cache
+    li name
+
+  ul ADDED
+    li _
+    li ENV
+    li environment
+    li pathname || filepath
+    li reqPath || reqURL (whole object)
+    li chance
+    li faker
+    li mark
+    li markInline
+    li renderPug
+    li renderPugFile
+    li include
+
