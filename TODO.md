@@ -1,6 +1,6 @@
 # next
 
-- tweak babel config to also apply polyfills
+- tweak babel config to also apply polyfills and support stage-3
   https://babeljs.io/docs/plugins/preset-env/
   https://github.com/babel/babel-preset-env/issues/365
   http://2ality.com/2017/02/babel-preset-env.html#usebuiltins-boolean-default-false
