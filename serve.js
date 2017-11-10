@@ -21,113 +21,110 @@
 //     // do something constructive
 //   });
 
-const path = require('path');
-const fs = require('fs');
+const { stat } = require('fs');
+const { parse } = require('url');
 const { join, relative, resolve, extname } = require('path');
 const _ = require('lodash');
+const parseUrl = require('parseurl');
 
-// const jsWare = require('./serve-js');
-// const pugWare = require('./serve-pug');
-// const scssWare = require('./serve-scss');
-
-//                                  _
-//                                 | |
-//   ___ ___  _ __  _ __   ___  ___| |_
-//  / __/ _ \| '_ \| '_ \ / _ \/ __| __|
-// | (_| (_) | | | | | | |  __/ (__| |_
-//  \___\___/|_| |_|_| |_|\___|\___|\__|
-
-const connect = require('connect');
-const http = require('http');
-const serveStatic = require('serve-static');
-const serveIndex = require('serve-index');
-
-// const isDev = true;
-// if (!isDev) {
-//   const app = connect();
-//   app.use(srcHandler);
-//   app.use(serveStatic(baseDir));
-//   http.createServer(app).listen(3000);
-// }
-
-// _
-// | |
-// | |__  ___ _   _ _ __   ___
-// | '_ \/ __| | | | '_ \ / __|
-// | |_) \__ \ |_| | | | | (__
-// |_.__/|___/\__, |_| |_|\___|
-//             __/ |
-//            |___/
-
-const bsync = require('browser-sync').create();
+const isDev = true;
 const baseDir = __dirname;
 
-// var serveIcons = require("serve-favicon");
-// var serveIndex = require("serve-index");
-const srcExts = { '.html': '.pug', '.css': '.scss', '.js': '.js' };
-const outExts = _.invert(srcExts);
-// const startTime = Date.now();
-const changeTimes = _.mapValues(outExts, Date.now);
-const srcWares = _.mapValues(srcExts, (val, key) => {
-  return require(`./serve-${key.slice(1)}.js`)(baseDir, changeTimes);
+const reqSrcExt = { '.html': '.pug', '.css': '.scss', '.js': '.js' };
+const srcOutExt = _.invert(reqSrcExt);
+const changeTimes = _.mapValues(srcOutExt, Date.now);
+const srcWares = _.mapValues(srcOutExt, (outExt, srcExt) => {
+  return require(`./serve-${srcExt.slice(1)}.js`)(baseDir, changeTimes);
 });
 
-// Object.keys(srcExts).map((ext) => `serve-${ext.slice(1)}`)
-// const subMiddleWares = _.mapValues(srcExts, (ext) =>)
-// console.log(changeTimes);
-// const changeTimes2 = {};
-// const changeTimes = {
-//   ".pug": startTime,
-//   ".scss": startTime,
-//   ".js": startTime
-// };
-// const srcMiddleWares = {
-//   '.pug': pugWare(changeTimes),
-//   '.scss': scssWare(changeTimes2),
-//   '.js': jsWare(changeTimes)
-// };
+const serveIndex = require('serve-index');
+const serveStatic = require('serve-static');
+const serveStaticOptions = {
+  redirect: false,
+  extensions: ['html']
+};
 
-// const subWares = {
-//   '.html': require('./serve-html')(baseDir, changeTimes),
-//   '.css': require('./serve-css')(baseDir, changeTimes),
-//   '.js': require('./serve-js')(baseDir, changeTimes),
-// };
-
-function srcHandler(req, res, next) {
-  let ext = extname(req.url);
+function serveSources(req, res, next) {
+  let { pathname } = parse(req.url),
+    ext = extname(pathname);
   if (!ext) {
-    req.url = req.url.replace(/\/?$/, '/index.html');
+    pathname = pathname.replace(/\/$/, '/index') + '.html';
     ext = '.html';
   }
-  if (!~Object.keys(srcWares).indexOf(ext)) return next();
-  return srcWares[ext](join(baseDir, req.url), res, next);
+  if (!~Object.keys(reqSrcExt).indexOf(ext)) {
+    return next();
+  } else {
+    const reqFile = join(baseDir, pathname);
+    return srcWares[reqSrcExt[ext]](reqFile, res, next);
+  }
 }
 
-bsync.init(
-  {
-    notify: false,
-    open: false,
-    server: '.',
-    middleware: [srcHandler]
-  },
-  function() {
-    let watcherReady = false;
-    const watcher = bsync
-      .watch(
-        Object.keys(outExts).map(ext => `./**/*${ext}`),
-        { ignored: ['**/node_modules/**'], ignoreInitial: true },
-        (event, file) => {
-          // console.log(event, join(baseDir, file));
-          const srcExt = extname(file);
-          // const outExt = outExts[srcExt];
-          changeTimes[srcExt] = Date.now();
-          // changeTimes2[join(baseDir, file)] = Date.now();
-          if (watcherReady) bsync.reload(`*${outExts[srcExt]}`);
-        }
-      )
-      .on('ready', () => {
-        watcherReady = true;
-        // console.log(changeTimes2);
-      });
-  }
-);
+if (isDev) {
+  // _
+  // | |
+  // | |__  ___ _   _ _ __   ___
+  // | '_ \/ __| | | | '_ \ / __|
+  // | |_) \__ \ |_| | | | | (__
+  // |_.__/|___/\__, |_| |_|\___|
+  //             __/ |
+  //            |___/
+
+  const bsync = require('browser-sync').create();
+  bsync.init(
+    {
+      notify: false,
+      open: false,
+      server: { baseDir, serveStaticOptions },
+      middleware: [serveSources]
+    },
+    function() {
+      let watcherReady = false;
+      const watcher = bsync
+        .watch(
+          Object.keys(srcOutExt).map(ext => `./**/*${ext}`),
+          { ignored: ['**/node_modules/**'], ignoreInitial: true },
+          (event, file) => {
+            // console.log(event, join(baseDir, file));
+            const srcExt = extname(file);
+            // const outExt = outExts[srcExt];
+            changeTimes[srcExt] = Date.now();
+            // changeTimes2[join(baseDir, file)] = Date.now();
+            if (watcherReady) bsync.reload(`*${srcOutExt[srcExt]}`);
+          }
+        )
+        .on('ready', () => {
+          watcherReady = true;
+          // console.log(changeTimes2);
+        });
+    }
+  );
+} else {
+  //                                  _
+  //                                 | |
+  //   ___ ___  _ __  _ __   ___  ___| |_
+  //  / __/ _ \| '_ \| '_ \ / _ \/ __| __|
+  // | (_| (_) | | | | | | |  __/ (__| |_
+  //  \___\___/|_| |_|_| |_|\___|\___|\__|
+
+  const http = require('http');
+  const connect = require('connect');
+  const app = connect();
+
+  // app.use((req, res, next) => {
+  //   const absFile = join(baseDir, parseUrl(req).pathname);
+  //   // IF err or isDirectory, next
+  //   // what if there's foo/ and foo.pug
+  //   stat(absFile, (err, stats) => {
+  //     if (!err) {
+  //       console.log(`is dir: ${stats.isDirectory()}`);
+  //       console.log(`is file: ${stats.isFile()}`);
+  //     }
+  //   });
+  //   console.log(parseUrl(req));
+  //   next();
+  // });
+  app.use(serveSources);
+  app.use(serveStatic(baseDir, serveStaticOptions));
+  // app.use(serveIndex(baseDir, { icons: true }));
+  http.createServer(app).listen(3000);
+}

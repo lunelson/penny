@@ -8,6 +8,10 @@
 const { join, relative, resolve, extname } = require('path');
 const { stat, readFile } = require('fs');
 
+function replaceExt(filename, extension) {
+  return filename.slice(0, 0 - extname(filename).length) + extension;
+}
+
 ///
 /// SUBWARE
 ///
@@ -15,22 +19,27 @@ const { stat, readFile } = require('fs');
 module.exports = function(baseDir, changeTimes) {
   const renderCache = {};
   const renderTimes = {};
-  return function(absFile, res, next) {
-    const ext = extname(absFile);
-    const now = Date.now();
-    stat(absFile, (err, stats) => {
-      if (err || !stats.isFile()) return next();
-      if (!(absFile in renderCache) || renderTimes[absFile] < changeTimes[ext]) {
-        // process this shit
-      }
+  const srcExt = '.pug';
+  return function(reqFile, res, next) {
+    stat(reqFile, (err, stats) => {
+      if (!err && stats.isFile()) return next();
+      // const srcFile = reqFile.replace(new RegExp(`${extname(reqFile)}$`), srcExt);
+      const srcFile = replaceExt(reqFile, srcExt);
+      stat(srcFile, (err, stats) => {
+        if (err || !stats.isFile()) return next();
+        const now = Date.now();
+        if (!(srcFile in renderCache) || renderTimes[srcFile] < changeTimes[srcExt]) {
+          // process this shit
+        }
+        console.log(
+          `${srcExt} file -- \n changed: ${changeTimes['.pug']} \n rendered: ${
+            renderTimes[srcFile]
+          } \n served: ${now}`
+        );
+        res.setHeader('Content-Type', 'text/html');
+        res.end(renderCache[srcFile]);
+      });
     });
-    console.log(
-      `${ext} file -- \n changed: ${changeTimes[ext]} \n rendered: ${
-        renderTimes[absFile]
-      } \n served: ${now}`
-    );
-    res.setHeader('Content-Type', 'text/html');
-    res.end(renderCache[absFile]);
   };
 };
 

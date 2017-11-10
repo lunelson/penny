@@ -9,12 +9,12 @@ module.exports = function subWare(baseDir, changeTimes) {
   const renderCache = {};
   const renderTimes = {};
   return function(absFile, res, next) {
+    const ext = extname(absFile);
+    const now = Date.now();
     stat(absFile, (err, stats) => {
       // if requested file exists, bail out
       // otherwise replace the extension and query that
       if (err || !stats.isFile()) return next();
-      const ext = extname(absFile);
-      const now = Date.now();
       if (!(absFile in renderCache) || renderTimes[absFile] < changeTimes[ext]) {
         // process this shit
       }
