@@ -7,51 +7,53 @@
 //  _/ |
 // |__/
 
-const { join, relative, resolve, extname } = require('path');
 const { stat } = require('fs');
+const { join, relative, resolve, extname } = require('path');
 const { replaceExt, browsersList } = require('./serve-utils');
+
 const Rollup = require('rollup');
 const nodeResolvePlugin = require('rollup-plugin-node-resolve');
 const commonJsPlugin = require('rollup-plugin-commonjs');
 const babelPlugin = require('rollup-plugin-babel');
 const replacePlugin = require('rollup-plugin-replace');
 
+const inputConfig = {
+  external: [],
+  plugins: [
+    nodeResolvePlugin(),
+    commonJsPlugin(),
+    babelPlugin({
+      exclude: 'node_modules/**',
+      presets: [
+        [
+          'env',
+          {
+            modules: false,
+            targets: { browsers: browsersList }
+          }
+        ]
+      ],
+      plugins: ['external-helpers']
+    }),
+    replacePlugin({
+      ENV: JSON.stringify(process.env.NODE_ENV || 'development')
+    })
+  ]
+};
+const outputConfig = {
+  format: 'es',
+  sourcemap: 'inline' // TODO: only if in DEV mode
+};
+
 ///
 /// EXPORT
 ///
 
-module.exports = function subWare(baseDir, changeTimes) {
+module.exports = function(baseDir, changeTimes) {
   const srcExt = '.js';
   const renderCache = {};
   const renderTimes = {};
   const bundleCache = {};
-  const inputConfig = {
-    external: [],
-    plugins: [
-      nodeResolvePlugin(),
-      commonJsPlugin(),
-      babelPlugin({
-        exclude: 'node_modules/**',
-        presets: [
-          [
-            'env',
-            {
-              modules: false,
-              targets: { browsers: browsersList }
-            }
-          ]
-        ],
-        plugins: ['external-helpers']
-      }),
-      replacePlugin({
-        ENV: JSON.stringify(process.env.NODE_ENV || 'development')
-      })
-    ]
-  };
-  const outputConfig = {
-    format: 'es',
-    sourcemap: 'inline'
-  };
 
   // NB: we don't check reqFile vs srcFile here; they are the same
   return function(srcFile, res, next) {
@@ -79,7 +81,7 @@ module.exports = function subWare(baseDir, changeTimes) {
       // resolve renderCache, then serve
       renderCache[srcFile].then(data => {
         console.log(
-          `${srcExt} file\n changed: ${changeTimes['.pug']} \n rendered: ${
+          `${srcExt} file\n changed: ${changeTimes[srcExt]} \n rendered: ${
             renderTimes[srcFile]
           } \n served: ${now}`
         );

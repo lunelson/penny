@@ -16,15 +16,17 @@ const Pug = require('pug');
   - add pug-error rendering to HTML
 */
 
+const locals = {};
+
 ///
-/// SRCWARE
+/// EXPORT
 ///
 
 module.exports = function(baseDir, changeTimes) {
   const srcExt = '.pug';
   const renderCache = {};
   const renderTimes = {};
-  const locals = {};
+
   return function(reqFile, res, next) {
     stat(reqFile, (err, stats) => {
       // bail, if reqFile actually exists
@@ -48,7 +50,7 @@ module.exports = function(baseDir, changeTimes) {
           renderTimes[srcFile] = now;
         }
         console.log(
-          `${srcExt} file\n changed: ${changeTimes['.pug']} \n rendered: ${
+          `${srcExt} file\n changed: ${changeTimes[srcExt]} \n rendered: ${
             renderTimes[srcFile]
           } \n served: ${now}`
         );

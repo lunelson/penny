@@ -3,156 +3,84 @@
 // \__ \ (__\__ \__ \
 // |___/\___|___/___/
 
-const sass = require('node-sass');
-const sassUtils = require('node-sass-utils')(sass);
-const postcss = require('postcss')([require('autoprefixer')]);
-const cssEsc = require('cssesc');
-
 const fs = require('fs');
 const path = require('path');
 const { stat } = require('fs');
 const { join, relative, resolve, extname, dirname } = require('path');
+const { replaceExt, browsersList, sassUtils, cssErr } = require('./serve-utils');
 const _ = require('lodash');
 
-///
-/// UTILS
-///
-
-sassUtils.toSass = function(jsValue = {}) {
-  if (jsValue && !(typeof jsValue.toSass === 'function')) {
-    // Infer Sass value from JS string value.
-    if (_.isString(jsValue)) {
-      jsValue = sassUtils.infer(jsValue);
-
-      // Check each item in array for inferable values.
-    } else if (_.isArray(jsValue)) {
-      jsValue = _.map(jsValue, item => sassUtils.toSass(item));
-
-      // Check each value in object for inferable values.
-    } else if (_.isObject(jsValue)) {
-      jsValue = _.mapValues(jsValue, subval => sassUtils.toSass(subval));
-    }
-  }
-  return sassUtils.castToSass(jsValue);
-};
-
-sassUtils.infer = function(jsValue) {
-  let result;
-
-  try {
-    sass.renderSync({
-      data: `$_: ___(${jsValue});`,
-      functions: {
-        '___($value)': value => {
-          // result = sassUtils.castToJs(value);
-          result = value;
-          // console.log(sassUtils.typeof(value));
-          return value;
-        }
-      }
-    });
-  } catch (e) {
-    return jsValue;
-  }
-
-  return result;
-};
-
-function cssErr(message, bgcolor) {
-  return `
-  html { font-size: 1em; position: relative; }
-  html:before {
-    position: absolute;
-    top: 0; left: 0;
-    display: block;
-    width: 100%;
-    padding: 1rem;
-    font-family: monospace;
-    content: '${message}';
-    white-space: pre-wrap;
-    background-color: ${bgcolor};
-  }`;
-}
-
-function sassErr(err) {
-  var file = path.relative(process.cwd(), err.file);
-  return cssEsc(`Sass Error: ${err.toString()}\n\n${file}:${err.line}`);
-}
+const Sass = require('node-sass');
+const PostCSS = require('postcss')([require('autoprefixer')({ browsers: browsersList })]);
 
 ///
-/// RENDER
-///
-
-function scssRender(relFile, errorFn, resultFn) {
-  const outFile = relFile.replace(/\.scss$/, '.css');
-  sass.render(
-    {
-      file: relFile,
-      outFile: outFile,
-      // data: data.toString(),
-      includePaths: ['node_modules', '.', dirname(relFile)],
-      outputStyle: 'nested',
-      sourceMap: true,
-      // sourceMapEmbed: true,
-      // sourceMapContents: false, //?
-      functions: {
-        'require($path)': function(path) {
-          return sassUtils.toSass(require(sassUtils.sassString(path)));
-        },
-        'pow($x, $y)': function(x, y) {
-          return new sass.types.Number(Math.pow(x.getValue(), y.getValue()));
-        }
-      }
-    },
-    (err, data) => {
-      if (err) return errorFn(err);
-      // http://api.postcss.org/global.html#processOptions
-      postcss
-        .process(data.css, {
-          from: relFile,
-          to: outFile,
-          map: data.map ? { inline: true, prev: data.map.toString() } : false
-        })
-        .then(data => {
-          data.warnings().forEach(warning => console.warn(warning.toString()));
-          return resultFn(data);
-        });
-    }
-  );
-}
-
-///
-/// SUBWARE
+/// EXPORT
 ///
 
 module.exports = function(baseDir, changeTimes) {
+  const srcExt = '.scss';
   const renderCache = {};
   const renderTimes = {};
-  return function(absFile, res, next) {
-    stat(absFile, (err, stats) => {
-      if (err || !stats.isFile()) return next();
-      const ext = extname(absFile);
-      const now = Date.now();
-      if (!(absFile in renderCache) || renderTimes[absFile] < changeTimes[ext]) {
-        const relFile = relative(baseDir, absFile);
-        scssRender(
-          relFile,
-          err => {
-            renderCache[absFile] = cssErr(err.formatted, 'yellow');
-          },
-          data => {
-            renderCache[absFile] = data.css;
-          }
-        );
-        renderTimes[absFile] = now;
-      }
-      console.log(
-        `${ext} file -- \n changed: ${changeTimes[ext]} \n rendered: ${
-          renderTimes[absFile]
-        } \n served: ${now}`
-      );
-      res.setHeader('Content-Type', 'text/css');
-      res.end(renderCache[absFile]);
+
+  return function(reqFile, res, next) {
+    stat(reqFile, (err, stats) => {
+      // bail, if reqFile actually exists
+      if (!err && stats.isFile()) return next();
+      const srcFile = replaceExt(reqFile, srcExt);
+      stat(srcFile, (err, stats) => {
+        // bail, if srcFile does not exist
+        if (err || !stats.isFile()) return next();
+        const now = Date.now();
+        // if renderCache invalid, re-render and update renderTime
+        if (!(srcFile in renderCache) || renderTimes[srcFile] < changeTimes[srcExt]) {
+          const relFile = relative(baseDir, srcFile);
+          const outFile = relFile.replace(/\.scss$/, '.css');
+          renderCache[srcFile] = new Promise((resolve, reject) => {
+            Sass.render(
+              {
+                file: relFile,
+                outFile: outFile,
+                includePaths: ['node_modules', '.', dirname(relFile)],
+                outputStyle: 'nested',
+                sourceMap: true, // TODO: only if in DEV mode
+                functions: {
+                  'require($path)': function(path) {
+                    return sassUtils.toSass(require(sassUtils.sassString(path)));
+                  },
+                  'pow($x, $y)': function(x, y) {
+                    return new Sass.types.Number(Math.pow(x.getValue(), y.getValue()));
+                  }
+                }
+              },
+              (err, data) => {
+                if (err) reject(err);
+                resolve(data);
+              }
+            );
+          })
+            .then(data => {
+              renderTimes[srcFile] = now;
+              // http://api.postcss.org/global.html#processOptions
+              return PostCSS.process(data.css, {
+                from: relFile,
+                to: outFile,
+                map: data.map ? { inline: true, prev: data.map.toString() } : false
+              });
+            })
+            .catch(err => cssErr(err.formatted, 'yellow'));
+        }
+
+        // resolve renderCache, then serve
+        renderCache[srcFile].then(data => {
+          console.log(
+            `${srcExt} file\n changed: ${changeTimes[srcExt]} \n rendered: ${
+              renderTimes[srcFile]
+            } \n served: ${now}`
+          );
+          res.setHeader('Content-Type', 'text/css');
+          res.end(data.css);
+        });
+      });
     });
   };
 };
