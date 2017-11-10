@@ -9,7 +9,14 @@
 /*    |_|               |___/                   */
 /************************************************/
 
-/* COSMICONFIG -- https://github.com/davidtheclark/cosmiconfig */
+/*
+  COSMICONFIG -- https://github.com/davidtheclark/cosmiconfig
+
+  options wanted:
+    browsersList -- array of browserslist strings
+    reqSrcExts -- map of src extensions per req extension
+
+*/
 // var cosmiconfig = require('cosmiconfig');
 // var explorer = cosmiconfig('penguin');
 // explorer.load('.')

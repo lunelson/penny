@@ -1,5 +1,7 @@
 # questions
 
+- how to use debug correctly, to log the change/render/serve information??
+
 - how to pass browserslist options directly via API to autoprefixer and babel-env
 ```js
   const browsersList = ["last 2 versions", "safari 7"];

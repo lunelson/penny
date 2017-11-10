@@ -9,7 +9,7 @@
 
 const { join, relative, resolve, extname } = require('path');
 const { stat } = require('fs');
-const { replaceExt } = require('./serve-utils');
+const { replaceExt, browsersList } = require('./serve-utils');
 const Rollup = require('rollup');
 const nodeResolvePlugin = require('rollup-plugin-node-resolve');
 const commonJsPlugin = require('rollup-plugin-commonjs');
@@ -17,7 +17,7 @@ const babelPlugin = require('rollup-plugin-babel');
 const replacePlugin = require('rollup-plugin-replace');
 
 ///
-/// SRCWARE
+/// EXPORT
 ///
 
 module.exports = function subWare(baseDir, changeTimes) {
@@ -30,7 +30,19 @@ module.exports = function subWare(baseDir, changeTimes) {
     plugins: [
       nodeResolvePlugin(),
       commonJsPlugin(),
-      babelPlugin(),
+      babelPlugin({
+        exclude: 'node_modules/**',
+        presets: [
+          [
+            'env',
+            {
+              modules: false,
+              targets: { browsers: browsersList }
+            }
+          ]
+        ],
+        plugins: ['external-helpers']
+      }),
       replacePlugin({
         ENV: JSON.stringify(process.env.NODE_ENV || 'development')
       })
@@ -40,12 +52,14 @@ module.exports = function subWare(baseDir, changeTimes) {
     format: 'es',
     sourcemap: 'inline'
   };
+
   // NB: we don't check reqFile vs srcFile here; they are the same
   return function(srcFile, res, next) {
     stat(srcFile, (err, stats) => {
       // bail, if srcFile does not exist
       if (err || !stats.isFile()) return next();
       const now = Date.now();
+
       // if renderCache invalid, re-render and update renderTime
       if (!(srcFile in renderCache) || renderTimes[srcFile] < changeTimes[srcExt]) {
         renderCache[srcFile] = Rollup.rollup(
@@ -61,6 +75,8 @@ module.exports = function subWare(baseDir, changeTimes) {
           })
           .catch(next);
       }
+
+      // resolve renderCache, then serve
       renderCache[srcFile].then(data => {
         console.log(
           `${srcExt} file\n changed: ${changeTimes['.pug']} \n rendered: ${
