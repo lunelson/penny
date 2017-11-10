@@ -21,9 +21,9 @@ const Pug = require('pug');
 ///
 
 module.exports = function(baseDir, changeTimes) {
+  const srcExt = '.pug';
   const renderCache = {};
   const renderTimes = {};
-  const srcExt = '.pug';
   const locals = {};
   return function(reqFile, res, next) {
     stat(reqFile, (err, stats) => {
