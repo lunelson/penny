@@ -5,13 +5,17 @@
 // | |_| | |_| | \__ \
 //  \__,_|\__|_|_|___/
 
-const { join, relative, resolve, extname } = require('path');
-const { stat, readFile } = require('fs');
+const { /* join, relative, resolve, */ extname } = require('path');
+// const { stat, readFile } = require('fs');
+
+const _ = require('lodash');
 
 const sass = require('node-sass');
 const sassUtils = require('node-sass-utils')(sass);
 
 const browsersList = ['last 2 versions', 'safari 7'];
+
+const merge = Object.assign.bind(Object, Object.create(null));
 
 function replaceExt(filename, extension) {
   return filename.slice(0, 0 - extname(filename).length) + extension;
@@ -78,4 +82,4 @@ function cssErr(message, bgcolor) {
 //   return cssEsc(`Sass Error: ${err.toString()}\n\n${file}:${err.line}`);
 // }
 
-module.exports = { replaceExt, browsersList, sassUtils, cssErr };
+module.exports = { replaceExt, browsersList, sassUtils, cssErr, merge };

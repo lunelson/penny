@@ -95,14 +95,19 @@ if (isDev) {
     },
     function() {
       let watcherReady = false;
-      const watcher = bsync
+      bsync
         .watch(
+          // TODO: optionally add /**/*.json watch here
+          // ...which would reset all other srcExt changeTimes
           Object.keys(srcOutExt).map(srcExt => `./**/*${srcExt}`),
           { ignored: ['**/node_modules/**'], ignoreInitial: true },
           (event, file) => {
             const srcExt = extname(file);
             changeTimes[srcExt] = Date.now();
-            if (watcherReady) bsync.reload(`*${srcOutExt[srcExt]}`);
+            if (watcherReady) {
+              bsync.reload(`*${srcOutExt[srcExt]}`);
+              bsync.notify(`*${srcOutExt[srcExt]}`);
+            }
           }
         )
         .on('ready', () => (watcherReady = true));

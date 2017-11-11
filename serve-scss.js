@@ -9,9 +9,11 @@ const { stat } = require('fs');
 const { join, relative, resolve, extname, dirname } = require('path');
 const { replaceExt, browsersList, sassUtils, cssErr } = require('./serve-utils');
 const _ = require('lodash');
+const debug = require('debug');
 
 const Sass = require('node-sass');
 const PostCSS = require('postcss')([require('autoprefixer')({ browsers: browsersList })]);
+const logger = debug('penguin:scss');
 
 ///
 /// EXPORT
@@ -31,6 +33,8 @@ module.exports = function(baseDir, changeTimes) {
         // bail, if srcFile does not exist
         if (err || !stats.isFile()) return next();
         const now = Date.now();
+        res.setHeader('Content-Type', 'text/css');
+
         // if renderCache invalid, re-render and update renderTime
         if (!(srcFile in renderCache) || renderTimes[srcFile] < changeTimes[srcExt]) {
           const relFile = relative(baseDir, srcFile);
@@ -67,17 +71,17 @@ module.exports = function(baseDir, changeTimes) {
                 map: data.map ? { inline: true, prev: data.map.toString() } : false
               });
             })
+            // TODO: replace this logic with bsync notify, or debug('penguin')
             .catch(err => cssErr(err.formatted, 'yellow'));
         }
 
         // resolve renderCache, then serve
         renderCache[srcFile].then(data => {
-          console.log(
+          logger(
             `${srcExt} file\n changed: ${changeTimes[srcExt]} \n rendered: ${
               renderTimes[srcFile]
             } \n served: ${now}`
           );
-          res.setHeader('Content-Type', 'text/css');
           res.end(data.css);
         });
       });

@@ -8,14 +8,16 @@
 // |__/
 
 const { stat } = require('fs');
-const { join, relative, resolve, extname } = require('path');
-const { replaceExt, browsersList } = require('./serve-utils');
+// const { join, relative, resolve, extname } = require('path');
+const { /* replaceExt, */ browsersList, merge } = require('./serve-utils');
+const debug = require('debug');
 
 const Rollup = require('rollup');
 const nodeResolvePlugin = require('rollup-plugin-node-resolve');
 const commonJsPlugin = require('rollup-plugin-commonjs');
 const babelPlugin = require('rollup-plugin-babel');
 const replacePlugin = require('rollup-plugin-replace');
+const logger = debug('penguin:js');
 
 const inputConfig = {
   external: [],
@@ -61,11 +63,12 @@ module.exports = function(baseDir, changeTimes) {
       // bail, if srcFile does not exist
       if (err || !stats.isFile()) return next();
       const now = Date.now();
+      res.setHeader('Content-Type', 'text/javascript');
 
-      // if renderCache invalid, re-render and update renderTime
+      // if the renderCache is invalid, re-render Promise and update renderTime
       if (!(srcFile in renderCache) || renderTimes[srcFile] < changeTimes[srcExt]) {
         renderCache[srcFile] = Rollup.rollup(
-          Object.assign({}, inputConfig, {
+          merge(inputConfig, {
             input: srcFile,
             cache: bundleCache[srcFile]
           })
@@ -75,17 +78,16 @@ module.exports = function(baseDir, changeTimes) {
             renderTimes[srcFile] = now;
             return bundle.generate(outputConfig);
           })
-          .catch(next);
+          .catch(next); // TODO error handling which will display on screen, or use bsync.notify
       }
 
       // resolve renderCache, then serve
       renderCache[srcFile].then(data => {
-        console.log(
+        logger(
           `${srcExt} file\n changed: ${changeTimes[srcExt]} \n rendered: ${
             renderTimes[srcFile]
           } \n served: ${now}`
         );
-        res.setHeader('Content-Type', 'text/javascript');
         res.end(data.code);
       });
     });

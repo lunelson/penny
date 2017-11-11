@@ -1,5 +1,27 @@
 # next
 
+- use bsync notify? or return the error in the response?
+  - for CSS, as override CSS
+  - for JS, as JS-appended override CSS
+  - for HTML, as blank doc with override CSS in head
+  - check out the current error handling in the SCSS render...
+    does it work? If so, this could be extended to the others
+
+- add utils to sass and pug:
+    basedir, filename, pathname
+    node = { fs, path, url, require }
+    // assetURL(figures out dest wrt src) ?
+    fileListing(dirPath, fileRegex)
+      fs.readdirSync
+      https://github.com/jonschlinkert/filter-files
+    dimensionsOf(filePath)
+      https://www.npmjs.com/package/image-size
+    markdown
+    markdownFile
+    inlineMarkdown
+    render(pugString)
+    include(pugFile) // load file to string then render as if inline
+
 - tweak babel config to also apply polyfills and support stage-3
   https://babeljs.io/docs/plugins/preset-env/
   https://github.com/babel/babel-preset-env/issues/365

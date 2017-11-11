@@ -5,17 +5,20 @@
 // | |           __/ |
 // |_|          |___/
 
-const { join, relative, resolve, extname } = require('path');
+const { /* join, */ relative /* resolve, extname */ } = require('path');
 const { stat } = require('fs');
 const { replaceExt } = require('./serve-utils');
-const Pug = require('pug');
+const debug = require('debug');
 
 /*
-  TODO
-  - add utilities to pug locals
-  - add pug-error rendering to HTML
+TODO
+- add utilities to pug locals
+- add pug-error rendering to HTML
 */
 
+const Pug = require('pug');
+// TODO: add more requirements for pug locals here
+const logger = debug('penguin:pug');
 const locals = {
   cache: false,
   doctype: 'html'
@@ -39,8 +42,11 @@ module.exports = function(baseDir, changeTimes) {
         // bail, if srcFile does not exist
         if (err || !stats.isFile()) return next();
         const now = Date.now();
+        res.setHeader('Content-Type', 'text/html');
+
         // if renderCache invalid, re-render and update renderTime
         if (!(srcFile in renderCache) || renderTimes[srcFile] < changeTimes[srcExt]) {
+          // TODO: error display on screen or using bsync.notify()
           renderCache[srcFile] = Pug.renderFile(
             srcFile,
             Object.assign({}, locals, {
@@ -51,12 +57,11 @@ module.exports = function(baseDir, changeTimes) {
           );
           renderTimes[srcFile] = now;
         }
-        console.log(
+        logger(
           `${srcExt} file\n changed: ${changeTimes[srcExt]} \n rendered: ${
             renderTimes[srcFile]
           } \n served: ${now}`
         );
-        res.setHeader('Content-Type', 'text/html');
         res.end(renderCache[srcFile]);
       });
     });
