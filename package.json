@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "cross-env DEBUG=penguin:* NODE_ENV=development nodemon serve.js",
     "start": "cross-env NODE_ENV=development nodemon serve.js",
+    "lint": "eslint '**/*.{js,jsx}' --quiet",
+    "format": "prettier --write '**/*.{js,jsx}'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -20,10 +22,13 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-3": "^6.24.1",
     "browser-sync": "^2.18.13",
+    "chance": "^1.0.12",
+    "commander": "^2.11.0",
     "cosmiconfig": "^3.1.0",
     "cross-env": "^5.1.1",
     "cssesc": "^1.0.0",
     "debug": "^3.1.0",
+    "faker": "^4.1.0",
     "lodash": "^4.17.4",
     "morgan": "^1.9.0",
     "node-sass": "^4.6.0",
@@ -33,7 +38,6 @@
     "pug-cli": "^1.0.0-alpha6",
     "rollup": "^0.50.0",
     "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-buble": "^0.17.0",
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-eslint": "^4.0.0",
     "rollup-plugin-node-resolve": "^3.0.0",
@@ -47,7 +51,10 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-prettier": "^2.7.0",
     "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-prettier": "^2.3.1",
     "nodemon": "^1.12.1",
-    "prettier": "^1.8.2"
+    "prettier": "^1.8.2",
+    "prettier-eslint": "^8.2.1",
+    "prettier-stylelint": "^0.4.2"
   }
 }

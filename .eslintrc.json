@@ -5,22 +5,19 @@
     "es6": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "prettier", "plugin:import/errors", "plugin:import/warnings"],
+  "extends": ["eslint:recommended", "prettier"],
   "parserOptions": {
     "sourceType": "module"
   },
-  "plugins": ["import"],
+  "plugins": ["prettier"],
   "rules": {
+    "prettier/prettier": ["error"],
     "no-unused-vars": "off",
     "no-console": "off",
     "one-var": "off",
-    "object-property-newline": "off",
     "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"]
-  },
-  "settings": {
-    "import/resolver": "babel-root-import"
   }
 }
