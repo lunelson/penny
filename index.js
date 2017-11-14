@@ -1,25 +1,26 @@
 #!/usr/bin/env node
-//                               _
-//                              (_)
-//  _ __   ___ _ __   __ _ _   _ _ _ __
-// | '_ \ / _ \ '_ \ / _` | | | | | '_ \
-// | |_) |  __/ | | | (_| | |_| | | | | |
-// | .__/ \___|_| |_|\__, |\__,_|_|_| |_|
+
+//                               _                 _ _
+//                              (_)               | (_)
+//  _ __   ___ _ __   __ _ _   _ _ _ __ ______ ___| |_
+// | '_ \ / _ \ '_ \ / _` | | | | | '_ \______/ __| | |
+// | |_) |  __/ | | | (_| | |_| | | | | |    | (__| | |
+// | .__/ \___|_| |_|\__, |\__,_|_|_| |_|     \___|_|_|
 // | |                __/ |
 // |_|               |___/
 
 'use-strict';
 
+const cosmiconfig = require('cosmiconfig');
 const program = require('commander');
 const path = require('path');
 const pkg = require('./package.json');
-const cosmiconfig = require('cosmiconfig');
 
 /*
   COMMANDER
   options:
     -b, --base: which directory to serve
-    -p, --prod: production mode flag
+    -p, --prod: production mode flag (will also check NODE_ENV)
 */
 
 program
@@ -29,10 +30,7 @@ program
   .parse(process.argv);
 
 const baseDir = path.resolve(process.cwd(), program.base);
-const isDev = !(program.prod != undefined);
-
-// TEST
-console.log(baseDir, isDev);
+const isDev = !(program.prod != undefined || process.env.NODE_ENV == 'production');
 
 /*
   COSMICONFIG https://github.com/davidtheclark/cosmiconfig
@@ -41,14 +39,18 @@ console.log(baseDir, isDev);
     reqSrcExts -- map of src extensions per req extension
 */
 
-var config = cosmiconfig('penguin')
+let config = {};
+const configFinder = cosmiconfig('penguin', { stopDir: baseDir, rcExtensions: true })
   .load(baseDir)
-  .then((result) => {
+  .then((result) => ({ config } = result ))
+  .catch((err) => console.log('no config file found'));
 
-    // TEST
-    console.log(result.config, result.filepath);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+/*
+  SERVER
+*/
+
+Promise.resolve(configFinder).then(()=>{
+  // TEST
+  console.log(baseDir, isDev, config);
+});
 
