@@ -21,7 +21,7 @@ function replaceExt(filename, extension) {
   return filename.slice(0, 0 - extname(filename).length) + extension;
 }
 
-sassUtils.toSass = function(jsValue = {}) {
+sassUtils.toSass = function (jsValue = {}) {
   if (jsValue && !(typeof jsValue.toSass === 'function')) {
     // Infer Sass value from JS string value.
     if (_.isString(jsValue)) {
@@ -39,7 +39,7 @@ sassUtils.toSass = function(jsValue = {}) {
   return sassUtils.castToSass(jsValue);
 };
 
-sassUtils.infer = function(jsValue) {
+sassUtils.infer = function (jsValue) {
   let result;
   try {
     sass.renderSync({
@@ -82,4 +82,10 @@ function cssErr(message, bgcolor) {
 //   return cssEsc(`Sass Error: ${err.toString()}\n\n${file}:${err.line}`);
 // }
 
-module.exports = { replaceExt, browsersList, sassUtils, cssErr, merge };
+module.exports = {
+  replaceExt,
+  browsersList,
+  sassUtils,
+  cssErr,
+  merge
+};

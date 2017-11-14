@@ -31,11 +31,13 @@ const inputConfig = {
           'env',
           {
             modules: false,
-            targets: { browsers: browsersList }
+            targets: {
+              browsers: browsersList
+            }
           }
         ]
       ],
-      plugins: ['external-helpers']
+      plugins: ['external-helpers', 'babel-plugin-root-import']
     }),
     replacePlugin({
       ENV: JSON.stringify(process.env.NODE_ENV || 'development')
@@ -51,14 +53,14 @@ const outputConfig = {
 /// EXPORT
 ///
 
-module.exports = function(baseDir, changeTimes) {
+module.exports = function (baseDir, changeTimes) {
   const srcExt = '.js';
   const renderCache = {};
   const renderTimes = {};
   const bundleCache = {};
 
   // NB: we don't check reqFile vs srcFile here; they are the same
-  return function(srcFile, res, next) {
+  return function (srcFile, res, next) {
     stat(srcFile, (err, stats) => {
       // bail, if srcFile does not exist
       if (err || !stats.isFile()) return next();

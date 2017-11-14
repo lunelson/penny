@@ -9,30 +9,12 @@
 /*    |_|               |___/                   */
 /************************************************/
 
-/*
-  COSMICONFIG -- https://github.com/davidtheclark/cosmiconfig
-
-  options wanted:
-    browsersList -- array of browserslist strings
-    reqSrcExts -- map of src extensions per req extension
-
-*/
-// var cosmiconfig = require('cosmiconfig');
-// var explorer = cosmiconfig('penguin');
-// explorer.load('.')
-//   .then((result) => {
-//     // result.config is the parsed configuration object
-//     // result.filepath is the path to the config file that was found
-//   })
-//   .catch((parsingError) => {
-//     // do something constructive
-//   });
-
 const { stat } = require('fs');
-// const { parse } = require('url');
 const { join, relative, resolve, extname } = require('path');
-const _ = require('lodash');
+// const { parse } = require('url');
 const parseUrl = require('parseurl');
+
+const _ = require('lodash');
 
 const isDev = true;
 const baseDir = __dirname;
@@ -64,9 +46,8 @@ function serveSources(req, res, next) {
     ext = '.html';
     pathname = pathname.replace(/\/$/, '/index') + ext;
   }
-  if (!~Object.keys(reqSrcExt).indexOf(ext)) {
-    return next();
-  } else {
+  if (!~Object.keys(reqSrcExt).indexOf(ext)) { return next(); }
+  else {
     const reqFile = join(baseDir, pathname);
     return srcWares[reqSrcExt[ext]](reqFile, res, next);
   }
@@ -83,8 +64,7 @@ if (isDev) {
   //            |___/
 
   const bsync = require('browser-sync').create();
-  bsync.init(
-    {
+  bsync.init({
     notify: false,
     open: false,
     server: {
@@ -94,21 +74,20 @@ if (isDev) {
     logPrefix: 'penguin',
     middleware: [
       morgan('dev', {
-        skip: function(req, res) {
+        skip: function (req, res) {
           return res.statusCode < 300;
         }
       }),
       serveSources
     ]
   },
-  function() {
+  function () {
     let watcherReady = false;
     bsync
       .watch(
         // TODO: optionally add /**/*.json watch here
         // ...which would reset all other srcExt changeTimes
-        Object.keys(srcOutExt).map(srcExt => `./**/*${srcExt}`),
-          {
+        Object.keys(srcOutExt).map(srcExt => `./**/*${srcExt}`), {
           ignored: ['**/node_modules/**'],
           ignoreInitial: true
         },
@@ -122,8 +101,7 @@ if (isDev) {
         }
       )
       .on('ready', () => (watcherReady = true));
-  }
-  );
+  });
 } else {
   //                                  _
   //                                 | |

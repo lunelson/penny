@@ -19,21 +19,18 @@ TODO
 const Pug = require('pug');
 // TODO: add more requirements for pug locals here
 const logger = debug('penguin:pug');
-const locals = {
-  cache: false,
-  doctype: 'html'
-};
+const locals = { cache: false, doctype: 'html' };
 
 ///
 /// EXPORT
 ///
 
-module.exports = function(baseDir, changeTimes) {
+module.exports = function (baseDir, changeTimes) {
   const srcExt = '.pug';
   const renderCache = {};
   const renderTimes = {};
 
-  return function(reqFile, res, next) {
+  return function (reqFile, res, next) {
     stat(reqFile, (err, stats) => {
       // bail, if reqFile actually exists
       if (!err && stats.isFile()) return next();
