@@ -1,9 +1,0 @@
-.test {
-  $opts: require('./sass-options');
-  out: inspect($opts);
-  out: type-of(map-get($opts, base));
-  out: type-of(map-get($opts, foo));
-  out: type-of(map-get(map-get($opts, base), font-size));
-  out: type-of(16px);
-  out: map-get(map-get($opts, base), font-size);
-}

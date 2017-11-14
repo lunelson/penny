@@ -37,7 +37,11 @@ const parseUrl = require('parseurl');
 const isDev = true;
 const baseDir = __dirname;
 
-const reqSrcExt = { '.html': '.pug', '.css': '.scss', '.js': '.js' };
+const reqSrcExt = {
+  '.html': '.pug',
+  '.css': '.scss',
+  '.js': '.js'
+};
 const srcOutExt = _.invert(reqSrcExt);
 const changeTimes = _.mapValues(srcOutExt, Date.now);
 const srcWares = _.mapValues(srcOutExt, (outExt, srcExt) => {
@@ -81,37 +85,44 @@ if (isDev) {
   const bsync = require('browser-sync').create();
   bsync.init(
     {
-      notify: false,
-      open: false,
-      server: { baseDir, serveStaticOptions },
-      middleware: [
-        morgan('dev', {
-          skip: function(req, res) {
-            return res.statusCode < 300;
-          }
-        }),
-        serveSources
-      ]
+    notify: false,
+    open: false,
+    server: {
+      baseDir,
+      serveStaticOptions
     },
-    function() {
-      let watcherReady = false;
-      bsync
-        .watch(
-          // TODO: optionally add /**/*.json watch here
-          // ...which would reset all other srcExt changeTimes
-          Object.keys(srcOutExt).map(srcExt => `./**/*${srcExt}`),
-          { ignored: ['**/node_modules/**'], ignoreInitial: true },
-          (event, file) => {
-            const srcExt = extname(file);
-            changeTimes[srcExt] = Date.now();
-            if (watcherReady) {
-              bsync.reload(`*${srcOutExt[srcExt]}`);
-              bsync.notify(`*${srcOutExt[srcExt]}`);
-            }
+    logPrefix: 'penguin',
+    middleware: [
+      morgan('dev', {
+        skip: function(req, res) {
+          return res.statusCode < 300;
+        }
+      }),
+      serveSources
+    ]
+  },
+  function() {
+    let watcherReady = false;
+    bsync
+      .watch(
+        // TODO: optionally add /**/*.json watch here
+        // ...which would reset all other srcExt changeTimes
+        Object.keys(srcOutExt).map(srcExt => `./**/*${srcExt}`),
+          {
+          ignored: ['**/node_modules/**'],
+          ignoreInitial: true
+        },
+        (event, file) => {
+          const srcExt = extname(file);
+          changeTimes[srcExt] = Date.now();
+          if (watcherReady) {
+            bsync.reload(`*${srcOutExt[srcExt]}`);
+            bsync.notify(`*${srcOutExt[srcExt]}`);
           }
-        )
-        .on('ready', () => (watcherReady = true));
-    }
+        }
+      )
+      .on('ready', () => (watcherReady = true));
+  }
   );
 } else {
   //                                  _
