@@ -1,0 +1,16 @@
+$media: (
+  alpha: 1,
+  beta: 2,
+  gamma: 3
+);
+
+body {
+  color: red;
+}
+
+.example {
+  display: flex;
+  transition: all 0.5s;
+  user-select: none;
+  background: linear-gradient(to bottom, white, black);
+}

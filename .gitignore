@@ -113,3 +113,7 @@ GitHub.sublime-settings
 .history
 
 # End of https://www.gitignore.io/api/git,node,sass,stylus,sublimetext,visualstudiocode
+
+.*rc
+.*rc.json
+.*rc.yml

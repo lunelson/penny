@@ -1,16 +1,16 @@
 {
   "name": "penguin",
   "bin": {
-    "penguin": "./index.js"
+    "penguin": "./index-cli.js"
   },
   "version": "0.0.8",
   "description": "",
-  "main": "index.js",
+  "main": "index-api.js",
   "scripts": {
-    "dev": "cross-env DEBUG=penguin:* NODE_ENV=development nodemon serve.js",
+    "dev": "cross-env DEBUG=penguin:* NODE_ENV=development node serve.js",
     "start": "cross-env NODE_ENV=development nodemon serve.js",
     "lint": "eslint '**/*.{js,jsx}' --quiet",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env DEBUG=penguin:* NODE_ENV=development node test/api-test.js"
   },
   "keywords": [],
   "author": "",

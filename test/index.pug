@@ -1,0 +1,35 @@
+extends /_layout
+include /_mixins
+
+block head
+  style.
+    body { font-family: sans-serif; }
+
+block body
+  != JSON.stringify(Object.keys(locals))
+  h1 Hello world!
+  h3 This is being served correctly. So, that's something.
+  p We have to think about all the stuff we are going to stick in here
+
+  ul NATIVE
+    li filename
+    li basedir
+    li pretty
+    li filters
+    li debug
+    li globals
+    li cache
+    li name
+
+  ul ADDED
+    li _
+    li env
+    li pathname
+    li chance()
+    li faker()
+    li inlineMarkdown()
+    li markdown()
+    li render(str)
+    li renderFile(relPath|absPath)
+    li include(relPath|absPath)
+
