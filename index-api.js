@@ -22,7 +22,14 @@ const _ = require('lodash');
 
 module.exports = function penguin(baseDir, isDev = true) {
 
-  const rcFinder = cosmiconfig('penguin', { stopDir: process.cwd(), rcExtensions: true })
+  const procDir = process.cwd();
+  // const pennyConfig = cosmiconfig('penny', { stopDir: procDir, rcExtensions: true });
+  // const eslintConfig = cosmiconfig('eslint', { stopDir: procDir, rcExtensions: true });
+  // const stylelintConfig = cosmiconfig('stylelint', { stopDir: procDir, rcExtensions: true });
+  // const rollupConfig = cosmiconfig('rollup', { stopDir: procDir, rcExtensions: true });
+  // const babelConfig = cosmiconfig('babel', { stopDir: procDir, rcExtensions: true });
+
+  const rcFinder = cosmiconfig('penguin', { stopDir: procDir, rcExtensions: true })
     .load(baseDir)
     .then((result) => result.config)
     .catch(() => Object.create(null));
