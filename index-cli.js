@@ -12,6 +12,7 @@
 // |_|               |___/
 
 const path = require('path');
+const chalk = require('chalk');
 const cli = require('commander');
 
 const api = require('./index-api');
@@ -32,5 +33,21 @@ cli
 
 const baseDir = path.resolve(process.cwd(), cli.base);
 const isDev = !(cli.prod != undefined || process.env.NODE_ENV == 'production');
+const banner = `
+                                                    ███
+                                                   ░░░
+ ████████   ██████  ████████    ███████ █████ ████ ████  ████████
+░░███░░███ ███░░███░░███░░███  ███░░███░░███ ░███ ░░███ ░░███░░███
+ ░███ ░███░███████  ░███ ░███ ░███ ░███ ░███ ░███  ░███  ░███ ░███
+ ░███ ░███░███░░░   ░███ ░███ ░███ ░███ ░███ ░███  ░███  ░███ ░███
+ ░███████ ░░██████  ████ █████░░███████ ░░████████ █████ ████ █████
+ ░███░░░   ░░░░░░  ░░░░ ░░░░░  ░░░░░███  ░░░░░░░░ ░░░░░ ░░░░ ░░░░░
+ ░███                          ███ ░███
+ █████                        ░░██████
+░░░░░                          ░░░░░░
 
+===== live-serving of pug/sass/rollup, built on browsersync =====
+`;
+
+console.log(chalk.blue(banner));
 api(baseDir, isDev);

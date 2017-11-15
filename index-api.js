@@ -43,7 +43,7 @@ module.exports = function penguin(baseDir, isDev = true) {
   Promise.all([rcFinder]).then(([rcOptions])=>{
 
     // TEST
-    console.log(baseDir, isDev, rcOptions);
+    // console.log(baseDir, isDev, rcOptions);
 
     // SETUP
     Object.assign(options, rcOptions);
@@ -53,7 +53,6 @@ module.exports = function penguin(baseDir, isDev = true) {
     const sourceWares = _.mapValues(srcOutExt, (outExt, srcExt) => {
       return require(`./lib/serve-${srcExt.slice(1)}.js`)(baseDir, isDev, changeTimes, options);
     });
-    console.log(sourceWares);
 
     const serveStatic = require('serve-static');
     const serveStaticOptions = { extensions: ['html'] };
@@ -75,6 +74,7 @@ module.exports = function penguin(baseDir, isDev = true) {
     }
 
     // INIT
+
     if (isDev) {
 
       const bsync = require('browser-sync').create();
