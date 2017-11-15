@@ -1,11 +1,15 @@
 $media: (
-  alpha: 1,
+  a: 1,
   beta: 2,
   gamma: 3
 );
 
 body {
   color: red;
+  sqrt: sqrt(2);
+  pow: pow(2,2);
+  trunc: trunc(-444.566);
+  sign: sign(-3);
 }
 
 .example {

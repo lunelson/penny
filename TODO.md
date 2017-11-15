@@ -1,3 +1,10 @@
+### next
+
+* publish scoped NPM package https://docs.npmjs.com/getting-started/scoped-packages
+* add minification to Sass, JS and Pug, where `isDev`
+* make Pug promise-based like others; handle errors in output
+* handle errors elegantly in output, so they appear on screen
+
 ### ground rules
 
 * https will be enabled if a .key and .crt file are found in base dir
