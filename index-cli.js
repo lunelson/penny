@@ -13,10 +13,14 @@
 
 const path = require('path');
 const chalk = require('chalk');
+const debug = require('debug');
 const cli = require('commander');
 
 const api = require('./index-api');
 const pkg = require('./package.json');
+
+// TESTING ONLY
+debug.enable('penny:*');
 
 /*
   COMMANDER

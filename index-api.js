@@ -20,7 +20,7 @@ const parseUrl = require('parseurl');
 const _ = require('lodash');
 
 
-module.exports = function penguin(baseDir, isDev = true) {
+module.exports = function penny(baseDir, isDev = true) {
 
   const procDir = process.cwd();
   // const pennyConfig = cosmiconfig('penny', { stopDir: procDir, rcExtensions: true });
@@ -29,7 +29,7 @@ module.exports = function penguin(baseDir, isDev = true) {
   // const rollupConfig = cosmiconfig('rollup', { stopDir: procDir, rcExtensions: true });
   // const babelConfig = cosmiconfig('babel', { stopDir: procDir, rcExtensions: true });
 
-  const rcFinder = cosmiconfig('penguin', { stopDir: procDir, rcExtensions: true })
+  const rcFinder = cosmiconfig('penny', { stopDir: procDir, rcExtensions: true })
     .load(baseDir)
     .then((result) => result.config)
     .catch(() => Object.create(null));
@@ -91,7 +91,7 @@ module.exports = function penguin(baseDir, isDev = true) {
         notify: false,
         open: false,
         server: { baseDir, serveStaticOptions },
-        logPrefix: 'penguin',
+        logPrefix: 'penny',
         middleware: [
           morgan('dev', {
             skip: function (req, res) {

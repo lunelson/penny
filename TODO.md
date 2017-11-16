@@ -16,8 +16,8 @@
 ### ground rules
 
 * https will be enabled if a .key and .crt file are found in base dir
-* additional search directories can be configured per src type in .penguinrc
-* data can be added by giving a `data` entry point in .penguinrc
+* additional search directories can be configured per src type in .pennyrc
+* data can be added by giving a `data` entry point in .pennyrc
 * priority is given to existing files over source files
   - .css will be served over .scss for same basename
   - .html will be served over .pug for same basename
@@ -31,8 +31,8 @@
 
 # random, based on packages
 
-* serve a hard-coded 'penguin' favicon to all views
-* allow pick up of a .penguinrc file:
+* serve a hard-coded 'penny' favicon to all views
+* allow pick up of a .pennyrc file:
   - src/out file-mapping
   - browserslist
   - data.json/.js file, to be passed to json-server-like core

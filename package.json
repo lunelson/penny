@@ -1,20 +1,27 @@
 {
-  "name": "@lunelson/penguin",
+  "name": "@lunelson/penny",
   "bin": {
-    "penguin": "./index-cli.js"
+    "penny": "./index-cli.js"
   },
   "version": "0.0.8",
   "description": "",
   "main": "index-api.js",
   "scripts": {
-    "dev": "cross-env DEBUG=penguin:* NODE_ENV=development node serve.js",
-    "start": "cross-env NODE_ENV=development nodemon serve.js",
-    "lint": "eslint '**/*.{js,jsx}' --quiet",
-    "test": "cross-env DEBUG=penguin:* NODE_ENV=development node test/api-test.js"
+    "dev": "cross-env DEBUG=penny:* NODE_ENV=development node serve.js",
+    "start": "cross-env node serve.js",
+    "test": "cross-env DEBUG=penny:* NODE_ENV=development node test/api-test.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "sass",
+    "es6",
+    "rollup",
+    "pug",
+    "browser-sync",
+    "connect"
+  ],
+  "author": "Lu Nelson",
+  "license": "MIT",
+  "repository": "lunelson/penny",
   "dependencies": {
     "ajv": "^5.3.0",
     "autoprefixer": "^7.1.6",
@@ -31,7 +38,6 @@
     "cosmiconfig": "^3.1.0",
     "cross-env": "^5.1.1",
     "cssesc": "^1.0.0",
-    "debug": "^3.1.0",
     "faker": "^4.1.0",
     "lodash": "^4.17.4",
     "morgan": "^1.9.0",

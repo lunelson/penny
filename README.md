@@ -1,2 +1,2 @@
-# penguin
+# penny
 
