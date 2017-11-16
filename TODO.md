@@ -1,3 +1,11 @@
+## standard starter
+
+* basic pug layout with proper html tags; index file extending former
+* most _reasonable_ font loading setup, see Zell Liew
+*
+
+
+
 ### next
 
 * publish scoped NPM package https://docs.npmjs.com/getting-started/scoped-packages
