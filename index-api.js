@@ -16,6 +16,7 @@ const { stat } = require('fs');
 const { join, relative, resolve, extname } = require('path');
 // const { parse } = require('url');
 const parseUrl = require('parseurl');
+const chalk = require('chalk');
 
 const _ = require('lodash');
 
@@ -130,6 +131,9 @@ module.exports = function penny(baseDir, isDev = true) {
       app.use(serveSources);
       app.use(serveStatic(baseDir, serveStaticOptions));
       http.createServer(app).listen(3000);
+
+      console.log(`[${chalk.blue('penny')}] Serving files from: ${chalk.magenta(baseDir)}`);
+
     }
   });
 };
