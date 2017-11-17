@@ -56,7 +56,8 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-uglify": "^2.0.1",
     "serve-favicon": "^2.4.5",
-    "serve-index": "^1.9.1"
+    "serve-index": "^1.9.1",
+    "uglify-es": "^3.1.9"
   },
   "devDependencies": {
     "eslint": "^4.10.0",
