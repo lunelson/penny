@@ -62,6 +62,7 @@ module.exports = function penny(baseDir, isDev = true) {
       return require(`./lib/serve-${srcExt.slice(1)}.js`)(baseDir, isDev, changeTimes, options);
     });
 
+    const serveFavicon = require('serve-favicon');
     const serveStatic = require('serve-static');
     const serveStaticOptions = { extensions: ['html'] };
 
@@ -94,6 +95,7 @@ module.exports = function penny(baseDir, isDev = true) {
         server: { baseDir, serveStaticOptions },
         logPrefix: 'penny',
         middleware: [
+          serveFavicon(resolve('./lib/favicon.ico')),
           morgan('dev', {
             skip: function (req, res) {
               return res.statusCode < 300;
@@ -128,6 +130,7 @@ module.exports = function penny(baseDir, isDev = true) {
       const connect = require('connect');
       const app = connect();
 
+      app.use(serveFavicon(resolve('./lib/favicon.ico')));
       app.use(serveSources);
       app.use(serveStatic(baseDir, serveStaticOptions));
       http.createServer(app).listen(3000);

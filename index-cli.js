@@ -20,7 +20,7 @@ const api = require('./index-api');
 const pkg = require('./package.json');
 
 // TESTING ONLY
-debug.enable('penny:*');
+// debug.enable('penny:*');
 
 /*
   COMMANDER
