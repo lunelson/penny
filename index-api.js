@@ -95,7 +95,7 @@ module.exports = function penny(baseDir, isDev = true) {
         server: { baseDir, serveStaticOptions },
         logPrefix: 'penny',
         middleware: [
-          serveFavicon(resolve('./lib/favicon.ico')),
+          serveFavicon(resolve(__dirname, './lib/favicon.ico')),
           morgan('dev', {
             skip: function (req, res) {
               return res.statusCode < 300;
@@ -130,7 +130,7 @@ module.exports = function penny(baseDir, isDev = true) {
       const connect = require('connect');
       const app = connect();
 
-      app.use(serveFavicon(resolve('./lib/favicon.ico')));
+      app.use(serveFavicon(resolve(__dirname, './lib/favicon.ico')));
       app.use(serveSources);
       app.use(serveStatic(baseDir, serveStaticOptions));
       http.createServer(app).listen(3000);
