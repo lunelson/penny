@@ -10,7 +10,7 @@
       "request": "launch",
       "name": "API Test",
       "env": {
-        "DEBUG": "*"
+        "DEBUG": "penny:*"
       },
       "program": "${workspaceFolder}/test/api-test.js"
     }

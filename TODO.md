@@ -9,9 +9,11 @@
 ### next
 
 * publish scoped NPM package https://docs.npmjs.com/getting-started/scoped-packages
-* add minification to Sass, JS and Pug, where `isDev`
-* make Pug promise-based like others; handle errors in output
-* handle errors elegantly in output, so they appear on screen
+* JS minification, where `isDev`
+* handle all errors elegantly in output, so they appear on screen
+* proof the functions being added to Sass
+* proof the functions being added to Pug
+* test rollup using node built-ins
 
 ### ground rules
 
