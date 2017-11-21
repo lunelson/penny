@@ -5,16 +5,22 @@ module.exports = {
     "commonjs": true,
     "es6": true
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
   "parserOptions": {
     "sourceType": "module"
   },
-  "rules": {
+  "settings": {
     "import/resolver": {
       "babel-module": {
-        alias: { "~": "./test" }
+        alias: { "~": "." }
       }
-    },
+    }
+  },
+  "rules": {
     "no-unused-vars": "off",
     "no-console": "off",
     "indent": [
