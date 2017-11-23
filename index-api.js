@@ -1,44 +1,44 @@
 'use-strict';
 
-//                               _                        _
-//                              (_)                      (_)
-//  _ __   ___ _ __   __ _ _   _ _ _ __ ______ __ _ _ __  _
-// | '_ \ / _ \ '_ \ / _` | | | | | '_ \______/ _` | '_ \| |
-// | |_) |  __/ | | | (_| | |_| | | | | |    | (_| | |_) | |
-// | .__/ \___|_| |_|\__, |\__,_|_|_| |_|     \__,_| .__/|_|
-// | |                __/ |                        | |
-// |_|               |___/                         |_|
-
 // https://github.com/davidtheclark/cosmiconfig
 const cosmiconfig = require('cosmiconfig');
-
 const { stat } = require('fs');
 const { join, relative, resolve, extname } = require('path');
-// const { parse } = require('url');
 const parseUrl = require('parseurl');
 const chalk = require('chalk');
-
 const _ = require('lodash');
 
 
 module.exports = function penny(baseDir, isDev = true) {
 
-  const procDir = process.cwd();
-  // const pennyConfig = cosmiconfig('penny', { stopDir: procDir, rcExtensions: true });
-  // const eslintConfig = cosmiconfig('eslint', { stopDir: procDir, rcExtensions: true });
-  // const stylelintConfig = cosmiconfig('stylelint', { stopDir: procDir, rcExtensions: true });
-  // const rollupConfig = cosmiconfig('rollup', { stopDir: procDir, rcExtensions: true });
-  // const babelConfig = cosmiconfig('babel', { stopDir: procDir, rcExtensions: true });
-
-  const rcFinder = cosmiconfig('penny', { stopDir: procDir, rcExtensions: true })
+  const stopDir = process.cwd();
+  const pennyrcLoader = cosmiconfig('penny', { stopDir, rcExtensions: true })
     .load(baseDir)
     .then((result) => result.config)
     .catch(() => Object.create(null));
 
-  // TODO: add more finders?
-  // e.g. eslintFinder, stylelintFinder -> could be added to CSS chain
+  // const eslintrcLoader = cosmiconfig('eslint', { stopDir, rcExtensions: true })
+  //   .load(baseDir)
+  //   .then((result) => result.config)
+  //   .catch(() => Object.create(null));
 
-  const options = {
+  // const stylelintrcLoader = cosmiconfig('stylelint', { stopDir, rcExtensions: true })
+  //   .load(baseDir)
+  //   .then((result) => result.config)
+  //   .catch(() => Object.create(null));
+
+  // const rolluprcLoader = cosmiconfig('rollup', { stopDir, rcExtensions: true })
+  //   .load(baseDir)
+  //   .then((result) => result.config)
+  //   .catch(() => Object.create(null));
+
+  // const babelrcLoader = cosmiconfig('babel', { stopDir, rcExtensions: true })
+  //   .load(baseDir)
+  //   .then((result) => result.config)
+  //   .catch(() => Object.create(null));
+
+
+  const pennyOptions = {
     data: '', // WIP
     browsersList: ['last 2 versions', 'safari 7'], // WIP
     reqSrcExt: {
@@ -48,61 +48,65 @@ module.exports = function penny(baseDir, isDev = true) {
     }
   };
 
-  Promise.all([rcFinder]).then(([rcOptions])=>{
+  Promise.all([pennyrcLoader]).then(([pennyrcOptions])=>{
 
-    // TEST
-    // console.log(baseDir, isDev, rcOptions);
-
-    // SETUP
-    Object.assign(options, rcOptions);
-    const { reqSrcExt } = options;
+    // INITS
+    Object.assign(pennyOptions, pennyrcOptions);
+    const { reqSrcExt } = pennyOptions;
     const srcOutExt = _.invert(reqSrcExt);
     const changeTimes = _.mapValues(srcOutExt, Date.now);
     const sourceWares = _.mapValues(srcOutExt, (outExt, srcExt) => {
-      return require(`./lib/serve-${srcExt.slice(1)}.js`)(baseDir, isDev, changeTimes, options);
+      return require(`./lib/serve-${srcExt.slice(1)}.js`)(baseDir, isDev, changeTimes, pennyOptions);
     });
 
-    const serveFavicon = require('serve-favicon');
-    const serveStatic = require('serve-static');
+
+    // COMMON MIDDLEWARE
+    const serveFavicon = require('serve-favicon')(resolve(__dirname, './lib/favicon.ico'));
     const serveStaticOptions = { extensions: ['html'] };
 
+    // SOURCE MIDDLEWARE
     function serveSources(req, res, next) {
       let { pathname } = parseUrl(req),
         ext = extname(pathname);
+      /*
+        A. resolve extension if none present
+        - if: foo, seek foo.html
+        - if: foo/ seek foo/index.html
+        - else: fall-through, connect will redirect if necessary
+      */
       if (!ext) {
-        // foo -> foo.html, foo/ -> foo/index.html
-        // (if neither of these match, it will fall through and redirect)
         ext = '.html';
         pathname = pathname.replace(/\/$/, '/index') + ext;
       }
+      /*
+        B. fall through, if the file extension is still not one that we care about
+      */
       if (!~Object.keys(reqSrcExt).indexOf(ext)) { return next(); }
+      /*
+        C. else proceed to sourceWare
+      */
       else {
         const reqFile = join(baseDir, pathname);
         return sourceWares[reqSrcExt[ext]](reqFile, res, next);
       }
     }
 
-    // INIT
-
+    // SERVER STARTS
     if (isDev) {
 
       const bsync = require('browser-sync').create();
-      const morgan = require('morgan');
+      const logger = require('morgan')('dev', {
+        skip: function (req, res) {
+          return res.statusCode < 300;
+        }
+      });
 
       bsync.init({
         notify: false,
         open: false,
         server: { baseDir, serveStaticOptions },
         logPrefix: 'penny',
-        middleware: [
-          serveFavicon(resolve(__dirname, './lib/favicon.ico')),
-          morgan('dev', {
-            skip: function (req, res) {
-              return res.statusCode < 300;
-            }
-          }),
-          serveSources
-        ]
+        middleware: [ serveFavicon, logger, serveSources ]
       },
       function () {
         let watcherReady = false;
@@ -128,9 +132,10 @@ module.exports = function penny(baseDir, isDev = true) {
 
       const http = require('http');
       const connect = require('connect');
+      const serveStatic = require('serve-static');
       const app = connect();
 
-      app.use(serveFavicon(resolve(__dirname, './lib/favicon.ico')));
+      app.use(serveFavicon);
       app.use(serveSources);
       app.use(serveStatic(baseDir, serveStaticOptions));
       http.createServer(app).listen(3000);
