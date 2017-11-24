@@ -1,7 +1,7 @@
 # penny
 
 ```sh
-npm install -g lunelson/penny
+npm install -g @lunelson/penny
 ```
 
 A static-server with benefits:
