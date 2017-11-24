@@ -62,7 +62,6 @@ module.exports = function penny(baseDir, isDev = true) {
 
     // COMMON MIDDLEWARE
     const serveFavicon = require('serve-favicon')(resolve(__dirname, './lib/favicon.ico'));
-    console.log(`serving favicon from ${resolve(__dirname, './lib/favicon.ico')}`);
     const serveStaticOptions = { extensions: ['html'] };
 
     // SOURCE MIDDLEWARE
