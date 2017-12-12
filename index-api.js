@@ -41,6 +41,8 @@ module.exports = function penny(baseDir, isDev = true) {
   const pennyOptions = {
     data: '', // WIP
     browsersList: ['last 2 versions', 'safari 7'], // WIP
+    eslint: false,
+    stylelint: false,
     reqSrcExt: {
       '.html': '.pug',
       '.css': '.scss',

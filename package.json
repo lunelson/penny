@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "cross-env DEBUG=penny:* NODE_ENV=development node serve.js",
     "start": "cross-env node serve.js",
-    "test": "cross-env DEBUG=penny:* NODE_ENV=development node test/api-test.js"
+    "test:dev": "cross-env DEBUG=penny:* NODE_ENV=development node test/api-test.js",
+    "test": "cross-env DEBUG=penny:* NODE_ENV=production node test/api-test.js"
   },
   "keywords": [
     "sass",
