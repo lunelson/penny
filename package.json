@@ -3,6 +3,7 @@
   "bin": {
     "penny": "./index-cli.js"
   },
+  "browserslist": ">0.5%, not op_mini all",
   "version": "0.0.8",
   "description": "",
   "main": "index-api.js",
@@ -48,6 +49,8 @@
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.1.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-uglify": "^2.0.1",
     "serve-favicon": "^2.4.5",

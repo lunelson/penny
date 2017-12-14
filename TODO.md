@@ -16,6 +16,7 @@ eliminate loggers.js; loggerFn will be created on the fly in the srcWare functio
   SRC
 
     BUILD
+      - linting default is true, isDev is false unless NODE_ENV = 'development'
       for each srcExt:
         - init a render function based on srcExt
         - filter-files in baseDir, for srcExt
@@ -23,6 +24,8 @@ eliminate loggers.js; loggerFn will be created on the fly in the srcWare functio
           - render from srcPath to outPath
 
     SERVE
+      - linting default is false, isDev is true unless NODE_ENV = 'production'
+      - consider removing fs.stat check for reqFile, before srcFile; this would unify the process and prioritise srcFiles
       - for production serve, figure out if port is in use and use next available
       - when responding, check renderCache[srcFile].then((obj) =>{...})
           if (obj.fail) res.send(srcErr(obj.data));
