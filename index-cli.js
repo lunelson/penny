@@ -4,7 +4,7 @@
 
 const path = require('path');
 const chalk = require('chalk');
-const debug = require('debug');
+// const debug = require('debug');
 const cli = require('commander');
 const api = require('./index-api');
 const pkg = require('./package.json');
@@ -24,7 +24,6 @@ cli
 
 const baseDir = path.resolve(process.cwd(), cli.base);
 const isDev = !(cli.prod != undefined || process.env.NODE_ENV == 'production');
-// const banner = '\n  /$$$$$$   /$$$$$$  /$$$$$$$  /$$$$$$$  /$$   /$$\n /$$__  $$ /$$__  $$| $$__  $$| $$__  $$| $$  | $$\n| $$  \\ $$| $$$$$$$$| $$  \\ $$| $$  \\ $$| $$  | $$\n| $$  | $$| $$_____/| $$  | $$| $$  | $$| $$  | $$\n| $$$$$$$/|  $$$$$$$| $$  | $$| $$  | $$|  $$$$$$$\n| $$____/  \\_______/|__/  |__/|__/  |__/ \\____  $$\n| $$                                     /$$  | $$\n| $$                                    |  $$$$$$/\n|__/                                     \\______/\n';
 const banner = '\n  /¢¢¢¢¢¢   /¢¢¢¢¢¢  /¢¢¢¢¢¢¢  /¢¢¢¢¢¢¢  /¢¢   /¢¢\n /¢¢__  ¢¢ /¢¢__  ¢¢| ¢¢__  ¢¢| ¢¢__  ¢¢| ¢¢  | ¢¢\n| ¢¢  \\ ¢¢| ¢¢¢¢¢¢¢¢| ¢¢  \\ ¢¢| ¢¢  \\ ¢¢| ¢¢  | ¢¢\n| ¢¢  | ¢¢| ¢¢_____/| ¢¢  | ¢¢| ¢¢  | ¢¢| ¢¢  | ¢¢\n| ¢¢¢¢¢¢¢/|  ¢¢¢¢¢¢¢| ¢¢  | ¢¢| ¢¢  | ¢¢|  ¢¢¢¢¢¢¢\n| ¢¢____/  \\_______/|__/  |__/|__/  |__/ \\____  ¢¢\n| ¢¢                                     /¢¢  | ¢¢\n| ¢¢                                    |  ¢¢¢¢¢¢/\n|__/                                     \\______/\n';
 
 console.log(chalk.magenta(banner));

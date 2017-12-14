@@ -9,7 +9,7 @@ const chalk = require('chalk');
 const _ = require('lodash');
 
 
-module.exports = function penny(baseDir, isDev = true) {
+module.exports = function pennyServe(baseDir, isDev = true) {
 
   const stopDir = process.cwd();
   const pennyrcLoader = cosmiconfig('penny', { stopDir, rcExtensions: true })
@@ -61,7 +61,6 @@ module.exports = function penny(baseDir, isDev = true) {
       return require(`./lib/serve-${srcExt.slice(1)}.js`)(baseDir, isDev, changeTimes, pennyOptions);
     });
 
-
     // COMMON MIDDLEWARE
     const serveFavicon = require('serve-favicon')(resolve(__dirname, './lib/favicon.ico'));
     const serveStaticOptions = { extensions: ['html'] };
@@ -93,7 +92,7 @@ module.exports = function penny(baseDir, isDev = true) {
       }
     }
 
-    // SERVER STARTS
+    // SERVERS
     if (isDev) {
 
       const bsync = require('browser-sync').create();
@@ -146,4 +145,52 @@ module.exports = function penny(baseDir, isDev = true) {
 
     }
   });
+
+  function sourceWare(srcExt, options) {
+    // closure refs
+    const renderCache = {};
+    const renderTimes = {};
+    const renderFn = require(`./render-${srcExt.slice(1)}`)(baseDir, isDev, options);
+    const loggerFn = debug(`penny:${srcExt.slice(1)}`);
+    // middleware function
+    return function(reqFile, res, next) {
+
+      // check for reqFile
+      stat(reqFile, (err, stats) => {
+
+        // bail, if reqFile exists
+        if (!err && stats.isFile()) return next();
+
+        // check for srcFile,
+        const srcFile = replaceExt(reqFile, srcExt);
+        stat(srcFile, (err, stats) => {
+
+          // bail, if srcFile does not exist
+          if (err || !stats.isFile()) return next();
+
+          // set header
+          res.setHeader('Content-Type', 'text/css; charset=utf-8');
+
+          // if renderCache is invalid, re-render and update renderTime
+          if (!(srcFile in renderCache) || renderTimes[srcFile] < changeTimes[srcExt]) {
+            renderCache[srcFile] = renderFn(srcFile, renderTimes);
+          }
+
+          // resolve renderCache, then
+          renderCache[srcFile].then(data => {
+
+            // log change/render/serve stats
+            loggerFn(
+              `${relative(baseDir, srcFile)}\nchanged: ${changeTimes[srcExt]} \nrendered: ${
+                renderTimes[srcFile]
+              } \nserved: ${Date.now()}`
+            );
+
+            // serve data
+            res.end(data);
+          });
+        });
+      });
+    };
+  }
 };

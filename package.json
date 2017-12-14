@@ -51,6 +51,8 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-uglify": "^2.0.1",
     "serve-favicon": "^2.4.5",
+    "to-double-quotes": "^3.0.0",
+    "to-single-quotes": "^3.0.0",
     "uglify-es": "^3.1.9"
   },
   "devDependencies": {

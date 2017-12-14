@@ -22,7 +22,7 @@ module.exports = {
   },
   "rules": {
     // "no-unused-vars": "off",
-    // "no-console": "off",
+    "no-console": "off",
     "indent": [
       "error",
       2
