@@ -5,7 +5,7 @@
   </g>
 </svg>
 
-# penny: a no-build zero-config dev server
+# penny. a no-build zero-config dev server
 
 ```sh
 npm install -g @lunelson/penny
