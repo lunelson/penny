@@ -39,11 +39,13 @@ module.exports = function pennyServe(baseDir, isDev = true) {
 
 
   const pennyOptions = {
-    data: '', // WIP
-    browsersList: ['last 2 versions', 'safari 7'], // WIP
+    linting: false,
+    caching: true, // hook this up to the caching in serve.js
+    data: '', // WIP; could also be called 'locals'
+    browsersList: ['last 2 versions', 'safari 7'], // WIP; rename to 'browsers'
     eslint: false,
     stylelint: false,
-    reqSrcExt: {
+    reqSrcExt: { // sourceTypes | sources | sourceMatching
       '.html': '.pug',
       '.css': '.scss',
       '.js': '.js'
