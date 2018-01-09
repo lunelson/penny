@@ -1,3 +1,22 @@
+## TESTS
+
+    test
+      fail
+        js
+        pug
+        scss
+      util
+        pug
+          props.pug
+          file-fns.pug
+          data-fns.pug
+        scss
+        js
+
+
+
+
+
 
 
 eliminate loggers.js; loggerFn will be created on the fly in the srcWare function
