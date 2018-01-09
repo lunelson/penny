@@ -15,5 +15,11 @@ const listB = filterFiles.sync('./test', (path) => {
   - pass each array of srcFiles through its renderer, to destination
 
   Q: how best to copy an arbitrary path to a new relative path ??
+    see the following packages
+    https://github.com/jonschlinkert/fs-utils
+    https://github.com/jonschlinkert/write
+    https://github.com/jonschlinkert/copy
+    https://github.com/sindresorhus/cpy
+
 
 */
