@@ -1,6 +1,6 @@
-![](logo.svg)
+<img src="logo.svg" width="240">
 
-# penny. a no-build zero-config dev server
+# penny: a no-build zero-config dev server
 
 ```sh
 npm install -g @lunelson/penny
