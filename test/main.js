@@ -7,4 +7,3 @@ import './nest/import';
 console.log('hello world');
 console.log('this is the one for Vue: '+process.env.NODE_ENV);
 console.log('for commonJS is it this: '+NODE_ENV);
-console.log('and I also added this: '+ENV);
