@@ -10,8 +10,8 @@
   "scripts": {
     "dev": "cross-env DEBUG=penny:* NODE_ENV=development node serve.js",
     "start": "cross-env node serve.js",
-    "test:dev": "cross-env DEBUG=penny:* NODE_ENV=development node test/api-test.js",
-    "test": "cross-env DEBUG=penny:* NODE_ENV=production node test/api-test.js"
+    "test:pro": "cross-env NODE_ENV=production node test/api-test.js",
+    "test": "cross-env DEBUG=penny:* NODE_ENV=development node test/api-test.js"
   },
   "keywords": [
     "sass",
@@ -40,6 +40,7 @@
     "date-fns": "^1.29.0",
     "faker": "^4.1.0",
     "filter-files": "^0.4.0",
+    "image-size": "^0.6.2",
     "jstransformer": "^1.0.0",
     "jstransformer-markdown-it": "^2.0.0",
     "lodash": "^4.17.4",
@@ -50,15 +51,10 @@
     "postcss-clean": "^1.1.0",
     "pug": "^2.0.0-rc.4",
     "rollup": "^0.50.0",
-    "rollup-plugin-alias": "^1.4.0",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-commonjs": "^8.2.6",
-    "rollup-plugin-json": "^2.3.0",
-    "rollup-plugin-node-builtins": "^2.1.2",
-    "rollup-plugin-node-globals": "^1.1.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-replace": "^2.0.0",
-    "rollup-plugin-sizes": "^0.4.2",
     "rollup-plugin-uglify": "^2.0.1",
     "serve-favicon": "^2.4.5",
     "to-double-quotes": "^3.0.0",

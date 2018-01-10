@@ -14,8 +14,8 @@ module.exports = function pennyServe(baseDir, isDev = true) {
   const stopDir = process.cwd();
   const pennyrcLoader = cosmiconfig('penny', { stopDir, rcExtensions: true })
     .load(baseDir)
-    .then((result) => result.config)
-    .catch(() => Object.create(null));
+    .then((result) => result ? result.config : Object.create(null));
+    // .catch(() => Object.create(null));
 
   // const eslintrcLoader = cosmiconfig('eslint', { stopDir, rcExtensions: true })
   //   .load(baseDir)
