@@ -1,5 +1,9 @@
 extends /_layout
+block defs
+  - title = 'pug tests'
 block body
+
+  hr
   h4 props -- native
   pre.
     filename: #{filename}
@@ -12,7 +16,6 @@ block body
     pathname: #{pathname}
 
   hr
-
   h4 data-fns
   pre.
     _: #{Object.keys(_)}
@@ -21,11 +24,10 @@ block body
     chance: #{Object.keys(chance)}
 
   hr
-
   h4 file-fns
   pre.
     require: #{dump(require('./require-test.js'))}
-    dirList: #{dirList('..')}
+    dirList: #{dump(dirList('..'))}
     markdown: #{markdown('# hello world')}
     markdown: #{markdown('**hello** world', {inline: true})}
     include: #{include('../data-fns/index.pug')}

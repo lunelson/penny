@@ -1,0 +1,13 @@
+$test: (
+  a: 1, b: 2
+);
+
+$test: require('./other');
+
+.test {
+  font-family: 'hello again';
+  test: sqrt(9);
+  test: pow(3, 4);
+
+  /* #{inspect($test)} */
+}
