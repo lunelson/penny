@@ -29,7 +29,7 @@ block body
       return node.require(node.path.join(dirname, relFile));
     }
 
-    function debug(value) { return JSON.stringify(value, null, 2); }
+    function dump(value) { return JSON.stringify(value, null, 2); }
 
     function dirList(relDir, ...opts) {
       return filterFiles(node.path.join(dirname, relDir), ...opts);
@@ -61,7 +61,7 @@ block body
 
   h4 file-fns
   pre.
-    require: #{debug(require('./require-test.js'))}
+    require: #{dump(require('./require-test.js'))}
     dirList: #{dirList('..')}
     markdown: #{mdRender('# hello world')}
     markdown: #{mdRender('**hello** world', {inline: true})}
