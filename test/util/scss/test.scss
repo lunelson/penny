@@ -3,6 +3,7 @@ $test: (
 );
 
 $test: require('./other');
+$info: img-info('/logo.svg');
 
 .test {
   font-family: 'hello again';
@@ -10,4 +11,5 @@ $test: require('./other');
   test: pow(3, 4);
 
   /* #{inspect($test)} */
+  /* #{inspect($info)} */
 }
