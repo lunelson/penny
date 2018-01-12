@@ -19,56 +19,15 @@ block body
     dateFns: #{Object.keys(dateFns)}
     faker: #{Object.keys(faker)}
     chance: #{Object.keys(chance)}
-    node.path: #{Object.keys(node.path)}
-    node.url: #{Object.keys(node.url)}
 
   hr
-
-  -
-    function require(relFile) {
-      return node.require(node.path.join(dirname, relFile));
-    }
-
-    function dump(value) { return JSON.stringify(value, null, 2); }
-
-    function dirList(relDir, ...opts) {
-      return filterFiles(node.path.join(dirname, relDir), ...opts);
-    }
-
-    //- function render(str, opts) {
-    //-   return pugRender(str, Object.assign({}, locals, opts));
-    //- }
-
-    function include(relFile, opts) {
-      const absFile = node.path.join(dirname, relFile);
-      try {
-        const str = node.fs.readFileSync(absFile).toString();
-        return pugRender(str, Object.assign({}, locals, opts, {
-          filename: absFile,
-          dirname: node.path.dirname(absFile),
-          relFilename: node.path.relative(basedir, absFile),
-          pathname: `/${node.path.relative(basedir, absFile).replace(/\.pug$/, '.html')}`
-        }));
-      }
-      catch(err) {
-        throw Error(`[pug] include(): could not read file at '${absFile}`);
-      }
-    }
-
-    function imgInfo(imgFile) {
-      return imageSize(node.path.join(dirname, imgFile));
-    }
 
   h4 file-fns
   pre.
     require: #{dump(require('./require-test.js'))}
     dirList: #{dirList('..')}
-    markdown: #{mdRender('# hello world')}
-    markdown: #{mdRender('**hello** world', {inline: true})}
+    markdown: #{markdown('# hello world')}
+    markdown: #{markdown('**hello** world', {inline: true})}
     include: #{include('../data-fns/index.pug')}
     imageInfo: #{JSON.stringify(imgInfo('../../../../logo.svg'))}
-
   //- pre.
-    listFiles: #{listFiles('.')}
-    thisDir: #{node.path.join(dirname, '.')}
-    prevDir: #{node.path.join(dirname, '..')}

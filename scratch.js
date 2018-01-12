@@ -1,5 +1,6 @@
 const url = require('url');
 const path = require('path');
+const resolve = require('resolve');
 
 const basedir = '/Users/lunelson/Git/packages/penny/test';
 const filename = '/Users/lunelson/Git/packages/penny/test/util/pug/props/index.pug';
@@ -41,4 +42,5 @@ locals; //?
 
 // require.resolve('./index-api.js', { paths: __filename});
 const testPath = path.join(__dirname, './index-api.js') //?
-require.resolve(testPath); //?
+// require.resolve('./index-api.js', { paths: [__dirname] }); //?
+resolve.sync('./index-api', { basedir: __dirname }); //?
