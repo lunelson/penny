@@ -1,10 +1,4 @@
-extends /_layout--fail
-include /_mixins
-
-include
+extends ../_layout
 block body
-  h1 Test: Pug Failure
-  ul
-    li: a(href='/fail-scss/') SCSS Failure
-    li: a(href='/fail-pug/').curr Pug Failure
-    li: a(href='/fail-js/') JS Failure
+  h1 Test: JS Failure
+include
