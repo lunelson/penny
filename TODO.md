@@ -1,3 +1,30 @@
+## src-/reqFile priority
+
+remove the check for reqFile, let srcFile have priority
+
+in serve.js
+  abstract this process to an agnostic generic serve function
+  **renderCache, renderTimes will be universal for all serving
+
+in build.js
+  rough in the corresponding agnostic generic build function, that passes to render functions
+
+## render functions
+
+accept
+  baseDir, isDev, options
+  return fn(srcFile, renderTimes)
+
+notes
+  must create promise
+  must catch internally, in order to update renderTimes either way
+  **must ultimately return or throw, so it can be then/catch'd back in serve/build function
+
+return
+  promise
+    .then => res.end(data)
+    .catch => res.end(err)
+
 ## TESTS
 
     test
