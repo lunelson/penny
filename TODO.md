@@ -1,3 +1,26 @@
+## linting/rendering
+
+- add coloring to error CSS rules
+- check the effects of the `useEslintrc` option
+- find the eslint:recommended baseConfiguration; copy/extend that? and/or add the following rules
+
+```js
+  'no-div-regex': ['error'],
+  'no-eq-null': ['error'],
+  'no-redeclare': ['error'],
+  'no-octal': ['error'],
+  'no-proto': ['error'],
+  'no-self-assign': ['error'],
+  'no-self-compare': ['error'],
+  'no-sequences': ['error'],
+  'no-throw-literal': ['error'],
+  'no-unmodified-loop-condition': ['error'],
+  'wrap-iife': ['error'],
+  'no-undef': ['error'],
+  'no-delete-var': ['error']
+```
+
+
 ## src-/reqFile priority
 
 remove the check for reqFile, let srcFile have priority
