@@ -1,3 +1,3 @@
-import logger from '~/import';
+import logger from '/import';
 
 console.log('from nested import');
