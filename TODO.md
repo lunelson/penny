@@ -1,3 +1,24 @@
+## random
+
+- add fg/bg coloring to the errors.js functions
+- proof eslint processing:
+  - how other configs get merged against baseConfig?
+  - does the use useEslintrc rule need to be set to false?
+
+## js root importing
+
+  - babel solution A
+  https://github.com/entwicklerstube/babel-plugin-root-import
+
+  - babel solution B
+  https://github.com/tleunen/babel-plugin-module-resolver
+  https://github.com/benmosher/eslint-plugin-import
+  https://github.com/tleunen/eslint-import-resolver-babel-module
+
+  - webpack solution ??
+  https://moduscreate.com/blog/es6-es2015-import-no-relative-path-webpack/
+
+
 ## linting/rendering
 
 - add coloring to error CSS rules

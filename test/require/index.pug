@@ -1,0 +1,12 @@
+extends /_layout
+block head
+  style.
+    body { font-family: sans-serif; }
+
+block body
+  p JSON source
+  pre!= dump(require('./data.json'))
+  p YML source
+  pre!= dump(require('./data.yml'))
+  p YAML source
+  pre!= dump(require('./data.yaml'))
