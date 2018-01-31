@@ -63,8 +63,12 @@ module.exports = function pennyServe(baseDir, isDev = true) {
       return require(`./lib/serve-${srcExt.slice(1)}.js`)(baseDir, isDev, changeTimes, pennyOptions);
     });
 
-    // COMMON MIDDLEWARE
+    // FAVICON MIDDLEWARE
+    // http://www.xiconeditor.com/
+    // https://realfavicongenerator.net/
     const serveFavicon = require('serve-favicon')(resolve(__dirname, './lib/favicon.ico'));
+
+    // STATIC MIDDLEWARE
     const serveStaticOptions = { extensions: ['html'] };
 
     // SOURCE MIDDLEWARE
