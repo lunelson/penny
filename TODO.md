@@ -53,6 +53,8 @@ https://www.npmjs.com/package/resolve-up
 ```
 
 
+## CLI -> serve vs build
+
 ## src-/reqFile priority
 
 remove the check for reqFile, let srcFile have priority

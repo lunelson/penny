@@ -1,7 +1,7 @@
 {
   "name": "@lunelson/penny",
   "bin": {
-    "penny": "./index-cli.js"
+    "penny": "bin/penny.js"
   },
   "browserslist": ">0.5%, not op_mini all",
   "version": "0.0.8",

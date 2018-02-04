@@ -1,0 +1,51 @@
+#!/usr/bin/env node
+
+'use-strict';
+
+// npm
+const path = require('path');
+const chalk = require('chalk');
+const debug = require('debug');
+const cli = require('commander');
+
+// local
+const pkg = require('../package.json');
+// const api = require('./index-api');
+
+/*
+  CLI
+  options:
+    -b, --base: which directory to serve
+    -p, --prod: production mode flag (will also check NODE_ENV)
+*/
+
+cli.version(pkg.version);
+
+
+cli
+  .command('serve [src]', {isDefault: true}).alias('s')
+  .description('serve source directory')
+  .action(function(src = '.'){
+    console.log(`serving: ${path.resolve(process.cwd(), src)}`);
+  });
+
+cli
+  .command('build <src> <dist>').alias('b')
+  .description('build source directory to destination')
+  .action(function(src, dist){
+    console.log(`building: ${path.resolve(process.cwd(), src)}`);
+  });
+
+cli.parse(process.argv);
+
+// const baseDir = path.resolve(process.cwd(), cli.src);
+// const isDev = !(process.env.NODE_ENV == 'production');
+// const banner = '\n  /¢¢¢¢¢¢   /¢¢¢¢¢¢  /¢¢¢¢¢¢¢  /¢¢¢¢¢¢¢  /¢¢   /¢¢\n /¢¢__  ¢¢ /¢¢__  ¢¢| ¢¢__  ¢¢| ¢¢__  ¢¢| ¢¢  | ¢¢\n| ¢¢  \\ ¢¢| ¢¢¢¢¢¢¢¢| ¢¢  \\ ¢¢| ¢¢  \\ ¢¢| ¢¢  | ¢¢\n| ¢¢  | ¢¢| ¢¢_____/| ¢¢  | ¢¢| ¢¢  | ¢¢| ¢¢  | ¢¢\n| ¢¢¢¢¢¢¢/|  ¢¢¢¢¢¢¢| ¢¢  | ¢¢| ¢¢  | ¢¢|  ¢¢¢¢¢¢¢\n| ¢¢____/  \\_______/|__/  |__/|__/  |__/ \\____  ¢¢\n| ¢¢                                     /¢¢  | ¢¢\n| ¢¢                                    |  ¢¢¢¢¢¢/\n|__/                                     \\______/\n';
+
+// console.log();
+
+// console.log(chalk.magenta(banner));
+// console.log(chalk.blue(`version: ${pkg.version}`));
+// console.log(chalk.blue(`environment: ${isDev?'development':'production'}\n`));
+
+// api(baseDir, isDev);
