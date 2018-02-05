@@ -9,6 +9,14 @@ https://www.npmjs.com/package/pkg-dir
 https://www.npmjs.com/package/resolve-up
 
 
+## NEW NOTES on render API
+
+- !! each render function should know whether it is being called in 'serve' or 'build' mode (or maybe it's development/production) ??
+  - serve mode error: return formatted error from .catch() clause
+  - build mode error: throw plaintext error from .catch() clause
+  - ... so that build-xxx function can have its own .catch() clause, where it handles the error...
+
+
 ## random
 
 - add fg/bg coloring to the errors.js functions
