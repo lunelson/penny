@@ -10,14 +10,10 @@ const cli = require('commander');
 // local
 const pkg = require('../package.json');
 
-cli
-.version(pkg.version);
-cli
-.command('serve [src]', 'serve source directory', {isDefault: true});
-cli
-.command('build <src> <dist>', 'build source directory to destination');
-cli
-  .parse(process.argv);
+cli.version(pkg.version);
+cli.command('serve [src]', 'serve source directory', {isDefault: true});
+cli.command('build <src> <dist>', 'build source directory to destination');
+cli.parse(process.argv);
 
 // const baseDir = path.resolve(process.cwd(), cli.src);
 // const isDev = !(process.env.NODE_ENV == 'production');
