@@ -49,6 +49,7 @@
     "eslint-plugin-import": "^2.8.0",
     "faker": "^4.1.0",
     "filter-files": "^0.4.0",
+    "findup-sync": "^2.0.0",
     "image-size": "^0.6.2",
     "jstransformer": "^1.0.0",
     "jstransformer-markdown-it": "^2.0.0",
