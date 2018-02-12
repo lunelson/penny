@@ -1,9 +1,11 @@
 const resolve = require('resolve');
 const path = require('path');
+const _ = require('lodash');
 
-// resolve.sync('node_modules', {basedir: __dirname}); //?
-__dirname; //?
-path.resolve('node_modules'); //?
+const pugLocals = require('../lib/util/pug-locals')({ filename: __filename, basedir: path.resolve(__dirname, '../') });
 
-const findup = require('findup-sync'); //?
-findup('node_modules', { cwd: __dirname }); //?
+pugLocals.dirList('/src'); //?
+pugLocals.dirList('.'); //?
+
+path.resolve(pugLocals.basedir, '../foo'); //?
+path.join(pugLocals.basedir, '/foo'); //?
