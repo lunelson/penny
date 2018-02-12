@@ -66,6 +66,7 @@
     "pug": "^2.0.0-rc.4",
     "read-pkg-up": "^3.0.0",
     "read-yaml": "^1.1.0",
+    "recursive-readdir": "^2.2.1",
     "resolve": "^1.5.0",
     "serve-favicon": "^2.4.5",
     "strip-ansi": "^4.0.0",

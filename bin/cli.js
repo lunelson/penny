@@ -27,29 +27,18 @@ cli.version(pkg.version, '-v, --version');
 cli
   .command('serve [src]')
   .description('serve source directory')
-  .action((src = '.', options) => {
+  .action((src = '.') => {
     print();
     serve(path.resolve(src), isDev);
-
-    // console.log(`
-    //   serving from
-    //   ${path.resolve(src)}
-    // `);
   });
 
 // BUILD
 cli
   .command('build <src> <out>')
   .description('build source directory to output directory')
-  .action((src, out, options) => {
+  .action((src, out) => {
     print();
     build(path.resolve(src), path.resolve(out));
-    // console.log(`
-    //   building from
-    //   ${path.resolve(src)}
-    //   to
-    //   ${path.resolve(out)}
-    // `);
   });
 
 // PARSE

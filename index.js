@@ -31,8 +31,7 @@ function serve(srcDir, isDev) {
 
 function build(srcDir, outDir) {
   Promise.all(rcLoaders).then((rcOptions) => {
-    console.log(`building from ${srcDir} to ${outDir}`);
-    // doBuild(srcDir, outDir, rcCombine(options, rcOptions));
+    doBuild(srcDir, outDir, rcCombine(options, rcOptions));
 
   });
 }
