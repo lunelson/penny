@@ -1,3 +1,14 @@
+## node_modules resolution: find up
+
+https://www.npmjs.com/package/find-node-modules
+https://www.npmjs.com/package/findup-sync
+https://www.npmjs.com/package/find-up
+https://www.npmjs.com/package/read-pkg-up
+https://www.npmjs.com/package/pkg-up
+https://www.npmjs.com/package/pkg-dir
+https://www.npmjs.com/package/resolve-up
+
+
 ## random
 
 - add fg/bg coloring to the errors.js functions
