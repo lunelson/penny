@@ -14,24 +14,24 @@
 const doServe = require('./lib/serve');
 const doBuild = require('./lib/build');
 
-const rcLoaders = [Promise.resolve()];
-const options = {}; // defaults
+const rcLoaders = [Promise.resolve()]; // TBD
+const rcDefaults = {}; // defaults
 
-function rcCombine(options, rcOptions) {
-  // ... combine the rcOptions in to the main options object
-  return options;
+function rcCombine(defaults, options) {
+  // ... combine the rcOptions in to the main rcDefaults object
+  return defaults;
 }
 
 function serve(srcDir, isDev) {
   Promise.all(rcLoaders).then((rcOptions) => {
     console.log(`serving from ${srcDir}`);
-    // doServe(srcDir, isDev, rcCombine(options, rcOptions));
+    // doServe(srcDir, isDev, rcCombine(rcDefaults, rcOptions));
   });
 }
 
 function build(srcDir, outDir) {
   Promise.all(rcLoaders).then((rcOptions) => {
-    doBuild(srcDir, outDir, rcCombine(options, rcOptions));
+    doBuild(srcDir, outDir, rcCombine(rcDefaults, rcOptions));
 
   });
 }
