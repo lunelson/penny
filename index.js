@@ -1,38 +1,40 @@
-/*
-  INDEX
-
-  - do the comsmiconfig stuff; build the options object
-  - depending on the CLI args, execute build.js or serve.js
-  - export a function which does what?
-      module.exports = { serve, build };
-
-      var penny = require("penny")
-      penny.serve(baseDir, isDev, options [, cb])
-      penny.build(baseDir, outDir, options [, cb])
-*/
+const cosmiconfig = require('cosmiconfig');
 
 const doServe = require('./lib/serve');
 const doBuild = require('./lib/build');
 
-const rcLoaders = [Promise.resolve()]; // TBD
-const rcDefaults = {}; // defaults
+const stopDir = process.cwd();
+const rcLoader = cosmiconfig('penny', { stopDir, rcExtensions: true })
+  .load(stopDir)
+  .then((result) => result ? result.config : Object.create(null));
+
+const rcDefaults = {
+  // linting: false,
+  // caching: true, // hook this up to the caching in serve.js
+  // data: '', // WIP; could also be called 'locals'
+  browsers: ['>1%'],
+  eslint: false,
+  // stylelint: false,
+  reqSrcExt: { // sourceTypes | sources | sourceMatching
+    '.html': '.pug',
+    '.css': '.scss',
+    '.js': '.js'
+  }
+};
 
 function rcCombine(defaults, options) {
-  // ... combine the rcOptions in to the main rcDefaults object
-  return defaults;
+  return Object.assign(defaults, options);
 }
 
 function serve(srcDir, isDev) {
-  Promise.all(rcLoaders).then((rcOptions) => {
-    console.log(`serving from ${srcDir}`);
-    // doServe(srcDir, isDev, rcCombine(rcDefaults, rcOptions));
+  rcLoader.then((rcOptions) => {
+    doServe(srcDir, isDev, rcCombine(rcDefaults, rcOptions));
   });
 }
 
 function build(srcDir, outDir) {
-  Promise.all(rcLoaders).then((rcOptions) => {
+  rcLoader.then((rcOptions) => {
     doBuild(srcDir, outDir, rcCombine(rcDefaults, rcOptions));
-
   });
 }
 
