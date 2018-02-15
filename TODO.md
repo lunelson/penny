@@ -1,3 +1,9 @@
+## CLI spinners / task-feedback
+
+https://github.com/sindresorhus/ora
+https://github.com/SamVerschueren/listr
+
+
 ## node_modules resolution: find up
 
 https://www.npmjs.com/package/find-node-modules
