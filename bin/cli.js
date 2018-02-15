@@ -9,13 +9,13 @@ const cli = require('commander');
 const readPkgUp = require('read-pkg-up');
 
 const { pkg } = readPkgUp.sync({ cwd: __dirname });
-const isDev = !(process.env.NODE_ENV == 'production');
+// const isDev = !(process.env.NODE_ENV == 'production');
 const banner = '\n  /¢¢¢¢¢¢   /¢¢¢¢¢¢  /¢¢¢¢¢¢¢  /¢¢¢¢¢¢¢  /¢¢   /¢¢\n /¢¢__  ¢¢ /¢¢__  ¢¢| ¢¢__  ¢¢| ¢¢__  ¢¢| ¢¢  | ¢¢\n| ¢¢  \\ ¢¢| ¢¢¢¢¢¢¢¢| ¢¢  \\ ¢¢| ¢¢  \\ ¢¢| ¢¢  | ¢¢\n| ¢¢  | ¢¢| ¢¢_____/| ¢¢  | ¢¢| ¢¢  | ¢¢| ¢¢  | ¢¢\n| ¢¢¢¢¢¢¢/|  ¢¢¢¢¢¢¢| ¢¢  | ¢¢| ¢¢  | ¢¢|  ¢¢¢¢¢¢¢\n| ¢¢____/  \\_______/|__/  |__/|__/  |__/ \\____  ¢¢\n| ¢¢                                     /¢¢  | ¢¢\n| ¢¢                                    |  ¢¢¢¢¢¢/\n|__/                                     \\______/\n';
 
 function print() {
   console.log(chalk.magenta(banner));
   console.log(chalk.blue(`version: ${pkg.version}`));
-  console.log(chalk.blue(`environment: ${isDev?'development':'production'}\n`));
+  // console.log(chalk.blue(`environment: ${isDev?'development':'production'}\n`));
 }
 
 const { serve, build } = require('../index');
@@ -29,7 +29,7 @@ cli
   .description('serve source directory')
   .action((src = '.') => {
     print();
-    serve(path.resolve(src), isDev);
+    serve(path.resolve(src));
   });
 
 // BUILD

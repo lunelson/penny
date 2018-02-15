@@ -10,3 +10,5 @@ console.log('this is the one for Vue: '+process.env.NODE_ENV);
 
 let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
 console.log({x,y,z});
+
+console.log('and this really seems to be workng now!!??');

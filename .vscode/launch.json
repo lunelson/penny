@@ -7,6 +7,20 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Serve Test",
+      "program": "${workspaceFolder}/bin/cli.js",
+      "args": [
+        "serve",
+        "/Users/lunelson/Git/packages/penny/test"
+      ],
+      "skipFiles": [
+        "${workspaceRoot}/node_modules/**/*.js",
+        "<node_internals>/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Serve BPS",
       "program": "${workspaceFolder}/bin/cli.js",
       "args": [
