@@ -133,7 +133,7 @@ module.exports = function pennyServe(baseDir, isDev = true) {
               }
             }
           )
-          .on('ready', () => (watcherReady = true));
+          .on('ready', () => watcherReady = true);
       });
     } else {
 

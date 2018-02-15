@@ -21,11 +21,30 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Build Test",
+      "program": "${workspaceFolder}/bin/cli.js",
+      "args": [
+        "build",
+        "/Users/lunelson/Git/packages/penny/test",
+        "/Users/lunelson/Git/packages/penny/test-build",
+      ],
+      "skipFiles": [
+        "${workspaceRoot}/node_modules/**/*.js",
+        "<node_internals>/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Serve BPS",
       "program": "${workspaceFolder}/bin/cli.js",
       "args": [
         "serve",
         "/Users/lunelson/Git/projects/nova-bps-proto/src"
+      ],
+      "skipFiles": [
+        "/Users/lunelson/Git/projects/nova-bps-proto/node_modules/**/*.js",
+        "<node_internals>/**/*.js"
       ]
     },
     {
@@ -37,6 +56,10 @@
         "build",
         "/Users/lunelson/Git/projects/nova-bps-proto/src",
         "/Users/lunelson/Git/projects/nova-bps-proto/out"
+      ],
+      "skipFiles": [
+        "/Users/lunelson/Git/projects/nova-bps-proto/node_modules/**/*.js",
+        "<node_internals>/**/*.js"
       ]
     }
   ]
