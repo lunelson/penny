@@ -1,6 +1,10 @@
-<img src="logo.svg" width="240">
+<img src="logo.svg" width="300">
 
 # penny: a no-build zero-config dev server
+
+[![npm published v](https://img.shields.io/npm/v/@lunelson/penny.svg)]()
+[![dependencies](https://david-dm.org/lunelson/penny.svg)]()
+[![node supported v](https://img.shields.io/node/v/@lunelson/penny.svg)]()
 
 ```sh
 npm install -g @lunelson/penny

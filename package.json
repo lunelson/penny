@@ -66,6 +66,7 @@
     "nodemon": "^1.14.12",
     "postcss": "^6.0.17",
     "postcss-clean": "^1.1.0",
+    "prompt-confirm": "^1.2.0",
     "pug": "^2.0.0-rc.4",
     "read-pkg-up": "^3.0.0",
     "read-yaml": "^1.1.0",
@@ -75,7 +76,8 @@
     "strip-ansi": "^4.0.0",
     "uglifyjs-webpack-plugin": "^1.1.8",
     "webpack": "^3.10.0",
-    "write": "^1.0.3"
+    "write": "^1.0.3",
+    "yn": "^2.0.0"
   },
   "devDependencies": {}
 }

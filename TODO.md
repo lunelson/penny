@@ -1,3 +1,28 @@
+## CLI prompting / step-through
+
+Prompt https://github.com/flatiron/prompt
+Enquirer https://github.com/enquirer
+Inquirer https://github.com/SBoudrias/Inquirer.js
+
+## debug and colored output, documentation
+
+https://github.com/visionmedia/debug
+https://www.npmjs.com/package/supports-color
+https://github.com/chalk/chalk
+
+
+## offer browsersync options in pennyrc
+
+- use `browserSync` key
+- remove any options you want to protect; merge the rest
+- see this list https://browsersync.io/docs/options
+
+## terminal recorders
+
+https://github.com/icholy/ttygif
+https://github.com/chjj/ttystudio
+https://asciinema.org/
+
 ## CLI spinners / task-feedback
 
 https://github.com/sindresorhus/ora
