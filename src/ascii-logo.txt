@@ -54,8 +54,7 @@ XXXX                       | .__/ \___|_| |_|_| |_|\__, |
        XXXX    XXXX
 
  Welcome to penny v0.8.0
- Changelog:     https://github.com/lunelson/penny/blob/master/LICENSE
- Documentation: https://github.com/lunelson/penny
+ README: https://github.com/lunelson/penny
 
  ---------------------------------------
 [penny] Access URLs:
