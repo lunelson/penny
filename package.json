@@ -1,12 +1,19 @@
 {
   "name": "@lunelson/penny",
+  "version": "0.8.0",
+  "description": "On-the-fly live pre-processing dev server / static-site builder",
+  "main": "index.js",
+  "directories": {
+    "test": "test",
+    "bin": "bin",
+    "lib": "lib"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "penny": "bin/cli.js"
   },
-  "browserslist": ">0.5%, not op_mini all",
-  "version": "0.0.8",
-  "description": "",
-  "main": "index-api.js",
   "scripts": {
     "dev": "cross-env DEBUG=penny:* NODE_ENV=development node serve.js",
     "start": "cross-env node serve.js",
@@ -14,6 +21,7 @@
     "test": "cross-env DEBUG=penny:* NODE_ENV=development nodemon --watch lib test/api-test.js",
     "debug": "cross-env DEBUG=penny:* NODE_ENV=development nodemon --inspect --watch lib test/api-test.js"
   },
+  "browserslist": ">0.5%, not op_mini all",
   "keywords": [
     "sass",
     "es6",
@@ -24,7 +32,14 @@
   ],
   "author": "Lu Nelson",
   "license": "MIT",
-  "repository": "lunelson/penny",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lunelson/penny.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lunelson/penny/issues"
+  },
+  "homepage": "https://github.com/lunelson/penny#readme",
   "dependencies": {
     "@babel/core": "^7.0.0-beta.39",
     "@babel/plugin-external-helpers": "^7.0.0-beta.39",

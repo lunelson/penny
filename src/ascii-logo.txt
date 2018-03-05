@@ -41,3 +41,29 @@ XX       XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
          | .__/ \___|_| |_|_| |_|\__, |
          | |                      __/ |
          |_|                     |___/
+
+       XXXX    XXXX
+       XXXX    XXXX
+   XXXXXXXXXXXXXXXXXXXX     _ __   ___ _ __  _ __  _   _
+ XXXXXXXXXXXXXXXXXXXXXX    | '_ \ / _ \ '_ \| '_ \| | | |
+XXXX                       | |_) |  __/ | | | | | | |_| |
+XXXX                       | .__/ \___|_| |_|_| |_|\__, |
+ XXXXXXXXXXXXXXXXXXXXXX    | |                      __/ |
+   XXXXXXXXXXXXXXXXXXXX    |_|                     |___/
+       XXXX    XXXX
+       XXXX    XXXX
+
+ Welcome to penny v0.8.0
+ Changelog:     https://github.com/lunelson/penny/blob/master/LICENSE
+ Documentation: https://github.com/lunelson/penny
+
+ ---------------------------------------
+[penny] Access URLs:
+ ---------------------------------------
+       Local: https://localhost:3000
+    External: https://192.168.2.102:3000
+ ---------------------------------------
+          UI: http://localhost:3001
+ UI External: http://192.168.2.102:3001
+ ---------------------------------------
+[penny] Serving files from: /Users/lunelson/Downloads/sass-peer-deps-test

@@ -1,5 +1,15 @@
+## pennyrc options
+
+browserSync
+eslintPlugins
+postCssPlugins
+webpackPlugins
+sassFunctions
+pugLocals
+
 ## CLI prompting / step-through
 
+Prompts https://github.com/terkelg/prompts
 Prompt https://github.com/flatiron/prompt
 Enquirer https://github.com/enquirer
 Inquirer https://github.com/SBoudrias/Inquirer.js
