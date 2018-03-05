@@ -2,44 +2,41 @@
   "name": "@lunelson/penny",
   "version": "0.8.0",
   "description": "On-the-fly live pre-processing dev server / static-site builder",
+  "keywords": [
+    "browser-sync",
+    "connect",
+    "es6",
+    "pug",
+    "webpack",
+    "sass"
+  ],
+  "homepage": "https://github.com/lunelson/penny#readme",
+  "bugs": {
+    "url": "https://github.com/lunelson/penny/issues"
+  },
+  "license": "MIT",
+  "author": "Lu Nelson",
   "main": "index.js",
-  "directories": {
-    "test": "test",
-    "bin": "bin",
-    "lib": "lib"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
   "bin": {
     "penny": "bin/cli.js"
   },
-  "scripts": {
-    "dev": "cross-env DEBUG=penny:* NODE_ENV=development node serve.js",
-    "start": "cross-env node serve.js",
-    "test:pro": "cross-env NODE_ENV=production node test/api-test.js",
-    "test": "cross-env DEBUG=penny:* NODE_ENV=development nodemon --watch lib test/api-test.js",
-    "debug": "cross-env DEBUG=penny:* NODE_ENV=development nodemon --inspect --watch lib test/api-test.js"
+  "directories": {
+    "lib": "lib",
+    "bin": "bin",
+    "test": "test"
   },
-  "browserslist": ">0.5%, not op_mini all",
-  "keywords": [
-    "sass",
-    "es6",
-    "rollup",
-    "pug",
-    "browser-sync",
-    "connect"
-  ],
-  "author": "Lu Nelson",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lunelson/penny.git"
   },
-  "bugs": {
-    "url": "https://github.com/lunelson/penny/issues"
+  "scripts": {
+    "debug": "cross-env DEBUG=penny:* NODE_ENV=development nodemon --inspect --watch lib test/api-test.js",
+    "dev": "cross-env DEBUG=penny:* NODE_ENV=development node serve.js",
+    "start": "cross-env node serve.js",
+    "test-src": "cross-env DEBUG=penny:* NODE_ENV=development nodemon --watch lib test/api-test.js",
+    "test-src:pro": "cross-env NODE_ENV=production node test/api-test.js",
+    "test": "echo \"Tests are still TBD\" && exit 0"
   },
-  "homepage": "https://github.com/lunelson/penny#readme",
   "dependencies": {
     "@babel/core": "^7.0.0-beta.39",
     "@babel/plugin-external-helpers": "^7.0.0-beta.39",
@@ -95,5 +92,9 @@
     "write": "^1.0.3",
     "yn": "^2.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "publishConfig": {
+    "access": "public"
+  },
+  "browserslist": ">0.5%, not op_mini all"
 }
