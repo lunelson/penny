@@ -23,7 +23,7 @@ stylelint: false,
 const options = {
   browsers: ['>1%'],
   eslint: false,
-  logLevel: 'info',
+  logLevel: 'warn',
   reqSrcExt: { // TODO: pluralize
     '.html': '.pug',
     '.css': '.scss',
