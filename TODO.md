@@ -1,11 +1,15 @@
 ## pennyrc options
 
-browserSync
+browsersync
+  - use `browserSync` key
+  - remove any options you want to protect; merge the rest
+  - see this list https://browsersync.io/docs/options
+eslintConfig
 eslintPlugins
-postCssPlugins
+postcssPlugins
 webpackPlugins
 sassFunctions
-pugLocals
+pugFunctions
 
 ## CLI prompting / step-through
 
@@ -20,12 +24,6 @@ https://github.com/visionmedia/debug
 https://www.npmjs.com/package/supports-color
 https://github.com/chalk/chalk
 
-
-## offer browsersync options in pennyrc
-
-- use `browserSync` key
-- remove any options you want to protect; merge the rest
-- see this list https://browsersync.io/docs/options
 
 ## terminal recorders
 
