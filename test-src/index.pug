@@ -16,14 +16,26 @@ block body
   p We have to think about all the stuff we are going to stick in here
 
   ul NATIVE
-    li filename
-    li basedir
-    li pretty
-    li filters
-    li debug
-    li globals
-    li cache
-    li name
+    li filename&emsp;&emsp;
+      code!= dump(filename)
+    li dirname&emsp;&emsp;
+      code!= dump(dirname)
+    li request&emsp;&emsp;
+      code!= dump(request)
+    li basedir&emsp;&emsp;
+      code!= dump(basedir)
+    li pretty&emsp;&emsp;
+      code!= dump(pretty)
+    li filters&emsp;&emsp;
+      code!= dump(filters)
+    li debug&emsp;&emsp;
+      code!= dump(debug)
+    li globals&emsp;&emsp;
+      code!= dump(globals)
+    li cache&emsp;&emsp;
+      code!= dump(cache)
+    li name&emsp;&emsp;
+      code!= dump(name)
 
   ul ADDED
     li _
