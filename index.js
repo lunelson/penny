@@ -37,6 +37,7 @@ function serve(srcDir) {
     .then((result) => result ? result.config : Object.create(null))
     .then((rcOptions) => {
       Object.assign(options, rcOptions, { isDev: !(process.env.NODE_ENV == 'production'), isBuild: false});
+      console.dir(options);
       doServe(srcDir, options);
     });
 }
