@@ -30,6 +30,6 @@ block body
     dirList: #{dump(dirList('..'))}
     markdown: #{markdown('# hello world')}
     markdown: #{markdown('**hello** world', {inline: true})}
-    include: #{include('../data-fns/index.pug')}
+    include: #{renderFile('../data-fns/index.pug')}
     imageInfo: #{JSON.stringify(imgInfo('../../../../logo.svg'))}
   //- pre.
