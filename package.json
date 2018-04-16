@@ -30,12 +30,12 @@
     "url": "git+https://github.com/lunelson/penny.git"
   },
   "scripts": {
-    "debug": "cross-env DEBUG=penny:* NODE_ENV=development nodemon --inspect --watch lib test/api-test.js",
-    "dev": "cross-env DEBUG=penny:* NODE_ENV=development node serve.js",
+    "debug": "cross-env NODE_ENV=development nodemon --inspect --watch lib test/api-test.js",
+    "dev": "cross-env NODE_ENV=development node serve.js",
     "start": "cross-env node serve.js",
     "test": "echo \"Tests are still TBD\" && exit 0",
-    "test-src": "cross-env DEBUG=penny:* NODE_ENV=development nodemon --watch lib bin/cli.js serve test-src",
-    "test-src:pro": "cross-env NODE_ENV=production node test/api-test.js"
+    "test-serve": "cross-env NODE_ENV=development nodemon --watch lib bin/cli.js serve test-src",
+    "test-build": "cross-env NODE_ENV=production node bin/cli.js build test-src test-out"
   },
   "dependencies": {
     "@babel/core": "^7.0.0-beta.44",
