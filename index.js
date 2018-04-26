@@ -36,8 +36,7 @@ function serve(srcDir) {
     .load(srcDir)
     .then((result) => result ? result.config : Object.create(null))
     .then((rcOptions) => {
-      Object.assign(options, rcOptions, { isDev: !(process.env.NODE_ENV == 'production'), isBuild: false});
-      // console.dir(options);
+      Object.assign(options, rcOptions, { isDev: process.env.NODE_ENV != 'production', isBuild: false});
       doServe(srcDir, options);
     });
 }
@@ -47,7 +46,7 @@ function build(srcDir, outDir) {
     .load(srcDir)
     .then((result) => result ? result.config : Object.create(null))
     .then((rcOptions) => {
-      Object.assign(options, rcOptions, { isDev: false, isBuild: true});
+      Object.assign(options, rcOptions, { isDev: process.env.NODE_ENV == 'development', isBuild: true});
       doBuild(srcDir, outDir, options);
     });
 }
