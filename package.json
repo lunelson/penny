@@ -55,6 +55,7 @@
     "cp-file": "^5.0.0",
     "cross-env": "^5.1.4",
     "date-fns": "^1.29.0",
+    "dayjs": "^1.5.14",
     "delete": "^1.1.0",
     "eslint": "^4.19.1",
     "eslint-import-resolver-babel-module": "^5.0.0-beta.0",
@@ -62,7 +63,6 @@
     "eslint-plugin-import": "^2.10.0",
     "faker": "^4.1.0",
     "filter-files": "^0.4.0",
-    "http2": "^3.3.7",
     "image-size": "^0.6.2",
     "js-string-escape": "^1.0.1",
     "jstransformer": "^1.0.0",
@@ -91,10 +91,9 @@
   },
   "devDependencies": {},
   "engines": {
-    "node": ">=7"
+    "node": ">=8"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "browserslist": ">0.5%, not op_mini all"
+  }
 }
