@@ -85,7 +85,7 @@
     "serve-favicon": "^2.5.0",
     "uglifyjs-webpack-plugin": "^1.2.4",
     "uncolor": "^0.4.0",
-    "webpack": "^4.5.0",
+    "webpack": "^4.7.0",
     "write": "^1.0.3",
     "yn": "^2.0.0"
   },
