@@ -1,0 +1,19 @@
+---
+title: this is the title
+other: this is the title
+slug: home
+---
+
+extends /_layout
+
+block body
+
+  h1 hello world
+  p= $page.title
+  p= $page.other
+  p= $page.slug
+
+  pre: code= pretty
+  pre: code= basedir
+  pre: code= filename
+  pre: code= dirname
