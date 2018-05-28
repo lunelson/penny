@@ -20,8 +20,8 @@ block body
       code!= dump(filename)
     li dirname&emsp;&emsp;
       code!= dump(dirname)
-    li request&emsp;&emsp;
-      code!= dump(request)
+    li pathname&emsp;&emsp;
+      code!= dump(pathname)
     li basedir&emsp;&emsp;
       code!= dump(basedir)
     li pretty&emsp;&emsp;
@@ -48,3 +48,10 @@ block body
     li render(str)
     li renderFile(relPath|absPath)
     li include(relPath|absPath)
+
+  != writeFile('./foo.txt','this is some shit from the index')
+  pre!= dump(filterFiles('./require/', (fp) => /\.pug$/.test(fp)))
+  pre!= dump(filterFiles('./require', (fp) => /\.pug$/.test(fp)))
+  pre!= dump(filterFiles('require', (fp) => /\.pug$/.test(fp)))
+
+  include:markdown ./mdi-test.md

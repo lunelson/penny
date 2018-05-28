@@ -1,3 +1,5 @@
+
+
 function srcServer(...srcExts) {
   const renderFns = srcExts.reduce((obj, ext) => {/*...*/})
   return function(reqFile, res, next) {
