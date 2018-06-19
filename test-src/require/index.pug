@@ -5,8 +5,8 @@ block head
 
 block body
   p JSON source
-  pre!= dump(require('./data.json'))
+  pre!= dump(readData('./data.json'))
   p YML source
-  pre!= dump(require('./data.yml'))
+  pre!= dump(readData('./data.yml'))
   p YAML source
-  pre!= dump(require('./data.yaml'))
+  pre!= dump(readData('./data.yaml'))

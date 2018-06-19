@@ -1,0 +1,8 @@
+$color: lightblue;
+
+body {
+  font-family: sans-serif;
+  background-color: $color;
+}
+
+@import 'import';

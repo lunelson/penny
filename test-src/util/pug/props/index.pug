@@ -27,9 +27,9 @@ block body
   h4 file-fns
   pre.
     require: #{dump(require('./require-test.js'))}
-    dirList: #{dump(dirList('..'))}
+    filterFiles: #{dump(filterFiles('..'))}
     markdown: #{markdown('# hello world')}
     markdown: #{markdown('**hello** world', {inline: true})}
     include: #{renderFile('../data-fns/index.pug')}
-    imageInfo: #{JSON.stringify(imgInfo('../../../../logo.svg'))}
+    imageSize: #{JSON.stringify(imageSize('../../../../logo.svg'))}
   //- pre.
