@@ -1,1 +1,1 @@
-this is some shit from the index
+this file was written via a pug template

@@ -8,12 +8,15 @@ block head
 block body
   != JSON.stringify(Object.keys(locals))
 
-  //- include doesnotexist
-
   h1 Hello world!
-  h2 This is the second major revision of this thing.
-  h3 This is being served correctly. So, that's something.
-  p We have to think about all the stuff we are going to stick in here
+  h2 These are test pages for "penny"
+  p What could we do in the next rev?
+
+  :markdown
+    - data detection and live-serving...
+    - you have to b careful
+
+  p do you though
 
   ul NATIVE
     li filename&emsp;&emsp;
@@ -51,9 +54,11 @@ block body
     li renderFile(relPath|absPath)
     li include(relPath|absPath)
 
-  != writeFile('./foo.txt','this is some shit from the index')
+  != writeFile('./foo.txt','this file was written via a pug template')
   pre!= dump(filterFiles('./require/', (fp) => /\.pug$/.test(fp)))
   pre!= dump(filterFiles('./require', (fp) => /\.pug$/.test(fp)))
   pre!= dump(filterFiles('require', (fp) => /\.pug$/.test(fp)))
 
   include:markdown ./mdi-test.md
+
+  h1 this is being injected
