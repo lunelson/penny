@@ -13,6 +13,8 @@ block body
   h1 Hello world!
   h2 This is the second major revision of this thing.
   h3 This is being served correctly. So, that's something.
+  p The question is, does html injection work??
+  p wait did that actually work?
   p We have to think about all the stuff we are going to stick in here
 
   ul NATIVE
@@ -57,3 +59,5 @@ block body
   pre!= dump(filterFiles('require', (fp) => /\.pug$/.test(fp)))
 
   include:markdown ./mdi-test.md
+
+  h1 this is being injected
