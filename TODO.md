@@ -1,3 +1,66 @@
+## new pug locals naming
+
+Functions:
+  data
+    $chance
+    $faker
+    $data
+    $pages
+    $page
+  utils
+    _
+    _fs
+    _path
+    _dayjs
+    _moment
+    _dateFns
+    _imageSize
+    _writeFile
+    //? _readData
+    //? _writeData
+
+## watchers
+
+DATA
+  _data/**/*.(yml|yaml|json)
+    - set/unset data at path
+
+PAGES
+  **/*.(pug|md|mdown|markdown|html), ignored: [leading underscores]
+    - set/unset matter at path
+
+SRC_FILES
+  **/*.(pug|md|mdown|markdown|scss|js), ignored: [leading underscores]
+    - create/destroy Compiler(ext)
+
+ALL
+  **/*
+    - filter Compilers, for Compiler.deps.indexOf(file)
+      - if result, Compiler.dirty = true
+
+## compilers
+
+class Compiler {
+    constructor(file) {},
+    dirty: true,
+    dependencies: [],
+    cached: null,
+    compile() {
+      if (this.cached && !this.dirty) return this.cached();
+      ... compile the file
+    }
+  }
+
+- use streams
+- test acquiring dependencies with
+  - sass-graph
+  - pug.compile
+  - webpack -- either plugin or compilation hook
+    https://webpack.js.org/contribute/plugin-patterns/
+    https://webpack.js.org/api/compilation-hooks/
+
+
+
 ## pennyrc options
 
 browsersync
