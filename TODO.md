@@ -38,6 +38,18 @@ ALL
     - filter Compilers, for Compiler.deps.indexOf(file)
       - if result, Compiler.dirty = true
 
+MWARE
+  function(req, res, next) {
+    // parse out srcFile from req
+    return Compilers[srcFile].serve(res, next);
+  }
+
+  function srcServer(srcFile, res, next) {
+    // stat for srcFile
+    // set headers
+    return Compilers[srcFile].stream().pipe(res)
+  }
+
 ## compilers
 
 class Compiler {
@@ -45,14 +57,14 @@ class Compiler {
     dirty: true,
     dependencies: [],
     cached: null,
-    compile() {
-      if (this.cached && !this.dirty) return this.cached();
+    stream() {
+      if (this.cached && !this.dirty) return this.cached().pipe(res);
       ... compile the file
     }
   }
 
 - use streams
-- test acquiring dependencies with
+- test graphing of dependencies with
   - sass-graph
   - pug.compile
   - webpack -- either plugin or compilation hook
