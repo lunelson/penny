@@ -63,6 +63,37 @@ class Compiler {
     }
   }
 
+  class HTMLCompiler extends Compiler {
+    constructor(file) {
+      super();
+    }
+  }
+  class PugCompiler extends Compiler {
+    constructor(file) {
+      super();
+    }
+  }
+  class MDCompiler extends Compiler {
+    constructor(file) {
+      super();
+    }
+  }
+  class SassCompiler extends Compiler {
+    constructor(file) {
+      super();
+    }
+  }
+  class CSSCompiler extends Compiler {
+    constructor(file) {
+      super();
+    }
+  }
+  class JSCompiler extends Compiler {
+    constructor(file) {
+      super();
+    }
+  }
+
 - use streams
 - test graphing of dependencies with
   - sass-graph
