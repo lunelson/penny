@@ -1,3 +1,8 @@
+https://webpack.js.org/api/compiler-hooks/
+https://github.com/pksjce/webpack-internal-examples/blob/master/compiler-example/compiler-example.js
+https://webpack.js.org/configuration/watch/#watchoptions-aggregatetimeout
+
+
 ## new pug locals naming
 
 Functions:
@@ -52,7 +57,7 @@ MWARE
 
 ## compilers
 
-class Compiler {
+  class Compiler {
     constructor(file) {},
     dirty: true,
     dependencies: [],
