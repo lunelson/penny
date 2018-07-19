@@ -2,12 +2,14 @@
 
 'use-strict';
 
-// npm
+// NPM
 const path = require('path');
-const chalk = require('chalk');
 const cli = require('commander');
-const readPkgUp = require('read-pkg-up');
-const { pkg } = readPkgUp.sync({ cwd: __dirname });
+
+// LOCAL
+const {eazyLogger} = require('../lib/logger.js');
+const pkg = require('../package.json');
+const { serve, build } = require('../index.js');
 
 var banner = `
        XXXX    XXXX
@@ -27,11 +29,9 @@ var header = `
 `;
 
 function print() {
-  console.log(chalk.magenta(banner));
-  console.log(chalk.blue(header));
+  eazyLogger.info(`{green: ${banner}}`);
+  eazyLogger.info(`{green: ${header}}`);
 }
-
-const { serve, build } = require('../index');
 
 // VERSION
 cli.version(pkg.version, '-v, --version');

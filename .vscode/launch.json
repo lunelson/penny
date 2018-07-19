@@ -11,10 +11,14 @@
       "program": "${workspaceFolder}/bin/cli.js",
       "args": [
         "serve",
-        "/Users/lunelson/Git/packages/penny/test"
+        "./test-src"
+      ],
+      "runtimeArgs": [
+        "--trace-warnings",
+        "--preserve-symlinks"
       ],
       "skipFiles": [
-        "${workspaceRoot}/node_modules/**/*.js",
+        "${workspaceFolder}/node_modules/**/*.js",
         "<node_internals>/**/*.js"
       ]
     },
@@ -25,40 +29,15 @@
       "program": "${workspaceFolder}/bin/cli.js",
       "args": [
         "build",
-        "/Users/lunelson/Git/packages/penny/test",
-        "/Users/lunelson/Git/packages/penny/test-build",
+        "./test-src",
+        "./test-build",
+      ],
+      "runtimeArgs": [
+        "--trace-warnings",
+        "--preserve-symlinks"
       ],
       "skipFiles": [
-        "${workspaceRoot}/node_modules/**/*.js",
-        "<node_internals>/**/*.js"
-      ]
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Serve BPS",
-      "program": "${workspaceFolder}/bin/cli.js",
-      "args": [
-        "serve",
-        "/Users/lunelson/Git/projects/nova-bps-proto/src"
-      ],
-      "skipFiles": [
-        "/Users/lunelson/Git/projects/nova-bps-proto/node_modules/**/*.js",
-        "<node_internals>/**/*.js"
-      ]
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Build BPS",
-      "program": "${workspaceFolder}/bin/cli.js",
-      "args": [
-        "build",
-        "/Users/lunelson/Git/projects/nova-bps-proto/src",
-        "/Users/lunelson/Git/projects/nova-bps-proto/out"
-      ],
-      "skipFiles": [
-        "/Users/lunelson/Git/projects/nova-bps-proto/node_modules/**/*.js",
+        "${workspaceFolder}/node_modules/**/*.js",
         "<node_internals>/**/*.js"
       ]
     }

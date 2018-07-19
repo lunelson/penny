@@ -1,3 +1,11 @@
+## new libraries
+
+- fs.createReadStream() can accept a Buffer https://stackoverflow.com/a/47092689/1204994
+  - but it might not work the way we want https://stackoverflow.com/a/45891702/1204994
+  - this seems like the better explanation https://stackoverflow.com/questions/13230487/converting-a-buffer-into-a-readablestream-in-nodejs
+    - and this makes it simple https://github.com/sindresorhus/to-readable-stream
+
+
 https://webpack.js.org/api/compiler-hooks/
 https://github.com/pksjce/webpack-internal-examples/blob/master/compiler-example/compiler-example.js
 https://webpack.js.org/configuration/watch/#watchoptions-aggregatetimeout

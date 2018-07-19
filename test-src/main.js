@@ -1,4 +1,4 @@
-import './nest/import';
+// import './nest/import';
 // import {dirname, resolve} from 'path';
 // import 'babel-polyfill';
 // import url from 'url';
