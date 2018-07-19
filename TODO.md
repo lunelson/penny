@@ -1,3 +1,11 @@
+## pug/locals
+
+$data, $pages, $page -> living in locals.js
+
+TODO: organize the locals with new naming, as below
+
+
+
 ## new libraries
 
 - fs.createReadStream() can accept a Buffer https://stackoverflow.com/a/47092689/1204994

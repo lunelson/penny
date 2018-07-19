@@ -1,8 +1,9 @@
 const doServe = require('./lib/serve.js');
 const doBuild = require('./lib/build.js');
-const logger = require('./lib/logger.js');
+const { eazyLogger, pennyLogger } = require('./lib/logger.js');
 
-const configExplorer = require('cosmiconfig')('penny', { stopDir: process.cwd()});
+const stopDir = process.cwd();
+const configExplorer = require('cosmiconfig')('penny', { stopDir });
 
 const options = {
   browsers: ['>1%'],
@@ -12,22 +13,26 @@ const options = {
 
 function serve(srcDir) {
   configExplorer
-    .search(srcDir)
+    .search(stopDir)
     .then((result) => result ? result.config : {})
     .then((rcOptions) => {
+      console.log(rcOptions);
       Object.assign(options, rcOptions, { isDev: true, isBuild: false});
+      eazyLogger.setLevel(options.logLevel);
       doServe(srcDir, options);
-    }).catch(err => logger.penny.error(err.toString()));
+    }).catch(err => pennyLogger.error(err.toString()));
 }
 
 function build(srcDir, outDir) {
   configExplorer
-    .search(srcDir)
+    .search(stopDir)
     .then((result) => result ? result.config : {})
     .then((rcOptions) => {
+      console.log(rcOptions);
       Object.assign(options, rcOptions, { isDev: process.env.NODE_ENV == 'development', isBuild: true});
+      eazyLogger.setLevel(options.logLevel);
       doBuild(srcDir, outDir, options);
-    }).catch(err => logger.penny.error(err.toString()));
+    }).catch(err => pennyLogger.error(err.toString()));
 }
 
 module.exports = { serve, build };
