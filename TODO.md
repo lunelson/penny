@@ -1,9 +1,60 @@
+## pug / md testing
+
+templates (pug + md-via-pug-layout)
+  props
+    $data, $pages, $page, $options
+  lib methods
+    _, _dayjs, _moment, _dateFns
+    _faker, _chance, _casual
+  own methods
+    dump
+    --
+    require
+    --
+    renderX
+    --
+    readX
+    --
+    writeX
+
+
 ## pug/locals
 
-$data, $pages, $page -> living in locals.js
+- locals need to also contain options, because they will be used on the render function
+- maybe put them in options or _options
 
-TODO: organize the locals with new naming, as below
+data sources
+  $data, $pages, $page, $options
 
+data manip / gen
+  _, _dayjs, _moment, _dateFns
+  _faker, _chance, _casual
+  TODO: add casual https://github.com/boo1ean/casual
+
+props & methods
+  dump
+  $page
+    filename
+    dirname
+    pathname
+  $options
+    basedir
+    filename
+    pretty
+    doctype.. etc.
+
+bound methods
+  require
+  renderMd
+  renderMdInline
+  renderMdFile
+  renderPug
+  renderPugFile -- should work like dynamic include
+  writeFile
+  readImage
+  readMatter
+  readData
+  readDir
 
 
 ## new libraries
@@ -18,27 +69,6 @@ https://webpack.js.org/api/compiler-hooks/
 https://github.com/pksjce/webpack-internal-examples/blob/master/compiler-example/compiler-example.js
 https://webpack.js.org/configuration/watch/#watchoptions-aggregatetimeout
 
-
-## new pug locals naming
-
-Functions:
-  data
-    $chance
-    $faker
-    $data
-    $pages
-    $page
-  utils
-    _
-    _fs
-    _path
-    _dayjs
-    _moment
-    _dateFns
-    _imageSize
-    _writeFile
-    //? _readData
-    //? _writeData
 
 ## watchers
 

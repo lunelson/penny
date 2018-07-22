@@ -1,0 +1,59 @@
+extends /_layout
+include /_mixins
+block head
+  style.
+    body { font-family: sans-serif; }
+
+block body
+  pre!= JSON.stringify(Object.keys(locals))
+
+  h1 Hello world!
+  h2 These are test pages for "penny"
+  p So, at least the HTML injection is working
+
+  :markdown
+    ## this is a heading
+    - data detection and live-serving...
+    - you have to b careful
+
+  p do you though
+
+  ul NATIVE
+    li basedir&emsp;&emsp;
+      code!= _dump(basedir)
+    li filename&emsp;&emsp;
+      code!= _dump(filename)
+    li dirname&emsp;&emsp;
+      code!= _dump(dirname)
+    li basename&emsp;&emsp;
+      code!= _dump(basename)
+    li pathname&emsp;&emsp;
+      code!= _dump(pathname)
+
+    pre!= _dump($data)
+    pre!= _dump($pages)
+    pre!= _dump($page)
+
+
+  //- ul ADDED
+  //-   li _
+  //-   li env
+  //-     code!= _dump(env)
+  //-   li pathname
+  //-     code!= _dump(pathname)
+  //-   li chance()
+  //-   li faker()
+  //-   li inlineMarkdown()
+  //-   li markdown()
+  //-   li render(str)
+  //-   li renderFile(relPath|absPath)
+  //-   li include(relPath|absPath)
+
+  //- != writeFile('./foo.txt','this file was written via a pug template')
+  //- pre!= _dump(filterFiles('./require/', (fp) => /\.pug$/.test(fp)))
+  //- pre!= _dump(filterFiles('./require', (fp) => /\.pug$/.test(fp)))
+  //- pre!= _dump(filterFiles('require', (fp) => /\.pug$/.test(fp)))
+
+  //- include:markdown ./mdi-test.md
+
+  //- h1 this is being injected

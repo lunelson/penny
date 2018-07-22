@@ -1,3 +1,7 @@
+---
+title: Hello
+slug: home
+---
 extends /_layout
 block defs
   - title = 'pug tests'
@@ -8,26 +12,25 @@ block body
   pre.
     filename: #{filename}
     basedir: #{basedir}
-    pretty: #{pretty}
+
   h4 props -- computed
   pre.
     dirname: #{dirname}
-    relFilename: #{relFilename}
     pathname: #{pathname}
 
   hr
   h4 data-fns
   pre.
     _: #{Object.keys(_)}
-    dateFns: #{Object.keys(dateFns)}
-    faker: #{Object.keys(faker)}
-    chance: #{Object.keys(chance)}
+    _dateFns: #{Object.keys(_dateFns)}
+    $faker: #{Object.keys($faker)}
+    $chance: #{Object.keys($chance)}
 
   hr
   h4 file-fns
   pre.
-    require: #{dump(require('./require-test.js'))}
-    filterFiles: #{dump(filterFiles('..'))}
+    require: #{_dump(require('./require-test.js'))}
+    filterFiles: #{_dump(filterFiles('..'))}
     markdown: #{markdown('# hello world')}
     markdown: #{markdown('**hello** world', {inline: true})}
     include: #{renderFile('../data-fns/index.pug')}
