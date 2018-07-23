@@ -7,7 +7,7 @@ const path = require('path');
 const cli = require('commander');
 
 // LOCAL
-const {eazyLogger} = require('../lib/logger.js');
+const {eazyLogger} = require('../lib/loggers.js');
 const pkg = require('../package.json');
 const { serve, build } = require('../index.js');
 

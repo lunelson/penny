@@ -4,13 +4,13 @@ const tests = [
   'finally/one/with.two.exts',
 ];
 
-function sliceExt(str) {
+function removeExt(str) {
   const extIndex = str.lastIndexOf('.');
   return ~extIndex ? str.slice(0, extIndex) : str;
 }
 
 function syncFileObj(obj, file, event, cb) {
-  const path = sliceExt(str).split('/').slice(1);
+  const path = removeExt(str).split('/').slice(1);
   if (event == 'unlink') {
     _.unset(obj, path);
     while (--path.length && _.isEmpty(_.get(obj, path))) {
@@ -19,7 +19,7 @@ function syncFileObj(obj, file, event, cb) {
   } else _.set(obj, path, cb(file));
 }
 
-console.log(tests.map(sliceExt));
+console.log(tests.map(removeExt));
 syncFileObj(event, $data, dataPath, file => readData(file));
 
 const $pages = Object.create(null);

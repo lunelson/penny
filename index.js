@@ -1,6 +1,6 @@
 const doServe = require('./lib/serve.js');
 const doBuild = require('./lib/build.js');
-const { eazyLogger, pennyLogger } = require('./lib/logger.js');
+const { eazyLogger, pennyLogger } = require('./lib/loggers.js');
 
 const stopDir = process.cwd();
 const configExplorer = require('cosmiconfig')('penny', { stopDir });
