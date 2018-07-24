@@ -11,7 +11,10 @@ module.exports = {
     "plugin:import/warnings"
   ],
   "parserOptions": {
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
   },
   "settings": {
     "import/resolver": {
