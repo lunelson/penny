@@ -11,7 +11,7 @@
       "program": "${workspaceFolder}/bin/cli.js",
       "args": [
         "serve",
-        "./test-src"
+        "./test/serve"
       ],
       "runtimeArgs": [
         "--trace-warnings",
@@ -29,8 +29,8 @@
       "program": "${workspaceFolder}/bin/cli.js",
       "args": [
         "build",
-        "./test-src",
-        "./test-build",
+        "./test/serve",
+        "./test/build",
       ],
       "runtimeArgs": [
         "--trace-warnings",

@@ -1,3 +1,165 @@
+## static sites notes
+
+- use the term 'site-generator' not 'static-site-generator'
+- rsz.io for responsive images
+- lunr.js for searching, is easier and more predictable than algolia
+  - wiredcraft made a tokenizer for chinese
+- zapier.com for API connection
+  - otherwise deploy a micro-service on zeit.co/now
+  - or serverless, or write your own backend
+- embed tiny webapps with Vue or React
+- dotyaml is a new service they are bringing out
+
+## i18n
+
+- keep a /translation subfolder in /data, with YML locale files
+- is there a way to use symlinks, to generate nested alternate-language folders?
+
+## penny thoughts
+
+- can we support CSV data files
+- can we go back to rendering-on-request
+  compiler
+    .init
+    .check
+    .reset
+    .stream
+- go back to JS rendering on-request ??
+-
+
+`## i18n via symlinks
+
+```
+_i18n/
+  foo/ [link to foo]
+  bar/ [link to bar]
+  baz/ [link to baz]
+foo/
+bar/
+baz/
+de/ [ link to _i18n ]
+fr/ [ link to _i18n ]
+```
+
+- will chokidar watch these files, and/or
+  - do I need to filter and/or pass-on file events ??
+- will connect serve these files as they are?
+- will my build command build them?
+
+## test routes
+
+test
+  build
+  serve
+    css
+    html
+    js
+    md
+      no-layout
+      no-publish
+    pug
+      data
+      pages (routes)
+      filters
+      helpers
+      3rdparty
+    scss
+  scratch
+
+
+## compiler class
+
+methods
+  constructor
+  check(absFile)
+    if absFile in depFiles, reset
+  reset
+    pug, ejs, md
+      delete this.template, this.outCache
+    scss, styl
+      delete this.outCache
+  stream
+    if !(template in this), recompile this srcFile to this.template
+    if !(outCache in this), rerender this.template to this.outCache
+    return toStream(this.outCache)
+props
+  template
+  outCache
+  depFiles
+
+## pug compilation
+
+setupPugOptions() => class PugOptions
+setupPugLocals() => class PugLocals
+
+## markdown compilation
+- we can assume it has a layout key
+- find the layout file... does it use a block, or a yield statement??
+- parse the markdown file and pass to the layout
+- assume block content
+
+  const { data: $page, content } = grayMatter(mdFile)
+  const pugAbsLayout = pugAbsolve(data.layout)
+  const pugStr = `
+  extends ${pugAbsLayout}
+  block content
+    != ${markdown(content)}
+  `
+  this.template = pug.compile(pugStr, options);
+  this.outCache = this.template($data, $pages, $page, ...locals);
+  return toStream(this.outCache);
+
+## dataWatching/-Syncing
+
+function htmlRefresh
+  srcCompilers.forEach
+    if htmlCompiler, delete compiler.outCache
+  bsyncRefresh(.html)
+
+js|json|yml|yaml|csv, (event, relFile) =>
+  if (add||change||unlink)
+    dataTreeSync(event, relFile)
+    htmlRefresh()
+
+## pageWatching/-Syncing
+
+html|pug|md, (event, relFile) =>
+  if (add||change||unlink)
+    pageMapSync(event, relFile)
+    htmlRefresh()
+
+## srcWatching/-Syncing logic
+
+html|pug|md|css|scss, (event, relFile) =>
+  if pug|md|scss
+    if not _file or _folder/file
+      if unlink, srcCompilers.delete(srcFile)
+      else if (add||change) && !srcCompilers.has(srcFile)
+        if srcExt == .md
+          data = graMatter(srcFile);
+          bail, if !(layout in data) -- [it's not a page]
+          bail, if (!isDev && data.publish == false) -- [it's a draft]
+        srcCompilers.set(srcFile, new SrcCompiler(srcFile));
+    if srcCompilersReady
+      srcCompilers.forEach => check(absFile)
+  bsyncRefresh(outExt)
+
+## srcServing logic
+
+bail, if _file or _folder/file
+bail, if fileExt is not in [html, css, js]
+if fileExt == .js
+  look in bundleCache, look in memoryFs; return stream.pipe(res)
+else
+  srcFile =
+  compiler = srcCompilers.get(srcFile)
+  if compiler
+    set headers
+    return compiler.stream().pipe(res)
+  else next()
+
+
+
 ## pug / md testing
 
 templates (pug + md-via-pug-layout)
@@ -16,6 +178,8 @@ templates (pug + md-via-pug-layout)
     readX
     --
     writeX
+
+
 
 
 ## pug/locals

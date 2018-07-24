@@ -58,6 +58,7 @@
     "cp-file": "^6.0.0",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
+    "csv-load-sync": "^1.0.0",
     "date-fns": "^1.29.0",
     "dayjs": "^1.7.4",
     "faker": "^4.1.0",
