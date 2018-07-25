@@ -1,4 +1,4 @@
-module.exports = {
+{
   "env": {
     "node": true,
     "browser": true,
@@ -7,6 +7,7 @@ module.exports = {
   },
   "extends": [
     "eslint:recommended",
+    "plugin:node/recommended",
     "plugin:import/errors",
     "plugin:import/warnings"
   ],
@@ -16,14 +17,8 @@ module.exports = {
       "experimentalObjectRestSpread": true
     }
   },
-  "settings": {
-    "import/resolver": {
-      "babel-module": {
-        alias: { "~": "." }
-      }
-    }
-  },
   "rules": {
+    "node/no-extraneous-require": "off",
     "no-unused-vars": "off",
     "no-console": "off",
     "indent": [
@@ -43,4 +38,4 @@ module.exports = {
       "always"
     ]
   }
-};
+}

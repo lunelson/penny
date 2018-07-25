@@ -114,10 +114,6 @@ GitHub.sublime-settings
 
 # End of https://www.gitignore.io/api/git,node,sass,stylus,sublimetext,visualstudiocode
 
-.*rc
-.*rc.json
-.*rc.yml
-
 # General
 .DS_Store
 .AppleDouble

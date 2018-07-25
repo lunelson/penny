@@ -5,11 +5,13 @@
 // NPM
 const path = require('path');
 const cli = require('commander');
+const up = require('update-notifier');
 
 // LOCAL
-const {eazyLogger} = require('../lib/loggers.js');
-const pkg = require('../package.json');
+const { eazyLogger } = require('../lib/loggers.js');
 const { serve, build } = require('../index.js');
+const pkg = require('../package.json');
+up({pkg}).notify();
 
 var banner = `
        XXXX    XXXX

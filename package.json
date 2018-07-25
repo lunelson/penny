@@ -110,9 +110,13 @@
     "write": "^1.0.3",
     "yn": "^2.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^5.2.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^7.0.1"
+  },
   "engines": {
-    "node": ">=8"
+    "node": ">=9"
   },
   "publishConfig": {
     "access": "public"
