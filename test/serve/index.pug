@@ -1,5 +1,5 @@
 ---
-title: 'This actually seems to be working'
+title: 'Does this shit refresh live??'
 tags: ['foo', 'bar']
 ---
 
@@ -16,6 +16,6 @@ html(lang="en")
     h1 testing
 
     //- pre!= dump($data)
-    pre!= dump(typeof $pages)
-    pre!= dump($pages.match('/pug/*'))
+    //- pre!= dump(typeof $pages)
+    pre!= dump(_.values($pages))
     pre!= dump($page)
