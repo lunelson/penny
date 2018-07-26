@@ -1,0 +1,25 @@
+@import '@lunelson/sass-maps-plus/index';
+
+.function-exists {
+  require: function-exists('require');
+  read-data: function-exists('read-data');
+  image-size: function-exists('image-size');
+  pow: function-exists('pow');
+  sqrt: function-exists('sqrt');
+  sign: function-exists('sign');
+  trunc: function-exists('trunc');
+  consts: function-exists('consts');
+}
+
+/*
+#{map-stringify(consts())}
+*/
+/*
+#{map-stringify(image-size('./logo-rollup.svg'))}
+*/
+/*
+#{map-stringify(read-data('./config.json'))}
+*/
+/*
+#{map-stringify(require('./config.js'))}
+*/

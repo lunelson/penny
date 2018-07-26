@@ -1,3 +1,6 @@
 module.exports = {
-  title: 'hello world'
+  title: 'some random data',
+  collection: [
+    'a', 1
+  ]
 };

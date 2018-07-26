@@ -33,10 +33,10 @@
   },
   "scripts": {
     "test": "echo \"Tests are still TBD\" && exit 0",
-    "debug": "cross-env NODE_ENV=development node --inspect-brk --trace-warnings bin/cli.js serve test-src",
-    "start": "cross-env NODE_ENV=development node-dev --respawn --no-deps bin/cli.js serve test-src",
-    "serve": "cross-env NODE_ENV=development node bin/cli.js serve test-src",
-    "build": "cross-env NODE_ENV=production node bin/cli.js build test-src test-out"
+    "debug": "cross-env NODE_ENV=development node --inspect-brk --trace-warnings bin/cli.js serve test/serve",
+    "start": "cross-env NODE_ENV=development node-dev --respawn --no-deps bin/cli.js serve test/serve",
+    "serve": "cross-env NODE_ENV=development node bin/cli.js serve test/serve",
+    "build": "cross-env NODE_ENV=production node bin/cli.js build test/serve test/build"
   },
   "dependencies": {
     "@babel/core": "^7.0.0-beta.54",
@@ -111,6 +111,7 @@
     "yn": "^2.0.0"
   },
   "devDependencies": {
+    "@lunelson/sass-maps-plus": "^0.9.0",
     "eslint": "^5.2.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-node": "^7.0.1"
