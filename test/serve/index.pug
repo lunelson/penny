@@ -15,6 +15,7 @@ html(lang="en")
   body
     h1 testing
 
-    pre!= dump($data)
-    pre!= dump($pages)
+    //- pre!= dump($data)
+    pre!= dump(typeof $pages)
+    pre!= dump($pages.match('/pug/*'))
     pre!= dump($page)

@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'some random data',
+  title: 'some random shizzo',
   collection: [
     'a', 1
   ]
