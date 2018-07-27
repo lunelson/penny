@@ -1,3 +1,13 @@
+## misc TODO
+
+- loggers: make sure logLevel is being brought through from options
+- functions-pug
+  - migrate stuff out of misc-pug
+  - try a class; avoid this refs in favor of srcDir and srcFile
+- webpack-config
+  - test JS compilation
+  - pattern on older version
+
 ## markdown compilation
 - would a yield statement have been better?
 

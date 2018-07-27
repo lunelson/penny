@@ -14,8 +14,11 @@ html(lang="en")
 
   body
     h1 testing
-
+    h2 matchURL
+    pre!= dump(matchURL($page, '/*'))
+    pre!= dump(matchURL($pages, '/*'))
+    h2 $page, $pages
+    pre!= dump($page)
+    pre!= dump($pages)
     //- pre!= dump($data)
     //- pre!= dump(typeof $pages)
-    pre!= dump(_.values($pages))
-    pre!= dump($page)
