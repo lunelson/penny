@@ -12,6 +12,7 @@
       "args": [
         "serve",
         "./test/serve"
+        // "/Users/lunelson/Git/projects/nova-nm2/src"
       ],
       "runtimeArgs": [
         "--trace-warnings",

@@ -8,7 +8,8 @@ const configExplorer = require('cosmiconfig')('penny', { stopDir });
 const options = {
   browsers: ['>1%'],
   logLevel: 'warn', // [error, info, warn, debug, trace] (ascending verbosity)
-  isHTTPS: false
+  isHTTPS: false,
+  pretty: true // TODO: make this default to isDev, but overridable
 };
 
 function serve(srcDir) {
