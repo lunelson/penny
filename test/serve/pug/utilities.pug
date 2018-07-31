@@ -7,3 +7,15 @@
   _dayjs,
   _moment,
   _dateFns,
+
+extends _layout
+block content
+  h1 pug utility testing
+  h2 type check
+  pre!= `_: ${typeof _}`
+  pre!= `_faker: ${typeof _faker}`
+  pre!= `_chance: ${typeof _chance}`
+  pre!= `_casual: ${typeof _casual}`
+  pre!= `_dayjs: ${typeof _dayjs}`
+  pre!= `_moment: ${typeof _moment}`
+  pre!= `_dateFns: ${typeof _dateFns}`

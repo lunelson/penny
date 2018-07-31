@@ -1,3 +1,6 @@
+---
+title: 'Pug Read/Write Function Testing'
+---
 //-
   READ-WRITE
   imageSize(relImg)
@@ -6,3 +9,18 @@
   require(relModule)
   writeFile(relFile, content)
   writeFileIf(relFile, content)
+
+extends _layout
+block content
+  h1= $page.title
+  h2 readData (YML, JSON)
+  pre!= dump(readData('./read-sources/otherwise.json'))
+  pre!= dump(readData('./read-sources/test.yml'))
+  h2 imageSize
+  pre!= dump(imageSize('./read-sources/penny4.png'))
+  h2 grayMatter
+  pre!= dump(grayMatter('./read-sources/dummy.md'))
+  h2 writeFile
+  pre!= dump(writeFile('./write-output/random.txt', Math.random()))
+  //- h2 require ()
+  //- pre!= dump(require('./read-sources/something.js')) // BUG

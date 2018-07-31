@@ -3,3 +3,16 @@
   scss
   markdown
   markdown-inline
+
+extends _layout
+block content
+  h1 pug filters testing
+  h2 Sass
+  pre
+    include:scss ./read-sources/demo.scss
+  h2 Markdown
+  pre
+    include:markdown ./read-sources/dummy.md
+  pre
+    :markdown-inline
+      hi there **everyone**

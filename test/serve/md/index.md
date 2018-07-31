@@ -1,6 +1,6 @@
 ---
 title: Index
-layout: /md/_layout.pug
+layout: _layout.pug
 ---
 # Index
 

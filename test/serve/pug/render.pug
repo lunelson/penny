@@ -1,3 +1,6 @@
+---
+title: 'Pug Render Testing'
+---
 //-
   RENDER
   markdown(str)
@@ -5,3 +8,20 @@
   pug(str)
   markdownFile(relFile)
   pugFile(relFile)
+
+extends _layout
+block content
+  h1= $page.title
+  ol
+    li
+      h2 markdown functions
+      h3: code markdown
+      pre= markdown('hi there')
+      h3: code markdownInline
+      pre= markdownInline('hi there')
+    li
+      h2 pug functions
+      h3: code render
+      pre= render('h1 hello world \n p=$page.title')
+      h3: code include
+      pre= include('./dummy.pug')
