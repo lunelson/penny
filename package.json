@@ -68,6 +68,7 @@
     "has-ansi": "^3.0.0",
     "image-size": "^0.6.3",
     "js-string-escape": "^1.0.1",
+    "junk": "^2.1.0",
     "lodash": "^4.17.10",
     "lodash-webpack-plugin": "^0.11.5",
     "markdown-it": "^8.4.2",
