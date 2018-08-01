@@ -1,3 +1,9 @@
+## content generation
+
+- consider adding fixture-factory as _fixtures
+  https://fixture-factory.readme.io/docs/getting-started
+- consider creating a *new* instance of chance, fixtures and any other lib that allows mixins, for each return of the pugFunctions setup -- so they don't get mutated
+
 ## misc TODO
 
 - add configuration hooks like jekyll's global configuration
