@@ -7,29 +7,7 @@
 ## misc TODO
 
 - add configuration hooks like jekyll's global configuration
-- add sindresorhus junk package for junk file regexes
-- allow a pattern for having explicit root, inside src (harp-like option)
-
-    _data
-    _site (static + view files)
-      assets/
-      app.scss
-      app.js
-      index.pug
-    images/
-    javascripts/
-    stylesheets/
-    templates/
-
 - loggers: make sure logLevel is being brought through from options
-
-- functions-pug
-  - migrate stuff out of misc-pug
-  - try a class; avoid this refs in favor of srcDir and srcFile
-
-- webpack-config
-  - test JS compilation
-  - pattern on older version
 
 ## markdown compilation
 - would a yield statement have been better?

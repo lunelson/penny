@@ -17,7 +17,7 @@ function serve(srcDir) {
     .search(stopDir)
     .then((result) => result ? result.config : {})
     .then((rcOptions) => {
-      console.log(rcOptions);
+//       console.log(rcOptions);
       Object.assign(options, rcOptions, { isDev: true, isBuild: false});
       eazyLogger.setLevel(options.logLevel);
       doServe(srcDir, options);
@@ -29,7 +29,7 @@ function build(srcDir, outDir) {
     .search(stopDir)
     .then((result) => result ? result.config : {})
     .then((rcOptions) => {
-      console.log(rcOptions);
+//       console.log(rcOptions);
       Object.assign(options, rcOptions, { isDev: process.env.NODE_ENV == 'development', isBuild: true});
       eazyLogger.setLevel(options.logLevel);
       doBuild(srcDir, outDir, options);
