@@ -11,7 +11,7 @@
       "program": "${workspaceFolder}/bin/cli.js",
       "args": [
         "serve",
-        "./test/serve"
+        "./test/src"
         // "/Users/lunelson/Git/projects/nova-nm2/src"
       ],
       "runtimeArgs": [
@@ -30,8 +30,8 @@
       "program": "${workspaceFolder}/bin/cli.js",
       "args": [
         "build",
-        "./test/serve",
-        "./test/build",
+        "./test/src",
+        "./test/out",
       ],
       "runtimeArgs": [
         "--trace-warnings",
