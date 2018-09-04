@@ -36,7 +36,7 @@
     "debug": "cross-env NODE_ENV=development node --inspect-brk --trace-warnings bin/cli.js serve test/serve",
     "start": "cross-env NODE_ENV=development node-dev --respawn --no-deps bin/cli.js serve test/serve",
     "serve": "cross-env NODE_ENV=development node bin/cli.js serve test/serve",
-    "build": "cross-env NODE_ENV=production node bin/cli.js build test/serve test/build"
+    "build": "cross-env NODE_ENV=production node-dev --respawn --no-deps bin/cli.js build test/serve test/build"
   },
   "dependencies": {
     "@babel/core": "^7.0.0",
