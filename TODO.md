@@ -1,3 +1,9 @@
+## root-mode and build !!
+
+- pass srcDir and baseDir to srcWatch and jsWatch; pass these all the way down
+- add the sindresorhus 'step' interface thingy for the build step
+- add keep-files option to pennyrc; pass through and transform to keepFilesGlob
+
 ## content generation
 
 - consider adding fixture-factory as _fixtures
