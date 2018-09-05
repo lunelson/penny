@@ -34,25 +34,31 @@ function getPubDir(srcDir, pubDirName) {
 function init(srcDir, doSomething) {
   configExplorer
     .search(srcDir)
-    .then((result) => Object.assign({}, defaults, result ? result.config : {}))
+    .then((result) => {
+      const options = Object.assign({}, defaults, result ? result.config : {});
+      eazyLogger.setLevel(options.logLevel);
+      const pubDir = getPubDir(srcDir, options.pubDirName);
+      return [pubDir, options];
+    })
     .then(doSomething)
     .catch(err => pennyLogger.error(err.toString()));
 }
 
 function serve(srcDir) {
-  init(srcDir, (options) => {
+  init(srcDir, ([pubDir, options]) => {
+    console.log({pubDir});
     Object.assign(options, { isDev: true, isBuild: false});
-    eazyLogger.setLevel(options.logLevel);
-    const pubDir = getPubDir(srcDir, options.pubDirName);
+    // eazyLogger.setLevel(options.logLevel);
+    // const pubDir = getPubDir(srcDir, options.pubDirName);
     doServe(srcDir, pubDir, options);
   });
 }
 
 function build(srcDir, outDir) {
-  init(srcDir, (options) => {
+  init(srcDir, ([pubDir, options]) => {
     Object.assign(options, { isDev: process.env.NODE_ENV == 'development', isBuild: true});
-    eazyLogger.setLevel(options.logLevel);
-    const pubDir = getPubDir(srcDir, options.pubDirName);
+    // eazyLogger.setLevel(options.logLevel);
+    // const pubDir = getPubDir(srcDir, options.pubDirName);
     doBuild(srcDir, pubDir, outDir, options);
   });
 }
