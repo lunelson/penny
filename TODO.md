@@ -1,8 +1,13 @@
+## package usage
+
+- review babel config: why is polyfill not used
+- review webpack config: file-loader, url-loader, sass-loader, raw-loader, etc.
+- review markdownit config: core plugins? configurable plugins?
+
 ## root-mode and build !!
 
 - pass srcDir and baseDir to srcWatch and jsWatch; pass these all the way down
 - add the sindresorhus 'step' interface thingy for the build step
-- add keep-files option to pennyrc; pass through and transform to keepFilesGlob
 
 ## content generation
 

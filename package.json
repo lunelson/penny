@@ -1,6 +1,6 @@
 {
   "name": "@lunelson/penny",
-  "version": "2.0.0-rc.2",
+  "version": "2.0.0-rc.3",
   "description": "On-the-fly live pre-processing dev server & static-site builder",
   "keywords": [
     "browser-sync",
@@ -45,8 +45,8 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "ajv": "^6.5.3",
-    "autoprefixer": "^9.0.2",
-    "babel-loader": "^8.0.0",
+    "autoprefixer": "^9.1.5",
+    "babel-loader": "^8.0.2",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-module-resolver": "^3.1.1",
     "browser-sync": "^2.24.7",
@@ -66,7 +66,6 @@
     "file-loader": "^2.0.0",
     "filter-files": "^0.4.0",
     "gray-matter": "^4.0.1",
-    "has-ansi": "^3.0.0",
     "image-size": "^0.6.3",
     "js-string-escape": "^1.0.1",
     "junk": "^2.1.0",
@@ -105,18 +104,13 @@
     "update-notifier": "^2.5.0",
     "url-loader": "^1.1.1",
     "url-pattern": "^1.0.3",
-    "vue": "^2.5.17",
     "vue-loader": "^15.4.1",
-    "vue-template-compiler": "^2.5.17",
-    "webpack": "^4.16.3",
+    "webpack": "^4.17.2",
     "write": "^1.0.3",
     "yn": "^2.0.0"
   },
   "devDependencies": {
-    "@lunelson/sass-maps-plus": "^0.9.0",
-    "eslint": "^5.5.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-node": "^7.0.1"
+    "@lunelson/sass-maps-plus": "^0.9.0"
   },
   "engines": {
     "node": ">=9"

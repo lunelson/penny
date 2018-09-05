@@ -1,52 +1,60 @@
+// built-in
+const { relative, extname, join, resolve, dirname, basename } = require('path');
+const { statSync, readFileSync } = require('fs');
+
+// npm
+const configExplorer = require('cosmiconfig')('penny', { stopDir: process.cwd() });
+
+// local
 const doServe = require('./lib/serve.js');
 const doBuild = require('./lib/build.js');
 const { eazyLogger, pennyLogger } = require('./lib/loggers.js');
 
-// const stopDir = process.cwd();
-const configExplorer = require('cosmiconfig')('penny', { stopDir: process.cwd() });
-
-const options = {
+// penny defaults
+const defaults = {
   browsers: ['>1%'],
   logLevel: 'warn', // [error, info, warn, debug, trace] (ascending verbosity)
-  isHTTPS: false,
-  // pretty: true // TODO: make this default to isDev, but overridable
+  useHTTPS: false,
+  pubDirName: '_root',
+  keepFiles: [],
 };
+
+function getPubDir(srcDir, pubDirName) {
+  try {
+    const pubDir = join(srcDir, pubDirName);
+    const stats = statSync(pubDir);
+    if (!stats.isDirectory()) throw new Error();
+    return pubDir;
+  } catch (err) {
+    pennyLogger.info(`no sub-directory named ${pubDirName} was found; using source directory as web-root`);
+    return srcDir;
+  }
+}
 
 function init(srcDir, doSomething) {
   configExplorer
     .search(srcDir)
-    .then((result) => result ? result.config : {})
+    .then((result) => Object.assign({}, defaults, result ? result.config : {}))
     .then(doSomething)
     .catch(err => pennyLogger.error(err.toString()));
 }
 
 function serve(srcDir) {
-  init(srcDir, (rcOptions) => {
-    Object.assign(options, rcOptions, { isDev: true, isBuild: false});
+  init(srcDir, (options) => {
+    Object.assign(options, { isDev: true, isBuild: false});
     eazyLogger.setLevel(options.logLevel);
-    doServe(srcDir, options);
+    const pubDir = getPubDir(srcDir, options.pubDirName);
+    doServe(srcDir, pubDir, options);
   });
-  // configExplorer
-  //   .search(stopDir)
-  //   .then((result) => result ? result.config : {})
-  //   .then((rcOptions) => {
-  //   }).catch(err => pennyLogger.error(err.toString()));
 }
 
 function build(srcDir, outDir) {
-  init(srcDir, (rcOptions) => {
-    Object.assign(options, rcOptions, { isDev: process.env.NODE_ENV == 'development', isBuild: true});
+  init(srcDir, (options) => {
+    Object.assign(options, { isDev: process.env.NODE_ENV == 'development', isBuild: true});
     eazyLogger.setLevel(options.logLevel);
-    doBuild(srcDir, outDir, options);
+    const pubDir = getPubDir(srcDir, options.pubDirName);
+    doBuild(srcDir, pubDir, outDir, options);
   });
-  // configExplorer
-  //   .search(stopDir)
-  //   .then((result) => result ? result.config : {})
-  //   .then((rcOptions) => {
-  //     Object.assign(options, rcOptions, { isDev: process.env.NODE_ENV == 'development', isBuild: true});
-  //     eazyLogger.setLevel(options.logLevel);
-  //     doBuild(srcDir, outDir, options);
-  //   }).catch(err => pennyLogger.error(err.toString()));
 }
 
 module.exports = { serve, build };

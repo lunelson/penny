@@ -26,6 +26,24 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Real World Test",
+      "program": "${workspaceFolder}/bin/cli.js",
+      "args": [
+        "serve",
+        "/Users/lunelson/Git/projects/nova-lbz-proto/src"
+      ],
+      "runtimeArgs": [
+        "--trace-warnings",
+        "--preserve-symlinks"
+      ],
+      "skipFiles": [
+        "${workspaceFolder}/node_modules/**/*.js",
+        "<node_internals>/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Build Test",
       "program": "${workspaceFolder}/bin/cli.js",
       "args": [
