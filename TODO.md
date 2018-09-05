@@ -1,3 +1,21 @@
+## root-mode and build !!
+
+- pass srcDir and baseDir to srcWatch and jsWatch; pass these all the way down
+- add the sindresorhus 'step' interface thingy for the build step
+
+## compilers
+
+- add compile-html, with post-html processing; set as super of compile-pug
+- add compile-styl to inherit from compile-css; set compile-scss to inherit from compile-css too
+  - NB: maybe a post-processing method is needed, which is used inside "stream"
+
+## package usage
+
+- review babel config: why is polyfill not used
+- review webpack config: file-loader, url-loader, sass-loader, raw-loader, etc.
+- review markdownit config: core plugins? configurable plugins?
+
+
 ## content generation
 
 - consider adding fixture-factory as _fixtures

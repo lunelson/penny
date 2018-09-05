@@ -1,54 +1,74 @@
-// /\.pug$/.test('/some/path/to/file.pug'); //?
+console.log('running');
 
-// const filterFiles = require('filter-files');
+const _ = require('lodash');
+const {
+  extContentTypes,
+  // Deferral,
+  replaceExt,
+  // removeExt,
+  outSrcExts,
+  srcOutExts,
+  htmlSrcMatch,
+  anySrcMatch,
+  fileEventNames,
+} = require('../../lib/misc-penny.js');
 
-// process.cwd();//?
-// filterFiles.sync('.', (fp, dir, files, recurse) => {
-//   console.log(recurse);
-//   return /\.js$/.test(fp);
-// }, true); //?
+const dataExts = 'js|json|yml|yaml|csv'.split('|');
+console.dir(dataExts);
+console.dir(srcOutExts);
+console.dir(outSrcExts);
+console.dir(['.js'].concat(..._.values(outSrcExts)));
 
-var recursiveRead = require('recursive-readdir');
-var mm = require('micromatch');
+// // /\.pug$/.test('/some/path/to/file.pug'); //?
 
-const srcExts = ['.pug', '.scss', '.js'];
-const srcRegExes = srcExts.reduce((obj, ext) => { obj[ext] = new RegExp(`\${ext}$`); return obj; }, {}); // eslint-disable-line quotes
+// // const filterFiles = require('filter-files');
 
-var unFolders = ['!**/_*/**/*.*'];
-var unFiles = ['!**/_*.*'];
+// // process.cwd();//?
+// // filterFiles.sync('.', (fp, dir, files, recurse) => {
+// //   console.log(recurse);
+// //   return /\.js$/.test(fp);
+// // }, true); //?
 
-[].concat(unFiles, unFolders);//?
+// var recursiveRead = require('recursive-readdir');
+// var mm = require('micromatch');
 
-const ignoreGlobs = [
-  '!**/_*/**/*.*', // ignore _folder
-  '!**/_*.*', // ignore _file
-  '!**/node_modules/**/*', // Node
-  '!**/.DS_Store', // macOS
-  '!.DS_Store', // macOS
-];
+// const srcExts = ['.pug', '.scss', '.js'];
+// const srcRegExes = srcExts.reduce((obj, ext) => { obj[ext] = new RegExp(`\${ext}$`); return obj; }, {}); // eslint-disable-line quotes
 
-recursiveRead('.').then(files => {
-  /* TODO
-    - ignore anything in _folder or with _file name
-    - ignore a basic blacklist: node_modules, .file ?
-    - filter and reduce in one step
-  */
-  // mm(files, ['*']); //?
-  const filtered = mm(files, ['**/*'].concat(ignoreGlobs));
-  console.log(filtered);
+// var unFolders = ['!**/_*/**/*.*'];
+// var unFiles = ['!**/_*.*'];
 
+// [].concat(unFiles, unFolders);//?
 
-  // const fileObj = files.filter((file) => {
-  //   if (/node_modules/.test(file) || /^.git/.test(file)) return false;
-  //   const last = file.split('/').slice(-1)[0];
-  //   return !/^_/.test(last) && !/^\./.test(last);
-  // }).reduce((obj, file) => {
-  //   const srcExt = srcExts.find(ext => srcRegExes[ext].test(file));
-  //   obj[srcExt||'other'] = obj[srcExt||'other'] || [];
-  //   obj[srcExt||'other'].push(file);
-  //   return obj;
-  // }, {}); //?
+// const ignoreGlobs = [
+//   '!**/_*/**/*.*', // ignore _folder
+//   '!**/_*.*', // ignore _file
+//   '!**/node_modules/**/*', // Node
+//   '!**/.DS_Store', // macOS
+//   '!.DS_Store', // macOS
+// ];
 
-  // console.log(fileObj);
+// recursiveRead('.').then(files => {
+//   /* TODO
+//     - ignore anything in _folder or with _file name
+//     - ignore a basic blacklist: node_modules, .file ?
+//     - filter and reduce in one step
+//   */
+//   // mm(files, ['*']); //?
+//   const filtered = mm(files, ['**/*'].concat(ignoreGlobs));
+//   console.log(filtered);
 
-});
+//   // const fileObj = files.filter((file) => {
+//   //   if (/node_modules/.test(file) || /^.git/.test(file)) return false;
+//   //   const last = file.split('/').slice(-1)[0];
+//   //   return !/^_/.test(last) && !/^\./.test(last);
+//   // }).reduce((obj, file) => {
+//   //   const srcExt = srcExts.find(ext => srcRegExes[ext].test(file));
+//   //   obj[srcExt||'other'] = obj[srcExt||'other'] || [];
+//   //   obj[srcExt||'other'].push(file);
+//   //   return obj;
+//   // }, {}); //?
+
+//   // console.log(fileObj);
+
+// });
