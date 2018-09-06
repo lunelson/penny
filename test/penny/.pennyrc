@@ -1,4 +1,5 @@
 {
   "browsers": [ ">1% in DE", "last 5 years" ],
-  "logLevel": "debug"
+  "logLevel": "debug",
+  "pubDirName": "_root"
 }
