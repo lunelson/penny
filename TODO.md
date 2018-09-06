@@ -1,6 +1,11 @@
-## root-mode and build !!
+## watch code splitting
 
-- pass srcDir and baseDir to srcWatch and jsWatch; pass these all the way down
+- merge caches.js data/page functions in to watch-meta.js
+- bring the memoryFs and bufferCache in to compile-js.js
+
+## build !!
+
+- check the JS extension coming out as undefined
 - add the sindresorhus 'step' interface thingy for the build step
 
 ## compilers
