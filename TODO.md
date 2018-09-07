@@ -29,6 +29,10 @@
 
 - check the JS extension coming out as undefined
 - add cli-step interface https://github.com/poppinss/cli-step#readme
+- use chokidar watcher to gather files for build -> get watchedFiles
+  - run all pug and MD files first, then re-retrieve watchedFiles in case any new files have been generated from templates and added in meantime
+  - *actually, just use the compiler watchers, to return their watched files, and
+  - use a final chokidar instance to pick up anything that *doesn't* match srcFiles and doesn't match junk
 
 ## compilers, universalize
 
