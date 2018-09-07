@@ -15,7 +15,6 @@ const defaults = {
   browsers: ['>1%'],
   logLevel: 'warn', // [error, info, warn, debug, trace] (ascending verbosity)
   useHTTPS: false,
-  // pubDirName: '_root',
   keepFiles: [],
 };
 

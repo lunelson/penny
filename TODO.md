@@ -1,22 +1,45 @@
+## data loading
+
+1. add loader support to webpack
+  - json5 https://webpack.js.org/loaders/json5-loader/
+  - cson https://github.com/awnist/cson-loader
+  - yaml https://github.com/okonet/yaml-loader
+  - toml https://github.com/KyleAMathews/toml-loader
+  - md/front-matter https://github.com/atlassian/gray-matter-loader, https://webpack.js.org/loaders/yaml-frontmatter-loader/
+
+2. fork/refactor and replace read-data with expanded function:
+  - [various] https://github.com/develar/read-config-file
+  - toml https://github.com/BinaryMuse/toml-node#readme
+  - json5 https://github.com/json5/json5
+  - cson https://github.com/bevry/cson, https://github.com/groupon/cson-parser
+
+3. figure out how to pass errors along from meta-data, since currently they are a separate routine
+
+## directory finding
+
+- change option reference from 'pubDirName' to just 'pubDir'
+
 ## watch code splitting
 
-- merge caches.js data/page functions in to watch-meta.js
-- bring the memoryFs and bufferCache in to compile-js.js
+- re-assign data, pages, datasyncer and pagessyncer references to watch-meta.js
+- delete cache.js
+- use chokidar in watch functions instead of bsync; (adjust API and) figure out if you need to close the watcher
 
 ## build !!
 
 - check the JS extension coming out as undefined
-- add the sindresorhus 'step' interface thingy for the build step
+- add cli-step interface https://github.com/poppinss/cli-step#readme
 
-## compilers
+## compilers, universalize
 
 - add compile-html, with post-html processing; set as super of compile-pug
-- add compile-styl to inherit from compile-css; set compile-scss to inherit from compile-css too
+- make compile-scss inherit from compile-css
+- add compile-styl, set to inherit from compile-css too
   - NB: maybe a post-processing method is needed, which is used inside "stream"
+- change the logic of the srcWatching and the build/serve routines accordingly
 
 ## package usage
 
-- review babel config: why is polyfill not used
 - review webpack config: file-loader, url-loader, sass-loader, raw-loader, etc.
 - review markdownit config: core plugins? configurable plugins?
 
@@ -32,13 +55,13 @@
 - add configuration hooks like jekyll's global configuration
 - loggers: make sure logLevel is being brought through from options
 
-## markdown compilation
-- would a yield statement have been better?
-
-## bsyncRefresh
-- can this be debounced more smartly, to collect the arguments passed (outExts) and then fire once with all the collected args?
-
 ## pug / md testing
+
+- create specific src folder patterns under tests/penny:
+  - srcDir-style
+  - pubDir-style
+  -
+  - sass-functions
 
 templates (pug + md-via-pug-layout)
   props
