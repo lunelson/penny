@@ -1,3 +1,8 @@
+https://webpack.js.org/api/compiler-hooks/
+https://github.com/pksjce/webpack-internal-examples/blob/master/compiler-example/compiler-example.js
+https://webpack.js.org/configuration/watch/#watchoptions-aggregatetimeout
+
+
 ## new pug locals naming
 
 Functions:
@@ -52,7 +57,7 @@ MWARE
 
 ## compilers
 
-class Compiler {
+  class Compiler {
     constructor(file) {},
     dirty: true,
     dependencies: [],
@@ -60,6 +65,37 @@ class Compiler {
     stream() {
       if (this.cached && !this.dirty) return this.cached().pipe(res);
       ... compile the file
+    }
+  }
+
+  class HTMLCompiler extends Compiler {
+    constructor(file) {
+      super();
+    }
+  }
+  class PugCompiler extends Compiler {
+    constructor(file) {
+      super();
+    }
+  }
+  class MDCompiler extends Compiler {
+    constructor(file) {
+      super();
+    }
+  }
+  class SassCompiler extends Compiler {
+    constructor(file) {
+      super();
+    }
+  }
+  class CSSCompiler extends Compiler {
+    constructor(file) {
+      super();
+    }
+  }
+  class JSCompiler extends Compiler {
+    constructor(file) {
+      super();
     }
   }
 
