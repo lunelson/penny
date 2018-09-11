@@ -1,6 +1,6 @@
 {
   "name": "@lunelson/penny",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "On-the-fly live pre-processing dev server / static-site builder",
   "keywords": [
     "browser-sync",
