@@ -1,3 +1,25 @@
+## markdown-it plugins
+
+use this article as a starting point, to model how you will modify markdown processing
+  https://www.broculos.net/2015/12/build-your-own-markdown-flavour-with.html
+
+- Custom EMbeds
+  - https://github.com/rotorz/markdown-it-block-embed
+- TOCs and heading anchors
+  - https://www.npmjs.com/package/markdown-it-toc-done-right
+  - https://www.npmjs.com/package/markdown-it-anchor
+  - https://github.com/yuki-takei/markdown-it-toc-and-anchor-with-slugid
+- Footnotes (ref pandoc)
+  - https://www.npmjs.com/package/markdown-it-footnote
+- Definition Lists (ref pandoc)
+  - https://www.npmjs.com/package/markdown-it-deflist
+- Checkboxes
+  - https://www.npmjs.com/package/markdown-it-checkbox
+- Code Highlighting
+  - https://www.npmjs.com/package/markdown-it-prism
+  - markdown-it-highlightjs
+
+
 ## data loading
 
 1. add loader support to webpack
