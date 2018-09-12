@@ -47,6 +47,8 @@ function init(srcDir, doSomething) {
           pennyLogger.info(`no sub-directory named ${pubDirName} was found; using source directory as web-root`);
           pubDir = srcDir;
         }
+      } else {
+        pennyLogger.info('no pubDirName in options');
       }
       // const pubDir = getPubDir(srcDir, options.pubDirName);
       return [pubDir, options];

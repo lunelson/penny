@@ -10,6 +10,9 @@ block content
   h2 Sass
   pre
     include:scss ./read-sources/demo.scss
+    include ./read-sources/demo.scss
+    - var dyn = `include ./read-sources/demo.scss`
+  pre #[strong #{'sheeit'}]
   h2 Markdown
   pre
     include:markdown ./read-sources/dummy.md
