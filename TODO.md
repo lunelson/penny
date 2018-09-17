@@ -1,3 +1,23 @@
+## autoprefixer config
+
+- prefer 'browsers' key in .pennyrc, but fall back to package.json
+
+## vue webpack support
+
+- js reload need to be triggered from compiler, not from watch-js (watch-js is not tracking the full import tree)
+- memoryFs files should be handled by a second middleware, which is a fall-through for anything not found in the first one
+  - this should allow it to catch webpack-processed CSS or files (images)
+- make sure postCSS and Sass are both receiving the same config in webpack as in penny
+  https://github.com/postcss/postcss-loader#autoprefixing
+  https://github.com/csstools/postcss-preset-env
+
+- confirm: vue-style-loader is a replacement for style-loader, yes?
+
+## non-compiling SRC files
+
+- consider adding a "static" subDir option
+- and/or skip processing of files which are .min.css or .min.js etc.
+
 ## markdown-it plugins
 
 use this article as a starting point, to model how you will modify markdown processing
@@ -117,7 +137,6 @@ data sources
 data manip / gen
   _, _dayjs, _moment, _dateFns
   _faker, _chance, _casual
-  TODO: add casual https://github.com/boo1ean/casual
 
 props & methods
   dump
