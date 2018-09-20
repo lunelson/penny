@@ -1,6 +1,6 @@
 ---
 title: Page
-layout: /md/_layout.pug
+layout: _layout.pug
 ---
 # Page
 

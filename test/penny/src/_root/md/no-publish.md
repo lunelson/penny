@@ -1,6 +1,6 @@
 ---
 title: No Publish
-layout: /md/_layout.pug
+layout: _layout.pug
 publish: false
 ---
 # No Publish
