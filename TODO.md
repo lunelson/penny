@@ -1,3 +1,20 @@
+## CSS pre-processing, other languages
+
+Stylus -- will integrate just like Sass, pretty much
+http://stylus-lang.com/docs/js.html
+
+## HTML templating, other languages
+
+http://ejs.co/
+http://olado.github.io/doT/
+http://tryhandlebarsjs.com/
+http://mustache.github.io/
+https://handlebarsjs.com/
+https://github.com/bminer/node-blade
+https://harttle.land/liquidjs/
+https://mozilla.github.io/nunjucks/
+https://node-swig.github.io/swig-templates/
+
 ## autoprefixer config
 
 - prefer 'browsers' key in .pennyrc, but fall back to package.json
