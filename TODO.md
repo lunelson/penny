@@ -1,3 +1,10 @@
+## misc high priority
+
+- skip processing of files which are .min.css or .min.js etc. -- serve/copy directly
+- change option reference from 'pubDirName' to just 'webroot'
+- add options outlined in RULES
+  - baseurl: '' -- add a function to templates that allows resolving baseurl, e.g. publicURL('/path/to/something') ->
+
 ## build.js re-write
 
 use sindresorhus step interface
@@ -8,6 +15,11 @@ for each src type, set watcher
   process all watched files, then
     process all added files resulting from the processing of initial adds
 
+- add cli-step interface https://github.com/poppinss/cli-step#readme
+- use chokidar watcher to gather files for build -> get watchedFiles
+  - run all pug and MD files first, then re-retrieve watchedFiles in case any new files have been generated from templates and added in meantime
+  - *actually, just use the compiler watchers, to return their watched files, and
+  - use a final chokidar instance to pick up anything that *doesn't* match srcFiles and doesn't match junk
 
 ## read-data / data-loading support: JSON5 (JSONC), TOML, CSV
 
@@ -51,35 +63,9 @@ https://node-swig.github.io/swig-templates/
 
 ## vue webpack support
 
-- memoryFs files should be handled by a second middleware, which is a fall-through for anything not found in the first one
-  - this should allow it to catch webpack-processed CSS or files (images)
 - make sure postCSS and Sass are both receiving the same config in webpack as in penny
   https://github.com/postcss/postcss-loader#autoprefixing
   https://github.com/csstools/postcss-preset-env
-
-## non-compiling SRC files
-
-- consider adding a "static" subDir option
-- and/or skip processing of files which are .min.css or .min.js etc.
-
-## directory finding
-
-- change option reference from 'pubDirName' to just 'pubDir'
-
-## watch code splitting
-
-- re-assign data, pages, datasyncer and pagessyncer references to watch-meta.js
-- delete cache.js
-- use chokidar in watch functions instead of bsync; (adjust API and) figure out if you need to close the watcher
-
-## build !!
-
-- check the JS extension coming out as undefined
-- add cli-step interface https://github.com/poppinss/cli-step#readme
-- use chokidar watcher to gather files for build -> get watchedFiles
-  - run all pug and MD files first, then re-retrieve watchedFiles in case any new files have been generated from templates and added in meantime
-  - *actually, just use the compiler watchers, to return their watched files, and
-  - use a final chokidar instance to pick up anything that *doesn't* match srcFiles and doesn't match junk
 
 ## compilers, universalize
 
@@ -88,12 +74,6 @@ https://node-swig.github.io/swig-templates/
 - add compile-styl, set to inherit from compile-css too
   - NB: maybe a post-processing method is needed, which is used inside "stream"
 - change the logic of the srcWatching and the build/serve routines accordingly
-
-## package usage
-
-- review webpack config: file-loader, url-loader, sass-loader, raw-loader, etc.
-- review markdownit config: core plugins? configurable plugins?
-
 
 ## content generation
 
