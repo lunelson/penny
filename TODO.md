@@ -1,3 +1,33 @@
+## build.js re-write
+
+use sindresorhus step interface
+replace rrdir with chokidar watchers
+for each src type, set watcher
+  addInitial: false
+  on 'add', push to array of 'added files'
+  process all watched files, then
+    process all added files resulting from the processing of initial adds
+
+
+## read-data / data-loading support: JSON5 (JSONC), TOML, CSV
+
+consider forking and re-writing read-data package:
+  - sync operations only
+  - support for TOML, CSV, JSONC, JSON5
+
+1. add loader support to webpack
+  - json5 https://webpack.js.org/loaders/json5-loader/
+  - cson https://github.com/awnist/cson-loader
+  - yaml https://github.com/okonet/yaml-loader
+  - toml https://github.com/KyleAMathews/toml-loader
+  - md/front-matter https://github.com/atlassian/gray-matter-loader, https://webpack.js.org/loaders/yaml-frontmatter-loader/
+
+2. fork/refactor and replace read-data with expanded function:
+  - [various] https://github.com/develar/read-config-file
+  - toml https://github.com/BinaryMuse/toml-node#readme
+  - json5 https://github.com/json5/json5
+  - cson https://github.com/bevry/cson, https://github.com/groupon/cson-parser
+
 ## CSS pre-processing, other languages
 
 Stylus -- will integrate just like Sass, pretty much
@@ -21,36 +51,16 @@ https://node-swig.github.io/swig-templates/
 
 ## vue webpack support
 
-- js reload need to be triggered from compiler, not from watch-js (watch-js is not tracking the full import tree)
 - memoryFs files should be handled by a second middleware, which is a fall-through for anything not found in the first one
   - this should allow it to catch webpack-processed CSS or files (images)
 - make sure postCSS and Sass are both receiving the same config in webpack as in penny
   https://github.com/postcss/postcss-loader#autoprefixing
   https://github.com/csstools/postcss-preset-env
 
-- confirm: vue-style-loader is a replacement for style-loader, yes?
-
 ## non-compiling SRC files
 
 - consider adding a "static" subDir option
 - and/or skip processing of files which are .min.css or .min.js etc.
-
-## data loading
-
-1. add loader support to webpack
-  - json5 https://webpack.js.org/loaders/json5-loader/
-  - cson https://github.com/awnist/cson-loader
-  - yaml https://github.com/okonet/yaml-loader
-  - toml https://github.com/KyleAMathews/toml-loader
-  - md/front-matter https://github.com/atlassian/gray-matter-loader, https://webpack.js.org/loaders/yaml-frontmatter-loader/
-
-2. fork/refactor and replace read-data with expanded function:
-  - [various] https://github.com/develar/read-config-file
-  - toml https://github.com/BinaryMuse/toml-node#readme
-  - json5 https://github.com/json5/json5
-  - cson https://github.com/bevry/cson, https://github.com/groupon/cson-parser
-
-3. figure out how to pass errors along from meta-data, since currently they are a separate routine
 
 ## directory finding
 
