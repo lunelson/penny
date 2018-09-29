@@ -48,7 +48,7 @@ const md = require('markdown-it')({
   typographer: true,
 })
   // NB order of processing is from bottom to top
-  .use(require('markdown-it-attrs')) // similar to pandoc http://pandoc.org/MANUAL.html#extension-header_attributes
+  .use(require('markdown-it-attrs'))
   // .use(require('markdown-it-anchor'))
   .use(require('markdown-it-implicit-figures'), { figcaption: true })
   .use(require('markdown-it-container'), 'spoiler', {
