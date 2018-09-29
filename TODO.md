@@ -1,9 +1,35 @@
+## config files, fallback order ?
+
+- browserslist config (autoprefixer, babel)
+  - browserslist key in penny config || allow tool to find it
+  - browserslist key in package
+  - browserlist file
+  - .browserslistrc file
+- penny config
+  - penny key in package
+  - .pennyrc file
+  - penny.config.js file -- which is recommended for more advanced options
+- postcss
+  - postcss.config.js ?
+- posthtml
+  - postthml.config.js ?
+- webpack
+  - webpack.config.js (will ignore entry and output keys however) ?
+
+### cosmiconfig order:
+
+- `[mylib]` property in package.json
+- `.[mylib]rc` file in JSON or YAML format
+- `.[mylib]rc.json` file
+- `.[mylib]rc.yaml`, `.[mylib]rc.yml`, or `.[mylib]rc.js` file
+- `[mylib].config.js` file exporting a JS object
+
 ## misc high priority
 
 - skip processing of files which are .min.css or .min.js etc. -- serve/copy directly
-- change option reference from 'pubDirName' to just 'webroot'
-- add options outlined in RULES
-  - baseurl: '' -- add a function to templates that allows resolving baseurl, e.g. publicURL('/path/to/something') ->
+- change option reference from 'pubDirName' to 'webroot'
+- add options outlined in RULES.md
+  e.g. baseurl: '' -- add a function to templates that allows resolving baseurl, e.g. publicURL('/path/to/something') ->
 
 ## build.js re-write
 
