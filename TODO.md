@@ -1,3 +1,5 @@
+
+
 ## config files, fallback order ?
 
 - browserslist config (autoprefixer, babel)
@@ -26,8 +28,9 @@
 
 ## misc high priority
 
+- connect postcss to the new postcss configure options
 - skip processing of files which are .min.css or .min.js etc. -- serve/copy directly
-- change option reference from 'pubDirName' to 'webroot'
+- change option reference from 'pubDirName' to whatever it is in RULES
 - add options outlined in RULES.md
   e.g. baseurl: '' -- add a function to templates that allows resolving baseurl, e.g. publicURL('/path/to/something') ->
 
