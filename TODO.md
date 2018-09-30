@@ -27,9 +27,17 @@ build
 - webpack
   - webpack.config.js (will ignore entry and output keys however) ?
 
+## implement the baseUrl option
+
+  - supply pug `baseUrl()` and sass `base-url()` functions, to resolve root urls correctly
+  - configure serve according to these posts, when baseUrl option is supplied
+    https://github.com/BrowserSync/browser-sync/issues/1224#issuecomment-270751008
+    https://stackoverflow.com/questions/30370753/gulp-browsersync-serve-at-path/41494102#41494102
+    https://gist.github.com/joemaller/0254b34b88cfc6a9a665025c722891b5
+  - NB original logic of the jekyll feature is explained here https://byparker.com/blog/2014/clearing-up-confusion-around-baseurl/
+
 ## misc high priority
 
-- implement the baseUrl option
 - add a function to templates for resolving urls in terms of baseUrl option e.g. `publicURL('/path/to/something') ->`
 - connect postcss to the new postcss configure options (not yet establishing the CssCompiler class)
 - loggers: make sure logLevel is being brought through from options
