@@ -17,10 +17,11 @@ const defaults = {
   exclude: [],
   baseUrl: '',
   webRoot: '',
-  markdownItOptions: null,
-  markdownItPlugins: null,
-  posthtmlPlugins: null,
-  postcssPlugins: null,
+  // browserSyncOptions: null, // NB we are only accepting *some* options here; see serve.js
+  // markdownItOptions: null,
+  // markdownItPlugins: null,
+  // posthtmlPlugins: null,
+  // postcssPlugins: null,
 };
 
 // TODO: make this search only for specific config file types?
