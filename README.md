@@ -33,6 +33,7 @@ penny build [source] [output]
 - `keepFiles`: [same as jekyll 'keep_files' option]
 - `baseUrl`: [same as jekyll option]
 - `subRoot`: sub-folder of [source], for alt structure; caveat: import/include is source-root-relative!
+- `browserSyncOptions`
 - `markdownItOptions`
 - `markdownItPlugins()`
 - `posthtmlPlugins()`
