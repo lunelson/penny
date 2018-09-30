@@ -27,6 +27,14 @@ penny build [source] [output]
 ```
 ### options
 
+option object can be specified in one of the following places
+
+- under `penny` property in `package.json`
+- in a `.pennyrc` file in JSON or YAML format
+- in a `penny.config.js` JavaScript file as `module.exports` (NB this format must be used for any of the plugin configuration options).
+
+The following options are supported:
+
 - `browsers`: (see notes on declination of config file paths)
 - `include`: [same as jekyll option]
 - `exclude`: [same as jekyll option]

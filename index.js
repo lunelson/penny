@@ -1,8 +1,17 @@
+//  _ __   ___ _ __  _ __  _   _
+// | '_ \ / _ \ '_ \| '_ \| | | |
+// | |_) |  __/ | | | | | | |_| |
+// | .__/ \___|_| |_|_| |_|\__, |
+// | |                      __/ |
+// |_|                     |___/
+
 // built-in
 const { join } = require('path');
 const { statSync } = require('fs');
+
 // npm
-const configExplorer = require('cosmiconfig')('penny', { stopDir: process.cwd() });
+const cosmiconfig = require('cosmiconfig');
+
 // local
 const doServe = require('./lib/serve.js');
 const doBuild = require('./lib/build.js');
@@ -17,6 +26,7 @@ const defaults = {
   exclude: [],
   baseUrl: '',
   webRoot: '',
+
   // browserSyncOptions: null, // NB we are only accepting *some* options here; see serve.js
   // markdownItOptions: null,
   // markdownItPlugins: null,
@@ -24,7 +34,11 @@ const defaults = {
   // postcssPlugins: null,
 };
 
-// TODO: make this search only for specific config file types?
+const configExplorer = cosmiconfig('penny', {
+  stopDir: process.cwd(),
+  searchPlaces: [ 'package.json', '.pennyrc', 'penny.config.js' ]
+});
+
 function init(srcDir, doAction) {
   configExplorer
     .search(srcDir)
@@ -60,6 +74,7 @@ function serve(srcDir) {
 
 function build(srcDir, outDir) {
   init(srcDir, ([pubDir, options]) => {
+    // TODO: remove the isBuild flag, if it turns out to be unnecessary in new build.js
     Object.assign(options, { isDev: process.env.NODE_ENV == 'development', isBuild: true});
     doBuild(srcDir, pubDir, outDir, options);
   });

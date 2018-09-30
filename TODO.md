@@ -27,18 +27,10 @@ build
 - webpack
   - webpack.config.js (will ignore entry and output keys however) ?
 
-### cosmiconfig order:
-
-- `[mylib]` property in package.json
-- `.[mylib]rc` file in JSON or YAML format
-- `.[mylib]rc.json` file
-- `.[mylib]rc.yaml`, `.[mylib]rc.yml`, or `.[mylib]rc.js` file
-- `[mylib].config.js` file exporting a JS object
-
 ## misc high priority
 
+- figure out what to do in build.js WRT .min.css or .min.js etc....
 - connect postcss to the new postcss configure options (not yet establishing the CssCompiler class)
-- skip processing of files which are .min.css or .min.js etc. -- serve/copy directly
 - add a function to templates for resolving urls in terms of baseUrl option e.g. `publicURL('/path/to/something') ->`
 - loggers: make sure logLevel is being brought through from options
 
