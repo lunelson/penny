@@ -1,4 +1,13 @@
+## new config architecture ? seems complicated
 
+serve
+  serveParams (deferral)
+  pennyServe
+    -> resolve the params
+build
+  buildParams (deferral)
+  pennyBuild
+    -> resolve the params
 
 ## config files, fallback order ?
 
@@ -28,11 +37,10 @@
 
 ## misc high priority
 
-- connect postcss to the new postcss configure options
+- connect postcss to the new postcss configure options (not yet establishing the CssCompiler class)
 - skip processing of files which are .min.css or .min.js etc. -- serve/copy directly
-- change option reference from 'pubDirName' to whatever it is in RULES
-- add options outlined in RULES.md
-  e.g. baseurl: '' -- add a function to templates that allows resolving baseurl, e.g. publicURL('/path/to/something') ->
+- add a function to templates for resolving urls in terms of baseUrl option e.g. `publicURL('/path/to/something') ->`
+- loggers: make sure logLevel is being brought through from options
 
 ## build.js re-write
 
@@ -109,36 +117,6 @@ https://node-swig.github.io/swig-templates/
 - consider adding fixture-factory as _fixtures
   https://fixture-factory.readme.io/docs/getting-started
 - consider creating a *new* instance of chance, fixtures and any other lib that allows mixins, for each return of the pugFunctions setup -- so they don't get mutated
-
-## misc TODO
-
-- add configuration hooks like jekyll's global configuration
-- loggers: make sure logLevel is being brought through from options
-
-## pug / md testing
-
-- create specific src folder patterns under tests/penny:
-  - srcDir-style
-  - pubDir-style
-  -
-  - sass-functions
-
-templates (pug + md-via-pug-layout)
-  props
-    $data, $pages, $page, $options
-  lib methods
-    _, _dayjs, _moment, _dateFns
-    _faker, _chance, _casual
-  own methods
-    dump
-    --
-    require
-    --
-    renderX
-    --
-    readX
-    --
-    writeX
 
 ## pug/locals
 
