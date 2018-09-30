@@ -29,13 +29,14 @@ build
 
 ## misc high priority
 
-- figure out what to do in build.js WRT .min.css or .min.js etc....
-- connect postcss to the new postcss configure options (not yet establishing the CssCompiler class)
+- implement the baseUrl option
 - add a function to templates for resolving urls in terms of baseUrl option e.g. `publicURL('/path/to/something') ->`
+- connect postcss to the new postcss configure options (not yet establishing the CssCompiler class)
 - loggers: make sure logLevel is being brought through from options
 
 ## build.js re-write
 
+- figure out what to do in build.js WRT .min.css or .min.js etc....
 use sindresorhus step interface
 replace rrdir with chokidar watchers
 for each src type, set watcher
