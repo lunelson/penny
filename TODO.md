@@ -1,3 +1,8 @@
+## more complex talking to bsync
+
+see if you can debug the `.sockets` part of the API to reload only relevant connections...
+https://github.com/BrowserSync/browser-sync/issues/935
+
 ## new config architecture ? seems complicated
 
 serve
