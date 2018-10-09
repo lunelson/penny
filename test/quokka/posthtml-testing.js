@@ -64,6 +64,6 @@ const result = posthtml()
   // .use(preventWidows.posthtml({ attrName: 'no-widows' }))
   .use(require('posthtml-collect-styles')())
   .process(html, { sync: true })
-  .html
+  .html;
 
-console.log(result)
+console.log(result);

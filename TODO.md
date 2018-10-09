@@ -1,3 +1,88 @@
+## more complex talking to bsync
+
+see if you can debug the `.sockets` part of the API to reload only relevant connections...
+https://github.com/BrowserSync/browser-sync/issues/935
+
+## new config architecture ? seems complicated
+
+serve
+  serveParams (deferral)
+  pennyServe
+    -> resolve the params
+build
+  buildParams (deferral)
+  pennyBuild
+    -> resolve the params
+
+## config files, fallback order ?
+
+- browserslist config (autoprefixer, babel)
+  - browserslist key in penny config || allow tool to find it
+  - browserslist key in package
+  - browserlist file
+  - .browserslistrc file
+- penny config
+  - penny key in package
+  - .pennyrc file
+  - penny.config.js file -- which is recommended for more advanced options
+- postcss
+  - postcss.config.js ?
+- posthtml
+  - postthml.config.js ?
+- webpack
+  - webpack.config.js (will ignore entry and output keys however) ?
+
+## implement the baseUrl option
+
+  - supply pug `baseUrl()` and sass `base-url()` functions, to resolve root urls correctly
+  - configure serve according to these posts, when baseUrl option is supplied
+    https://github.com/BrowserSync/browser-sync/issues/1224#issuecomment-270751008
+    https://stackoverflow.com/questions/30370753/gulp-browsersync-serve-at-path/41494102#41494102
+    https://gist.github.com/joemaller/0254b34b88cfc6a9a665025c722891b5
+  - NB original logic of the jekyll feature is explained here https://byparker.com/blog/2014/clearing-up-confusion-around-baseurl/
+
+## misc high priority
+
+- add a function to templates for resolving urls in terms of baseUrl option e.g. `publicURL('/path/to/something') ->`
+- connect postcss to the new postcss configure options (not yet establishing the CssCompiler class)
+- loggers: make sure logLevel is being brought through from options
+
+## build.js re-write
+
+- figure out what to do in build.js WRT .min.css or .min.js etc....
+use sindresorhus step interface
+replace rrdir with chokidar watchers
+for each src type, set watcher
+  addInitial: false
+  on 'add', push to array of 'added files'
+  process all watched files, then
+    process all added files resulting from the processing of initial adds
+
+- add cli-step interface https://github.com/poppinss/cli-step#readme
+- use chokidar watcher to gather files for build -> get watchedFiles
+  - run all pug and MD files first, then re-retrieve watchedFiles in case any new files have been generated from templates and added in meantime
+  - *actually, just use the compiler watchers, to return their watched files, and
+  - use a final chokidar instance to pick up anything that *doesn't* match srcFiles and doesn't match junk
+
+## read-data / data-loading support: JSON5 (JSONC), TOML, CSV
+
+consider forking and re-writing read-data package:
+  - sync operations only
+  - support for TOML, CSV, JSONC, JSON5
+
+1. add loader support to webpack
+  - json5 https://webpack.js.org/loaders/json5-loader/
+  - cson https://github.com/awnist/cson-loader
+  - yaml https://github.com/okonet/yaml-loader
+  - toml https://github.com/KyleAMathews/toml-loader
+  - md/front-matter https://github.com/atlassian/gray-matter-loader, https://webpack.js.org/loaders/yaml-frontmatter-loader/
+
+2. fork/refactor and replace read-data with expanded function:
+  - [various] https://github.com/develar/read-config-file
+  - toml https://github.com/BinaryMuse/toml-node#readme
+  - json5 https://github.com/json5/json5
+  - cson https://github.com/bevry/cson, https://github.com/groupon/cson-parser
+
 ## CSS pre-processing, other languages
 
 Stylus -- will integrate just like Sass, pretty much
@@ -21,55 +106,9 @@ https://node-swig.github.io/swig-templates/
 
 ## vue webpack support
 
-- js reload need to be triggered from compiler, not from watch-js (watch-js is not tracking the full import tree)
-- memoryFs files should be handled by a second middleware, which is a fall-through for anything not found in the first one
-  - this should allow it to catch webpack-processed CSS or files (images)
 - make sure postCSS and Sass are both receiving the same config in webpack as in penny
   https://github.com/postcss/postcss-loader#autoprefixing
   https://github.com/csstools/postcss-preset-env
-
-- confirm: vue-style-loader is a replacement for style-loader, yes?
-
-## non-compiling SRC files
-
-- consider adding a "static" subDir option
-- and/or skip processing of files which are .min.css or .min.js etc.
-
-## data loading
-
-1. add loader support to webpack
-  - json5 https://webpack.js.org/loaders/json5-loader/
-  - cson https://github.com/awnist/cson-loader
-  - yaml https://github.com/okonet/yaml-loader
-  - toml https://github.com/KyleAMathews/toml-loader
-  - md/front-matter https://github.com/atlassian/gray-matter-loader, https://webpack.js.org/loaders/yaml-frontmatter-loader/
-
-2. fork/refactor and replace read-data with expanded function:
-  - [various] https://github.com/develar/read-config-file
-  - toml https://github.com/BinaryMuse/toml-node#readme
-  - json5 https://github.com/json5/json5
-  - cson https://github.com/bevry/cson, https://github.com/groupon/cson-parser
-
-3. figure out how to pass errors along from meta-data, since currently they are a separate routine
-
-## directory finding
-
-- change option reference from 'pubDirName' to just 'pubDir'
-
-## watch code splitting
-
-- re-assign data, pages, datasyncer and pagessyncer references to watch-meta.js
-- delete cache.js
-- use chokidar in watch functions instead of bsync; (adjust API and) figure out if you need to close the watcher
-
-## build !!
-
-- check the JS extension coming out as undefined
-- add cli-step interface https://github.com/poppinss/cli-step#readme
-- use chokidar watcher to gather files for build -> get watchedFiles
-  - run all pug and MD files first, then re-retrieve watchedFiles in case any new files have been generated from templates and added in meantime
-  - *actually, just use the compiler watchers, to return their watched files, and
-  - use a final chokidar instance to pick up anything that *doesn't* match srcFiles and doesn't match junk
 
 ## compilers, universalize
 
@@ -79,47 +118,11 @@ https://node-swig.github.io/swig-templates/
   - NB: maybe a post-processing method is needed, which is used inside "stream"
 - change the logic of the srcWatching and the build/serve routines accordingly
 
-## package usage
-
-- review webpack config: file-loader, url-loader, sass-loader, raw-loader, etc.
-- review markdownit config: core plugins? configurable plugins?
-
-
 ## content generation
 
 - consider adding fixture-factory as _fixtures
   https://fixture-factory.readme.io/docs/getting-started
 - consider creating a *new* instance of chance, fixtures and any other lib that allows mixins, for each return of the pugFunctions setup -- so they don't get mutated
-
-## misc TODO
-
-- add configuration hooks like jekyll's global configuration
-- loggers: make sure logLevel is being brought through from options
-
-## pug / md testing
-
-- create specific src folder patterns under tests/penny:
-  - srcDir-style
-  - pubDir-style
-  -
-  - sass-functions
-
-templates (pug + md-via-pug-layout)
-  props
-    $data, $pages, $page, $options
-  lib methods
-    _, _dayjs, _moment, _dateFns
-    _faker, _chance, _casual
-  own methods
-    dump
-    --
-    require
-    --
-    renderX
-    --
-    readX
-    --
-    writeX
 
 ## pug/locals
 

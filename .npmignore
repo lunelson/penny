@@ -1,7 +1,3 @@
-test-src
-test-out
+assets
 test
-src
-lib/beta
-lib/deprecated
 .vscode
