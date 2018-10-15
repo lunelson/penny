@@ -1,3 +1,7 @@
+## JS ERRORS!!!
+
+- since webpack js compilation is detached from main build functions, errors in js are only output to console, not piped through penny. this must be fixed
+
 ## more complex talking to bsync
 
 see if you can debug the `.sockets` part of the API to reload only relevant connections...
@@ -48,6 +52,8 @@ build
 - loggers: make sure logLevel is being brought through from options
 
 ## build.js re-write
+
+- see pkgs: tiny-glob, eliminate, prompts
 
 - figure out what to do in build.js WRT .min.css or .min.js etc....
 use sindresorhus step interface
