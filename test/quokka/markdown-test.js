@@ -1,26 +1,37 @@
-const pug = require('pug');
-const markdown = require('markdown-it')({ breaks: true });
+const mdi = require('../../lib/config-markdown-it.js')();
+const mdi2 = require('../../lib/config-markdown-it.js')();
 
-const opts = {
-  filters: {
-    markdown(text, opts) {
-      return markdown.render(text, { breaks: false });
-    }
-  }
-};
 
-pug.render(`
+mdi.render('hello'); //?
+mdi.renderInline('hello'); //?
 
-h1 hello
-  :markdown
-    world
-    again
+mdi2.render('hello'); //?
+mdi2.renderInline('hello'); //?
 
-`, opts); //?
+mdi == mdi2; //?
+// const pug = require('pug');
+// const markdown = require('markdown-it')({ breaks: true });
 
-markdown.render(`
+// const opts = {
+//   filters: {
+//     markdown(text, opts) {
+//       return markdown.render(text, { breaks: false });
+//     }
+//   }
+// };
 
-something
-else
+// pug.render(`
 
-`); //?
+// h1 hello
+//   :markdown
+//     world
+//     again
+
+// `, opts); //?
+
+// markdown.render(`
+
+// something
+// else
+
+// `); //?
