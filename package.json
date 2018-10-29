@@ -33,6 +33,7 @@
   },
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watch",
     "eslint": "eslint .",
     "prettier": "prettier \"**/*.+(js)\"",
     "format": "npm run prettier -- --write",

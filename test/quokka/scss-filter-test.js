@@ -1,9 +1,8 @@
 const Sass = require('node-sass');
 
 const test = Sass.renderSync({
-  data: `
-$color: blue;
-body { background-color: $color; }
-  `}).css;
+  data: `$color: red;`,
+  file: 'body { background-color: $color; }',
+}).css;
 
 console.log(test.toString());
