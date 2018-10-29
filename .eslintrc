@@ -1,19 +1,19 @@
 {
   "env": {
+    "es6": true,
     "node": true,
-    "browser": true,
-    "commonjs": true,
-    "es6": true
+    "commonjs": true
   },
   "extends": [
     "eslint:recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings"
+    "plugin:node/recommended",
+    "eslint-config-prettier"
   ],
   "parserOptions": {
     "sourceType": "module",
+    "ecmaVersion": 2018,
     "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
+      "impliedStrict": true
     }
   },
   "rules": {

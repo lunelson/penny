@@ -33,6 +33,10 @@
   },
   "scripts": {
     "test": "echo \"Tests are still TBD\" && exit 0",
+    "eslint": "eslint .",
+    "prettier": "prettier \"**/*.+(js)\"",
+    "format": "npm run prettier -- --write",
+    "validate": "npm run eslint && npm run prettier -- --list-different",
     "debug": "cross-env NODE_ENV=development node --inspect-brk --trace-warnings bin/cli.js serve test/penny/src",
     "start": "cross-env NODE_ENV=development node-dev --respawn --no-deps bin/cli.js serve test/penny/src",
     "serve": "cross-env NODE_ENV=development node bin/cli.js serve test/penny/src",
@@ -44,6 +48,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
+    "acorn": "^6.0.2",
     "ajv": "^6.5.3",
     "autoprefixer": "^9.1.5",
     "babel-loader": "^8.0.2",
@@ -116,7 +121,12 @@
     "yn": "^2.0.0"
   },
   "devDependencies": {
-    "@lunelson/sass-maps-plus": "^0.9.0"
+    "@lunelson/sass-maps-plus": "^0.9.0",
+    "eslint": "^5.8.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-node": "^8.0.0",
+    "husky": "^1.1.2",
+    "prettier": "^1.14.3"
   },
   "engines": {
     "node": ">=9"
