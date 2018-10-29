@@ -23,7 +23,7 @@ url.parse(path.relative(basedir, filename)).pathname; //?
 const pug = require('pug');
 const _ = require('lodash');
 
-function getFilename() { return this.filename };
+function getFilename() { return this.filename; };
 var locals = {};
 locals.getFilename = getFilename.bind(locals);
 const fileA = `
@@ -41,6 +41,6 @@ var html = pug.render(fileB, Object.assign(_.clone(locals), {filename: 'hello wo
 locals; //?
 
 // require.resolve('./index-api.js', { paths: __filename});
-const testPath = path.join(__dirname, './index-api.js') //?
+const testPath = path.join(__dirname, './index-api.js'); //?
 // require.resolve('./index-api.js', { paths: [__dirname] }); //?
 resolve.sync('./index-api', { basedir: __dirname }); //?

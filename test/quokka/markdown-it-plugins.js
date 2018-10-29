@@ -72,10 +72,10 @@ const md = require('markdown-it')({
   })
   .use(require('markdown-it-custom-block'), {
     example (arg) {
-      return `<example-${arg}/>`
+      return `<example-${arg}/>`;
     },
     video (url) {
-      return `<video controls><source src="${url}" type="video/mp4"></video>`
+      return `<video controls><source src="${url}" type="video/mp4"></video>`;
     }
   })
   .use(require('markdown-it-footnote')) // pandoc format http://pandoc.org/MANUAL.html#footnotes

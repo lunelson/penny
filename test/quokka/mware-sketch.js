@@ -20,7 +20,7 @@ const { readFile } = require('fs');
 const { parse } = require('url');
 const { extname, join } = require('path');
 
-const srcDir = '/foo/bar'
+const srcDir = '/foo/bar';
 
 function mware(req, res, next = () => 'next') {
   let { pathname } = parse(req);

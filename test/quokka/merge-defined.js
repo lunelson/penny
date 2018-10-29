@@ -70,7 +70,7 @@ const defaults = {
   startPath: true,
   codeSync: true,
   timestamps: true,
-}
+};
 
 console.log(mergeDefined({}, defaults, {
   ghostMode,

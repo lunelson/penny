@@ -5,8 +5,8 @@ a lne
 b "more"
 c then;
 `, {
-    wrap: true,
-    quotes: 'single'
+  wrap: true,
+  quotes: 'single'
 }));
 
 console.log(cssErr(`
