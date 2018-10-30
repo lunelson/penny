@@ -83,6 +83,7 @@
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-footnote": "^3.0.1",
     "markdown-it-mark": "^2.0.0",
+    "markdown-it-mentions": "^1.0.0",
     "memory-fs": "^0.4.1",
     "mini-css-extract-plugin": "^0.4.4",
     "moment": "^2.22.2",
@@ -125,9 +126,13 @@
     "eslint": "^5.8.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-prettier": "^3.0.0",
     "husky": "^1.1.2",
     "jest": "^23.6.0",
     "lint-staged": "^8.0.0",
+    "markdown-it-container": "^2.0.0",
+    "markdown-it-custom-block": "^0.1.1",
+    "markdown-it-implicit-figures": "^0.9.0",
     "prettier": "^1.14.3"
   },
   "engines": {

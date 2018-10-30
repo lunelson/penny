@@ -1,3 +1,5 @@
+// pug stuff
+
 /*
 ## markdown-it plugins
 
@@ -42,35 +44,107 @@ use this article as a starting point, to model how you will modify markdown proc
     https://github.com/funkjunky/mdfigcaption
 */
 
-const md = require('markdown-it')({
+
+const mdiContainer = require('markdown-it-container');
+const mdiBlocks = require('markdown-it-custom-block');
+const mdiMentions = require('markdown-it-mentions');
+
+function setOpeningToken(token, cb) {
+  if (token.nesting > 0) {
+    const name = token.type.match(/container_(.+)_open/)[1];
+    const args = token.info.trim().match(new RegExp(`^${name}\\s+(.*)$`));
+    cb(name, (args && args[1].split(' ')) || []);
+  }
+}
+
+const mdi = require('markdown-it')({
   html: true, // allow writing html (security is OK, because no user input)
   breaks: true, // line breaks = <br>
   typographer: true,
 })
-  // NB order of processing is from bottom to top
+
   .use(require('markdown-it-attrs'))
-  // .use(require('markdown-it-anchor'))
   .use(require('markdown-it-implicit-figures'), { figcaption: true })
-  .use(require('markdown-it-container'), 'spoiler', {
 
-    validate: function(params) {
-      return params.trim().match(/^spoiler\s+(.*)$/);
+  .use(mdiContainer, 'section', {
+    render: function(tokens, idx, _options, env, self) {
+      tokens[idx].tag = 'section';
+      return self.renderToken(tokens, idx, _options, env, self)
     },
-
-    render: function (tokens, idx) {
-      var m = tokens[idx].info.trim().match(/^spoiler\s+(.*)$/);
-
-      if (tokens[idx].nesting === 1) {
-        // opening tag
-        return '<details><summary>' + md.utils.escapeHtml(m[1]) + '</summary>\n';
-
-      } else {
-        // closing tag
-        return '</details>\n';
-      }
-    }
   })
-  .use(require('markdown-it-custom-block'), {
+
+  .use(mdiContainer, 'aside', {
+    render: function(tokens, idx, _options, env, self) {
+      tokens[idx].tag = 'aside';
+      return self.renderToken(tokens, idx, _options, env, self)
+    },
+  })
+
+  .use(mdiContainer, 'figure', {
+    render: function(tokens, idx, _options, env, self) {
+      // TODO: pick up arguments here, to apply to figcaption
+      tokens[idx].tag = 'figure';
+      return self.renderToken(tokens, idx, _options, env, self)
+    },
+  })
+
+  .use(mdiContainer, 'nav', {
+    render: function(tokens, idx, _options, env, self) {
+      tokens[idx].tag = 'nav';
+      return self.renderToken(tokens, idx, _options, env, self)
+    },
+  })
+
+  .use(mdiContainer, 'div', {
+    render: function(tokens, idx, _options, env, self) {
+      tokens[idx].tag = 'div';
+      return self.renderToken(tokens, idx, _options, env, self)
+    },
+  })
+
+  .use(mdiContainer, 'minimal', {
+    render: function(tokens, idx, _options, env, self) {
+      /*
+      METHODS / PROPS
+        token.type = container_${name}_open/_close
+        token.info = raw params
+        token.tag = div
+        token.attrs = []
+        token.block = true
+        token.hidden = false
+        token.content = ''
+        token.attrPush(name, value)
+        self.renderToken(tokens, idx, _options, env, self)
+      */
+      const token = tokens[idx];
+      token.tag = 'minimal';
+      setOpeningToken(token, (name, args) => {
+        token.attrPush(['data-name', name]);
+      });
+      return self.renderToken(tokens, idx, _options, env, self)
+    },
+  })
+
+  .use(mdiContainer, 'spoiler', {
+    marker: '/',
+    render: function(tokens, idx, _options, env, self) {
+      const token = tokens[idx];
+      var m = token.info.trim().match(/^spoiler\s+(.*)$/);
+      // token.attrs;//?
+      // self.renderAttrs.toString() //?
+      // token.attrs && self.renderAttrs(token); //?
+      // console.log(Object.getPrototypeOf(self));
+      return token.nesting > 0 ?
+        `<details${self.renderAttrs(token)}><summary>${mdi.utils.escapeHtml(m[1])}</summary>\n` :
+          // content goes here
+        '</details>\n';
+    },
+  })
+
+  .use(mdiBlocks, {
+    /* CUSTOM BLOCKS
+      img, imgix, svg, video, youtube, twitter, codepen, codesandbox
+    */
     example (arg) {
       return `<example-${arg}/>`;
     },
@@ -78,19 +152,30 @@ const md = require('markdown-it')({
       return `<video controls><source src="${url}" type="video/mp4"></video>`;
     }
   })
+  .use(mdiMentions, { external: true, parseURL(user) { return `https://twitter.com/${user}` } })
   .use(require('markdown-it-footnote')) // pandoc format http://pandoc.org/MANUAL.html#footnotes
   .use(require('markdown-it-deflist')) // pandoc format http://pandoc.org/MANUAL.html#definition-lists
   .use(require('markdown-it-emoji')) // see github emojis https://www.githubemojis.com/
   .use(require('markdown-it-mark')) // allows ==text== format for <mark> tags (hilighting)
 ;
 
-const out = md.render(`
+mdi.render(`
+# test 1
+
+this is a paragraph with a [link](/nowwhere) in it, and a @lunelson also in it
+`);//?
+const out = mdi.render(`
 
 ### hello world<br>this is a break{no-widows}
 
-::: spoiler hi there
-some shit
+
+::: section {.bleed-left}
+### Heading up this section
 :::
+
+/// spoiler hi there {.hello}
+some shit
+///
 
 ![image alt text](/some/local/image.jpg){.left}
 
