@@ -6,12 +6,11 @@
     "commonjs": true
   },
   "extends": [
-    "plugin:prettier/recommended",
+    "eslint:recommended",
     "plugin:node/recommended"
   ],
   "plugins": [
-    "node",
-    "prettier"
+    "node"
   ],
   "parserOptions": {
     "sourceType": "module",
