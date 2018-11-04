@@ -1,7 +1,5 @@
-```js [src]
-function helloworld(){
-
-}
+```ejs [src-out]
+<div></div>
 ```
 
 ```scss [out,bar]
@@ -10,7 +8,21 @@ function helloworld(){
 }
 ```
 
-```pug [src-out, foo]
+
+```pug
 mixin whatever()
   .whatever
+```
+
+::: frame
+```pug [!=]
+
+mixin whatever()
+  .whatever
+
+```
+:::
+
+```scss [!=]
+
 ```
