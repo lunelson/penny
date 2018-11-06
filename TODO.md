@@ -1,3 +1,13 @@
+## Sass Data
+
+- option: `sassData: true|false`
+- use SassUtils to turn `$data` in to a Sass file containing a variable `$data` as a map.
+- prepend this to Sass renders?; however it requires having $data changes refresh all Sass files, regardless of whether any of them use any data
+- better option
+  - add `data($path)` function that will read in the file at that path in the `_data` folder
+  - that single file gets added to that Sass entry point's dep list
+
+
 ## JS ERRORS!!!
 
 - since webpack js compilation is detached from main build functions, errors in js are only output to console, not piped through penny. this must be fixed
