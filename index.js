@@ -67,15 +67,15 @@ function init(srcDir, doAction) {
 
 function serve(srcDir) {
   init(srcDir, ([pubDir, options]) => {
-    Object.assign(options, { isDev: true, isBuild: false});
+    Object.assign(options, { isDev: true });
     doServe(srcDir, pubDir, options);
   });
 }
 
 function build(srcDir, outDir) {
   init(srcDir, ([pubDir, options]) => {
-    // TODO: remove the isBuild flag, if it turns out to be unnecessary in new build.js
-    Object.assign(options, { isDev: process.env.NODE_ENV == 'development', isBuild: true});
+    // Object.assign(options, { isDev: process.env.NODE_ENV == 'development' });
+    Object.assign(options, { isDev: false });
     doBuild(srcDir, pubDir, outDir, options);
   });
 }
