@@ -1,3 +1,26 @@
+## additions to data/helpers
+
+- add _nanoid and/or _uuidv4 to helpers
+- add browsers key in to $data, so we can automatically build a check
+  https://github.com/browserslist/browserslist
+  https://github.com/browserslist/browserslist-useragent
+
+## add notifications at OS level?
+
+- alternative to on-screen errors
+  https://www.npmjs.com/package/webpack-build-notifier
+  https://github.com/mikaelbr/node-notifier
+
+
+## comparison to other products
+
+- this article details migrating a jekyll site to an 11ty one https://24ways.org/2018/turn-jekyll-up-to-eleventy/
+  - NOTE the supported features, as well as supported templating languages https://www.11ty.io/docs/languages/
+
+
+
+
+
 ## Sass Data
 
 - option: `sassData: true|false`
@@ -64,6 +87,14 @@ build
 ## build.js re-write
 
 - see pkgs: tiny-glob, eliminate, prompts
+- use listr https://github.com/SamVerschueren/listr
+
+CLI
+  listr
+delete files
+  del, eliminate, trash
+glob
+  tiny-glob, micromatch, gulp (src, watch, etc)
 
 - figure out what to do in build.js WRT .min.css or .min.js etc....
 use sindresorhus step interface

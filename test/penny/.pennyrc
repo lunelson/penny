@@ -1,5 +1,5 @@
 {
-  "browsers": [ ">1% in DE", "last 5 years" ],
-  "logLevel": "debug",
+  "browsers": ">1% in DE",
+  "logLevel": "warn",
   "webRoot": "_root"
 }
