@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`block rendering 1`] = `
-"<p>hello <strong>world</strong></p>
-"
-`;
-
-exports[`inline rendering 1`] = `"hello <strong>world</strong>"`;

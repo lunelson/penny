@@ -32,12 +32,8 @@
     "url": "git+https://github.com/lunelson/penny.git"
   },
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "ava",
     "eslint": "eslint .",
-    "prettier": "prettier \"**/*.+(js)\"",
-    "format": "npm run prettier -- --write",
-    "validate": "npm run eslint && npm run prettier -- --list-different",
     "debug": "cross-env NODE_ENV=development node --inspect-brk --trace-warnings bin/cli.js serve test/penny/src",
     "start": "cross-env NODE_ENV=development node-dev --respawn --no-deps bin/cli.js serve test/penny/src",
     "serve": "cross-env NODE_ENV=development node bin/cli.js serve test/penny/src",
@@ -124,17 +120,12 @@
   },
   "devDependencies": {
     "@lunelson/sass-maps-plus": "^0.9.0",
+    "ava": "^1.0.1",
     "eslint": "^5.8.0",
-    "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-node": "^8.0.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "husky": "^1.1.2",
-    "jest": "^23.6.0",
-    "lint-staged": "^8.0.0",
     "markdown-it-container": "^2.0.0",
     "markdown-it-custom-block": "^0.1.1",
-    "markdown-it-implicit-figures": "^0.9.0",
-    "prettier": "^1.14.3"
+    "markdown-it-implicit-figures": "^0.9.0"
   },
   "engines": {
     "node": ">=9"
@@ -142,9 +133,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "ava": {
+    "verbose": true,
+    "failFast": true,
+    "files": [
+      "lib/__tests__/*.js"
+    ]
   }
 }
