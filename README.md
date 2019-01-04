@@ -2,9 +2,9 @@
 
 # penny <br> a zero-config on-the-fly-compiling dev server <br>...which also builds and is configurable
 
-[![npm published v](https://img.shields.io/npm/v/@lunelson/penny.svg)]()
-[![dependencies](https://david-dm.org/lunelson/penny.svg)]()
-[![node supported v](https://img.shields.io/node/v/@lunelson/penny.svg)]()
+[![npm published v](https://img.shields.io/npm/v/@lunelson/penny.svg?style=flat-square)]()
+[![dependencies](https://david-dm.org/lunelson/penny.svg?style=flat-square)]()
+[![node supported v](https://img.shields.io/node/v/@lunelson/penny.svg?style=flat-square)]()
 
 ### philosophy
 

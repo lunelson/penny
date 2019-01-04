@@ -1,4 +1,17 @@
+## inspirations for this project
+
+https://github.com/mattdesl/budo
+https://github.com/chrisdickinson/beefy
+http://harpjs.com/
+
+## alternate static server
+
+https://github.com/jfhbrook/node-ecstatic
+
 ## CLI prompting / step-through
+
+Browser Menu https://github.com/hughsk/browser-menu
+Terminal Menu https://github.com/substack/terminal-menu
 
 Prompts https://github.com/terkelg/prompts
 Prompt https://github.com/flatiron/prompt
