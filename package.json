@@ -129,7 +129,8 @@
     "eslint-plugin-node": "^8.0.0",
     "markdown-it-container": "^2.0.0",
     "markdown-it-custom-block": "^0.1.1",
-    "markdown-it-implicit-figures": "^0.9.0"
+    "markdown-it-implicit-figures": "^0.9.0",
+    "markdown-it-prism": "^2.0.1"
   },
   "engines": {
     "node": ">=9"

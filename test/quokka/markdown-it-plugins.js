@@ -64,80 +64,25 @@ const mdi = require('markdown-it')({
 })
 
   .use(require('markdown-it-attrs'))
-  .use(require('markdown-it-implicit-figures'), { figcaption: true })
-
-  .use(mdiContainer, 'section', {
-    render: function(tokens, idx, _options, env, self) {
-      tokens[idx].tag = 'section';
-      return self.renderToken(tokens, idx, _options, env, self)
-    },
-  })
-
-  .use(mdiContainer, 'aside', {
-    render: function(tokens, idx, _options, env, self) {
-      tokens[idx].tag = 'aside';
-      return self.renderToken(tokens, idx, _options, env, self)
-    },
-  })
-
+  // .use(require('markdown-it-implicit-figures'), { figcaption: true })
   .use(mdiContainer, 'figure', {
     render: function(tokens, idx, _options, env, self) {
-      // TODO: pick up arguments here, to apply to figcaption
       tokens[idx].tag = 'figure';
+      tokens[idx].attrJoin('class', 'stack-xs')
+      idx;
+      tokens[idx].info; //?
+      tokens[idx].attrs; //?
+      // tokens[idx].attrs && self.renderAttrs(tokens[idx]); //?
+      // tokens[idx];//?
+      Object.getPrototypeOf(tokens[idx]);//?
+      // Object.getPrototypeOf(self);//?
+      var m = tokens[idx].info.trim().match(/^figure\s+(.*)$/); //?
+      if (tokens[idx].nesting === 1) {
+        return `<figure${tokens[idx].attrs?self.renderAttrs(tokens[idx]):''}><figcaption>${m?mdi.utils.escapeHtml(m[1]):''}</figcaption>`
+      } else {
+        return `</figure>`;
+      }
       return self.renderToken(tokens, idx, _options, env, self)
-    },
-  })
-
-  .use(mdiContainer, 'nav', {
-    render: function(tokens, idx, _options, env, self) {
-      tokens[idx].tag = 'nav';
-      return self.renderToken(tokens, idx, _options, env, self)
-    },
-  })
-
-  .use(mdiContainer, 'div', {
-    render: function(tokens, idx, _options, env, self) {
-      tokens[idx].tag = 'div';
-      return self.renderToken(tokens, idx, _options, env, self)
-    },
-  })
-
-  .use(mdiContainer, 'minimal', {
-    render: function(tokens, idx, _options, env, self) {
-      /*
-      METHODS / PROPS
-        token.type = container_${name}_open/_close
-        token.info = raw params
-        token.tag = div
-        token.attrs = []
-        token.block = true
-        token.hidden = false
-        token.content = ''
-        token.attrPush(name, value)
-        self.renderToken(tokens, idx, _options, env, self)
-      */
-      const token = tokens[idx];
-      token.tag = 'minimal';
-      setOpeningToken(token, (name, args) => {
-        token.attrPush(['data-name', name]);
-      });
-      return self.renderToken(tokens, idx, _options, env, self)
-    },
-  })
-
-  .use(mdiContainer, 'spoiler', {
-    marker: '/',
-    render: function(tokens, idx, _options, env, self) {
-      const token = tokens[idx];
-      var m = token.info.trim().match(/^spoiler\s+(.*)$/);
-      // token.attrs;//?
-      // self.renderAttrs.toString() //?
-      // token.attrs && self.renderAttrs(token); //?
-      // console.log(Object.getPrototypeOf(self));
-      return token.nesting > 0 ?
-        `<details${self.renderAttrs(token)}><summary>${mdi.utils.escapeHtml(m[1])}</summary>\n` :
-          // content goes here
-        '</details>\n';
     },
   })
 
@@ -145,12 +90,10 @@ const mdi = require('markdown-it')({
     /* CUSTOM BLOCKS
       img, imgix, svg, video, youtube, twitter, codepen, codesandbox
     */
-    example (arg) {
-      return `<example-${arg}/>`;
-    },
+    example (arg) { return `<example-${arg}/>`; },
     video (url) {
       return `<video controls><source src="${url}" type="video/mp4"></video>`;
-    }
+    },
   })
   .use(mdiMentions, { external: true, parseURL(user) { return `https://twitter.com/${user}` } })
   .use(require('markdown-it-footnote')) // pandoc format http://pandoc.org/MANUAL.html#footnotes
@@ -161,48 +104,53 @@ const mdi = require('markdown-it')({
 
 mdi.render(`
 # test 1
-
 this is a paragraph with a [link](/nowwhere) in it, and a @lunelson also in it
-`);//?
-const out = mdi.render(`
 
-### hello world<br>this is a break{no-widows}
+@[video](/foo/bar.mp4){.align-left}
 
-
-::: section {.bleed-left}
+::: figure something {.bleed-left}
 ### Heading up this section
+<figcaption>hello world this is the caption</figcaption>
 :::
-
-/// spoiler hi there {.hello}
-some shit
-///
-
-![image alt text](/some/local/image.jpg){.left}
-
-@[example](hello)
-
-@[video](video.mp4)
-
-this is something with a footnote[^1] :grinning:
-and this is after the line break
-
-> and what about quotes
-if I just use a new line here?
-> citation
-
-[^1]: this is a footnote
-
-this is a further paragraph, nothing to do with the former
-
-Term 1
-: Definition 1
-
-Term 2 with *inline markup*
-
-: Definition 2
-
-  Third paragraph of definition 2.
-
-      { some code, part of Definition 2 }
-
 `); //?
+// const out = mdi.render(`
+
+// ### hello world<br>this is a break{no-widows}
+
+// ::: section {.bleed-left}
+// ### Heading up this section
+// :::
+
+// /// spoiler hi there {.hello}
+// some shit
+// ///
+
+// ![image alt text](/some/local/image.jpg){.left}
+
+// @[example](hello)
+
+// @[video](video.mp4)
+
+// this is something with a footnote[^1] :grinning:
+// and this is after the line break
+
+// > and what about quotes
+// if I just use a new line here?
+// > citation
+
+// [^1]: this is a footnote
+
+// this is a further paragraph, nothing to do with the former
+
+// Term 1
+// : Definition 1
+
+// Term 2 with *inline markup*
+
+// : Definition 2
+
+//   Third paragraph of definition 2.
+
+//       { some code, part of Definition 2 }
+
+// `); //?
