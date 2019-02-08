@@ -124,7 +124,10 @@
     "yn": "^3.0.0"
   },
   "devDependencies": {
+    "@lunelson/sass-calc": "^1.2.0",
+    "@lunelson/sass-lerp": "^1.0.0-beta.2",
     "@lunelson/sass-maps-plus": "^0.9.0",
+    "@lunelson/sass-throw": "^2.1.0",
     "ava": "^1.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-node": "^8.0.0",
