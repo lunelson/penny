@@ -17,14 +17,11 @@ module.exports = {
 
       .use(mdiContainer, 'figure', {
         render: function(tokens, idx, _options, env, self) {
-          // TODO: pick up arguments here, to apply to figcaption
-
           const token = tokens[idx];
           var m = token.info.trim().match(/^spoiler\s+(.*)$/);
-          token.attrs;//?
+          token.attrs;
           self.renderAttrs.toString()
           token.attrs && self.renderAttrs(token);
-          // Object.getPrototypeOf(self);//?
           tokens[idx].tag = 'figure';
           return self.renderToken(tokens, idx, _options, env, self)
         },
