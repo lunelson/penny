@@ -16,9 +16,9 @@ html(lang="en")
     h1 testing
     h2 $data
     pre!= dump($data)
-    h2 matchURL
-    pre!= dump(matchURL($page, '/*'))
-    pre!= dump(matchURL($pages, '/*'))
+    h2 matchRoute
+    pre!= dump(matchRoute($page, '/md/:slug*'))
+    pre!= dump(matchRoute($pages, '/md/:slug*'))
     h2 $page, $pages
     pre!= dump($page)
     pre!= dump($pages)

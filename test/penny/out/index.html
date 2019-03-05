@@ -1,4 +1,5 @@
 <!DOCTYPE html><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>So this is pretty compact</title><link href="/index.css" rel="stylesheet"></head><body><h1>testing</h1><h2>$data</h2><pre>{
+  "_errors": {},
   "something": {
     "title": "some random shiteyo",
     "collection": [
@@ -15,21 +16,21 @@
       "this": "is some data"
     }
   }
-}</pre><h2>matchURL</h2><pre>{
-  "pathname": "/_root/index.html",
+}</pre><h2>matchRoute</h2><pre>{
+  "route": "/index.html",
   "title": "So this is pretty compact",
   "tags": [
     "foo",
     "bar"
   ],
-  "_": "_root/index"
+  "_": "index"
 }</pre><pre>[
   {
-    "pathname": "/foo.html",
+    "route": "/foo.html",
     "_": "foo"
   },
   {
-    "pathname": "/index.html",
+    "route": "/index.html",
     "title": "So this is pretty compact",
     "tags": [
       "foo",
@@ -38,57 +39,57 @@
     "_": "index"
   },
   {
-    "pathname": "/md/index.html",
+    "route": "/md/index.html",
     "title": "Index",
     "layout": "_layout.pug",
     "_": "md/index"
   },
   {
-    "pathname": "/md/no-layout.html",
+    "route": "/md/no-layout.html",
     "title": "No Layout",
     "_": "md/no-layout"
   },
   {
-    "pathname": "/md/no-publish.html",
+    "route": "/md/no-publish.html",
     "title": "No Publish",
     "layout": "_layout.pug",
     "publish": false,
     "_": "md/no-publish"
   },
   {
-    "pathname": "/md/page.html",
-    "title": "Page",
+    "route": "/md/plugins.html",
+    "title": "Plugin Testing",
     "layout": "_layout.pug",
-    "_": "md/page"
+    "_": "md/plugins"
   },
   {
-    "pathname": "/pug/data.html",
+    "route": "/pug/data.html",
     "_": "pug/data"
   },
   {
-    "pathname": "/pug/dummy.html",
+    "route": "/pug/dummy.html",
     "_": "pug/dummy"
   },
   {
-    "pathname": "/pug/filters.html",
+    "route": "/pug/filters.html",
     "_": "pug/filters"
   },
   {
-    "pathname": "/pug/read-write.html",
+    "route": "/pug/read-write.html",
     "title": "Pug Read/Write Function Testing",
     "_": "pug/read-write"
   },
   {
-    "pathname": "/pug/render.html",
+    "route": "/pug/render.html",
     "title": "Pug Render Testing",
     "_": "pug/render"
   },
   {
-    "pathname": "/pug/utilities.html",
+    "route": "/pug/utilities.html",
     "_": "pug/utilities"
   },
   {
-    "pathname": "/pug/read-sources/dummy.html",
+    "route": "/pug/read-sources/dummy.html",
     "title": "Dummy File",
     "tags": [
       "what",
@@ -98,32 +99,33 @@
     "_": "pug/read-sources/dummy"
   },
   {
-    "pathname": "/_hide/fail/js/index.html",
+    "route": "/_hide/fail/js/index.html",
     "_": "_hide/fail/js/index"
   },
   {
-    "pathname": "/_hide/fail/pug/index.html",
+    "route": "/_hide/fail/pug/index.html",
     "_": "_hide/fail/pug/index"
   },
   {
-    "pathname": "/_hide/fail/scss/index.html",
+    "route": "/_hide/fail/scss/index.html",
     "_": "_hide/fail/scss/index"
   }
 ]</pre><h2>$page, $pages</h2><pre>{
-  "pathname": "/_root/index.html",
+  "route": "/index.html",
   "title": "So this is pretty compact",
   "tags": [
     "foo",
     "bar"
   ],
-  "_": "_root/index"
+  "_": "index"
 }</pre><pre>[
+  {},
   {
-    "pathname": "/foo.html",
+    "route": "/foo.html",
     "_": "foo"
   },
   {
-    "pathname": "/index.html",
+    "route": "/index.html",
     "title": "So this is pretty compact",
     "tags": [
       "foo",
@@ -132,57 +134,57 @@
     "_": "index"
   },
   {
-    "pathname": "/md/index.html",
+    "route": "/md/index.html",
     "title": "Index",
     "layout": "_layout.pug",
     "_": "md/index"
   },
   {
-    "pathname": "/md/no-layout.html",
+    "route": "/md/no-layout.html",
     "title": "No Layout",
     "_": "md/no-layout"
   },
   {
-    "pathname": "/md/no-publish.html",
+    "route": "/md/no-publish.html",
     "title": "No Publish",
     "layout": "_layout.pug",
     "publish": false,
     "_": "md/no-publish"
   },
   {
-    "pathname": "/md/page.html",
-    "title": "Page",
+    "route": "/md/plugins.html",
+    "title": "Plugin Testing",
     "layout": "_layout.pug",
-    "_": "md/page"
+    "_": "md/plugins"
   },
   {
-    "pathname": "/pug/data.html",
+    "route": "/pug/data.html",
     "_": "pug/data"
   },
   {
-    "pathname": "/pug/dummy.html",
+    "route": "/pug/dummy.html",
     "_": "pug/dummy"
   },
   {
-    "pathname": "/pug/filters.html",
+    "route": "/pug/filters.html",
     "_": "pug/filters"
   },
   {
-    "pathname": "/pug/read-write.html",
+    "route": "/pug/read-write.html",
     "title": "Pug Read/Write Function Testing",
     "_": "pug/read-write"
   },
   {
-    "pathname": "/pug/render.html",
+    "route": "/pug/render.html",
     "title": "Pug Render Testing",
     "_": "pug/render"
   },
   {
-    "pathname": "/pug/utilities.html",
+    "route": "/pug/utilities.html",
     "_": "pug/utilities"
   },
   {
-    "pathname": "/pug/read-sources/dummy.html",
+    "route": "/pug/read-sources/dummy.html",
     "title": "Dummy File",
     "tags": [
       "what",
@@ -192,15 +194,15 @@
     "_": "pug/read-sources/dummy"
   },
   {
-    "pathname": "/_hide/fail/js/index.html",
+    "route": "/_hide/fail/js/index.html",
     "_": "_hide/fail/js/index"
   },
   {
-    "pathname": "/_hide/fail/pug/index.html",
+    "route": "/_hide/fail/pug/index.html",
     "_": "_hide/fail/pug/index"
   },
   {
-    "pathname": "/_hide/fail/scss/index.html",
+    "route": "/_hide/fail/scss/index.html",
     "_": "_hide/fail/scss/index"
   }
 ]</pre><script src="main.js"></script></body></html>
