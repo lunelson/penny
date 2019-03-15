@@ -1,3 +1,33 @@
+## ARCHITECTURE CHANGES, URGENT
+
+1. separate watching by type, combine meta and page under html to avoid double reload signal, i.e. avoid need to debounce
+
+    watch-html
+      update meta
+      clear caches for all .html
+      clear template for given file -> .html
+
+    watch-css
+
+    watch-js
+
+2. create a compiler chain that
+  - handles all types including native
+  - maybe also writes the classes in single file?
+
+    compile-html (apply post-html)
+      compile-pug (extend html)
+      compile-njk (extend html)
+      compile-md (extend pug/njk, depending?)
+    compile-css (apply post-css)
+      compile-scss (extend css)
+      compile-sass (extend css)
+      compile-styl (extend css)
+    compile-js (do webpack)
+
+3. make sure compile-js and watch-js do not block anything if there are no JS files present
+
+
 ## testing
 
 ### creating temp files

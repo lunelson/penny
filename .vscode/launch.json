@@ -30,7 +30,7 @@
       "program": "${workspaceFolder}/bin/cli.js",
       "args": [
         "serve",
-        "/Users/lunelson/Git/projects/nova-lbz-proto/src"
+        "/Users/lunelson/Downloads/prism-test/visual-test"
       ],
       "runtimeArgs": [
         "--trace-warnings",
