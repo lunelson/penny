@@ -1,8 +1,10 @@
 ## ARCHITECTURE CHANGES, URGENT
 
 0. re-think the rendering using `worker_threads`
+
   - implement a worker pool for each src type, 3-5 workers, with queue
     https://blog.logrocket.com/a-complete-guide-to-threads-in-node-js-4fa3898fe74f
+
   - do everything with async/await and bubble errors through
     see: https://courses.wesbos.com/account/access/5849bdbb8dab401bac1a3962/view/235537238
 
@@ -156,16 +158,9 @@ consider forking and re-writing read-data package:
 
 1. add loader support to webpack
   - json5 https://webpack.js.org/loaders/json5-loader/
-  - cson https://github.com/awnist/cson-loader
   - yaml https://github.com/okonet/yaml-loader
   - toml https://github.com/KyleAMathews/toml-loader
   - md/front-matter https://github.com/atlassian/gray-matter-loader, https://webpack.js.org/loaders/yaml-frontmatter-loader/
-
-2. fork/refactor and replace read-data with expanded function:
-  - [various] https://github.com/develar/read-config-file
-  - toml https://github.com/BinaryMuse/toml-node#readme
-  - json5 https://github.com/json5/json5
-  - cson https://github.com/bevry/cson, https://github.com/groupon/cson-parser
 
 ## CSS pre-processing, other languages
 

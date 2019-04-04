@@ -2,15 +2,14 @@
 
 'use-strict';
 
-// NPM
 const path = require('path');
 const cli = require('commander');
 const up = require('update-notifier');
-
-// LOCAL
-const { eazyLogger } = require('../lib/loggers.js');
+const { logger } = require('../lib/util-loggers.js');
 const { serve, build } = require('../index.js');
 const pkg = require('../package.json');
+
+
 up({pkg}).notify();
 
 var banner = `
@@ -31,14 +30,14 @@ var header = `
 `;
 
 function print() {
-  eazyLogger.info(`{green: ${banner}}`);
-  eazyLogger.info(`{green: ${header}}`);
+  logger.info(`{magenta: ${banner}}`);
+  logger.info(`{magenta: ${header}}`);
 }
 
-// VERSION
+// version
 cli.version(pkg.version, '-v, --version');
 
-// SERVE
+// serve
 cli
   .command('serve [src]')
   .description('serve source directory')
@@ -47,7 +46,7 @@ cli
     serve(path.resolve(src));
   });
 
-// BUILD
+// build
 cli
   .command('build <src> <out>')
   .description('build source directory to output directory')
@@ -56,6 +55,6 @@ cli
     build(path.resolve(src), path.resolve(out));
   });
 
-// PARSE
+// parse
 cli.parse(process.argv);
 if (cli.args.length < 1) cli._events['command:serve'](); // default command
