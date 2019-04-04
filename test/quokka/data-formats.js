@@ -28,3 +28,32 @@ try {
 } catch (err) {
   console.log(err);
 }
+
+// CSV
+// https://csv.js.org/convert/
+// https://csv.js.org/parse/api/#sync-api
+// alternative https://github.com/mafintosh/csv-parser
+const csvParse = require('csv-parse/lib/sync')
+try {
+  const csvData = csvParse(fs.readFileSync(require.resolve('./test-file.csv'), 'utf8'), {
+    columns: true,
+    delimiter: ',',
+    relax_column_count: true,
+    skip_lines_with_error: true,
+    skip_empty_lines: true,
+  }); //?
+} catch (err) {
+  console.log(err);
+}
+
+// const assert = require('assert')
+
+// const input = `
+// "key_1","key_2"
+// "value 1","value 2"
+// `
+// const records = csvParse(input, {
+//   columns: true,
+//   skip_empty_lines: true
+// })
+// assert.deepEqual(records, [{ key_1: 'value 1', key_2: 'value 2' }])

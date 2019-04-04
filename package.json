@@ -64,6 +64,7 @@
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.0",
     "csv-load-sync": "^1.0.0",
+    "csv-parse": "^4.3.4",
     "date-fns": "^1.29.0",
     "dayjs": "^1.7.7",
     "del": "^3.0.0",
