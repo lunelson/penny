@@ -34,10 +34,13 @@
   "scripts": {
     "test": "ava",
     "eslint": "eslint .",
+    "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
     "debug": "cross-env NODE_ENV=development node --inspect-brk --trace-warnings bin/cli.js serve test/penny/src",
     "start": "npm run serve",
-    "serve": "cross-env NODE_ENV=development node-dev --respawn --no-deps bin/cli.js serve test/penny/src",
-    "build": "cross-env NODE_ENV=production node-dev --respawn --no-deps bin/cli.js build test/penny/src test/penny/out"
+    "serve": "node-dev --respawn --no-deps bin/cli.js serve test/penny/src",
+    "build": "node-dev --respawn --no-deps bin/cli.js build test/penny/src test/penny/out",
+    "serve:dumb": "node bin/cli.js serve test/penny/src",
+    "build:dumb": "node bin/cli.js build test/penny/src test/penny/out"
   },
   "dependencies": {
     "@babel/core": "^7.1.2",
@@ -58,12 +61,9 @@
     "change-case": "^3.0.2",
     "chokidar": "^2.0.4",
     "commander": "^2.19.0",
-    "console.json": "^0.2.1",
     "cosmiconfig": "^5.0.6",
-    "cp-file": "^6.0.0",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.0",
-    "csv-load-sync": "^1.0.0",
     "csv-parse": "^4.3.4",
     "date-fns": "^1.29.0",
     "dayjs": "^1.7.7",
@@ -71,8 +71,6 @@
     "eazy-logger": "^3.0.2",
     "faker": "^4.1.0",
     "file-loader": "^3.0.1",
-    "filter-files": "^0.4.0",
-    "findup-sync": "^3.0.0",
     "gray-matter": "^4.0.1",
     "http2": "^3.3.7",
     "image-size": "^0.6.3",
@@ -82,7 +80,6 @@
     "junk": "^2.1.0",
     "lodash": "^4.17.11",
     "log-symbols": "^2.2.0",
-    "log-utils": "^1.0.0",
     "markdown-it": "^8.4.2",
     "markdown-it-attrs": "^2.3.2",
     "markdown-it-deflist": "^2.0.3",
@@ -106,7 +103,6 @@
     "posthtml-collect-styles": "0.0.1",
     "posthtml-doctype": "^1.1.1",
     "posthtml-minifier": "^0.1.0",
-    "prettier-inspect": "^1.0.0",
     "prevent-widows": "^1.0.2",
     "pug": "^2.0.3",
     "pug-plain-loader": "^1.0.0",
@@ -137,15 +133,19 @@
     "@lunelson/sass-maps-plus": "^0.9.0",
     "@lunelson/sass-throw": "^2.1.0",
     "ava": "^1.0.1",
-    "eslint": "^5.8.0",
-    "eslint-plugin-node": "^8.0.0",
+    "babel-eslint": "^9.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "markdown-it-container": "^2.0.0",
     "markdown-it-custom-block": "^0.1.1",
     "markdown-it-implicit-figures": "^0.9.0",
-    "markdown-it-prism": "^2.0.1"
+    "markdown-it-prism": "^2.0.1",
+    "prettier": "^1.16.4"
   },
   "engines": {
-    "node": ">=9"
+    "node": ">=10.5"
   },
   "publishConfig": {
     "access": "public"

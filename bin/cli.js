@@ -3,14 +3,15 @@
 'use-strict';
 
 const path = require('path');
+
 const cli = require('commander');
 const up = require('update-notifier');
+
 const { logger } = require('../lib/util-loggers.js');
 const { serve, build } = require('../index.js');
 const pkg = require('../package.json');
 
-
-up({pkg}).notify();
+up({ pkg }).notify();
 
 var banner = `
        XXXX    XXXX

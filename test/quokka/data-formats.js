@@ -2,18 +2,19 @@ const fs = require('fs');
 const path = require('path');
 
 // JSON5
+// https://json5.org/
 // https://github.com/json5/json5
 require('json5/lib/register');
 
 // TOML
 // https://binarymuse.github.io/toml-node/
 // https://github.com/BinaryMuse/toml-node
-var toml = require('toml');
+const toml = require('toml');
 
 // YAML
 // http://nodeca.github.io/js-yaml/
 // https://github.com/nodeca/js-yaml
-yaml = require('js-yaml');
+const yaml = require('js-yaml');
 
 // CSV
 // https://csv.js.org/convert/
@@ -21,25 +22,33 @@ yaml = require('js-yaml');
 // alternative https://github.com/mafintosh/csv-parser
 const csvParse = require('csv-parse/lib/sync')
 
-function readData(filePath) {
-  if (filePath.match(/\.(js|json|json5)$/)) return require(filePath);
-  try {
-    const data = fs.readFileSync(require.resolve(filePath), 'utf8');
+// console.log(require.resolve.paths('./foo/bar.js')[0])
 
-    const yamlMatch = filePath.match(/\.ya?ml$/);
+function readData(filePath) {
+  try {
+    // this might not be the best way to find the file,
+    const absFile = require.resolve(filePath);
+
+    if (absFile.match(/\.(js|json|json5)$/)) {
+      delete require.cache[absFile]
+      return require(absFile);
+    }
+    const data = fs.readFileSync(absFile, 'utf8');
+
+    const yamlMatch = absFile.match(/\.ya?ml$/);
     if (yamlMatch) return yaml.safeLoad(data);
 
-    const tomlMatch = filePath.match(/\.toml$/);
+    const tomlMatch = absFile.match(/\.toml$/);
     if (tomlMatch) return toml.parse(data);
 
-    const csvMatch = filePath.match(/\.(c|t)sv$/);
+    const csvMatch = absFile.match(/\.(c|t)sv$/);
     if (csvMatch) return csvParse(data, {
-      columns: true,
       delimiter: csvMatch[0] == '.csv' ? ',' : '\t',
+      columns: true,
       relax_column_count: true,
-      // skip_lines_with_empty_values: true,
-      skip_lines_with_error: true,
       skip_empty_lines: true,
+      skip_lines_with_error: true,
+      // skip_lines_with_empty_values: true,
     });
   } catch (err) {
     throw err;
@@ -47,53 +56,10 @@ function readData(filePath) {
 }
 
 // readData('./test-file.js'); //?
-// readData('./test-file.json'); //?
-readData('./test-file.json5'); //?
-readData('./test-file.toml'); //?
-readData('./test-file.yaml'); //?
-readData('./test-file.yml'); //?
-readData('./test-file.csv'); //?
-readData('./test-file.tsv'); //?
-
-try {
-  const json5Data = require('./test-file.json5');
-} catch (err) {
-  console.log(err);
-}
-
-try {
-  var tomlData = toml.parse(fs.readFileSync(require.resolve('./test-file.toml'), 'utf8'));
-} catch (err) {
-  console.log(err);
-}
-
-try {
-  const yamlData = yaml.safeLoad(fs.readFileSync(require.resolve('./test-file.yaml'), 'utf8'));
-} catch (err) {
-  console.log(err);
-}
-
-try {
-  const csvData = csvParse(fs.readFileSync(require.resolve('./test-file.csv'), 'utf8'), {
-    columns: true,
-    delimiter: ',',
-    relax_column_count: true,
-    // skip_lines_with_empty_values: true,
-    skip_lines_with_error: true,
-    skip_empty_lines: true,
-  });
-} catch (err) {
-  console.log(err);
-}
-
-// const assert = require('assert')
-
-// const input = `
-// "key_1","key_2"
-// "value 1","value 2"
-// `
-// const records = csvParse(input, {
-//   columns: true,
-//   skip_empty_lines: true
-// })
-// assert.deepEqual(records, [{ key_1: 'value 1', key_2: 'value 2' }])
+typeof readData('./test-file.json'); //?
+typeof readData('./test-file.json5'); //?
+typeof readData('./test-file.toml'); //?
+typeof readData('./test-file.yaml'); //?
+typeof readData('./test-file.yml'); //?
+typeof readData('./test-file.csv'); //?
+typeof readData('./test-file.tsv'); //?

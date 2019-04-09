@@ -5,19 +5,15 @@
 // | |                      __/ |
 // |_|                     |___/
 
-// built-in
+const path = require('path');
 const { join, relative } = require('path');
 const { statSync } = require('fs');
-require('util').inspect.defaultOptions.depth = null;
 
-// npm
 const cosmiconfig = require('cosmiconfig');
-const inspect = require('prettier-inspect');
 
-// local
+const { pennyLogger } = require('./lib/util-loggers.js');
 const doServe = require('./lib/serve.js');
 const doBuild = require('./lib/build.js');
-const { pennyLogger } = require('./lib/util-loggers.js');
 
 // penny defaults
 const defaults = {
@@ -34,26 +30,28 @@ const defaults = {
   markdownItPlugins: null,
   posthtmlPlugins: null,
   postcssPlugins: null,
+
+  onStart: null,
 };
 
 // penny config explorer
 const configExplorer = cosmiconfig('penny', {
   stopDir: process.cwd(),
-  searchPlaces: [ 'package.json', '.pennyrc', 'penny.config.js' ]
+  searchPlaces: ['package.json', '.pennyrc', 'penny.config.js'],
 });
 
 async function init(srcDir, cb) {
-
-  const { filepath:configFile = '', config = {} } = await configExplorer.search(srcDir);
+  const { filepath: configFile = '', config = {} } = await configExplorer.search(srcDir);
   const options = Object.assign({}, defaults, config);
 
   pennyLogger.setLevel(options.logLevel);
+
   if (configFile) {
-    pennyLogger.info(`using config file {magenta:@/${relative(process.cwd(), configFile)}}\n`);
+    pennyLogger.info(`using config file {magenta:@/${relative(process.cwd(), configFile)}}`);
   } else {
-    pennyLogger.info('no config file found; using default config\n');
+    pennyLogger.info('no config file found; using default config');
   }
-  pennyLogger.debug('merged configuration:\n\n', options, '\n');
+  pennyLogger.debug('{yellow:index.js}: merged configuration:\n', options);
 
   let pubDir = srcDir;
 
@@ -74,14 +72,14 @@ async function init(srcDir, cb) {
 }
 
 function serve(srcDir) {
-  init(srcDir, (options) => {
+  init(srcDir, options => {
     Object.assign(options, { isDev: true, isBuild: false });
     doServe(options);
   });
 }
 
 function build(srcDir, outDir) {
-  init(srcDir, (options) => {
+  init(srcDir, options => {
     Object.assign(options, { isDev: false, isBuild: true, outDir });
     doBuild(options);
   });

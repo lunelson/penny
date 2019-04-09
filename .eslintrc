@@ -5,13 +5,6 @@
     "jest": true,
     "commonjs": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:node/recommended"
-  ],
-  "plugins": [
-    "node"
-  ],
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 2018,
@@ -19,25 +12,26 @@
       "impliedStrict": true
     }
   },
+  "plugins": [
+    "import",
+    "prettier"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "prettier"
+  ],
   "rules": {
-    "node/no-extraneous-require": "off",
+    "no-bitwise": ["error", { "allow": ["~"] }],
     "no-unused-vars": "off",
     "no-console": "off",
-    "indent": [
-      "error",
-      2
+    "import/order": [
+      "error", {
+        "newlines-between": "always",
+        "groups": ["builtin", "external"]
+      }
     ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ]
+    "prettier/prettier": ["error"]
   }
 }

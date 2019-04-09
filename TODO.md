@@ -1,3 +1,7 @@
+## even more new
+
+steal parcel.js' module resolution algorith, plug in to webpack config https://parceljs.org/module_resolution.html
+
 ## ARCHITECTURE CHANGES, URGENT
 
 0. re-think the rendering using `worker_threads`
