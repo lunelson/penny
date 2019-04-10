@@ -1,5 +1,5 @@
-const mdi = require('../../lib/config-markdown-it.js')();
-const mdi2 = require('../../lib/config-markdown-it.js')();
+const mdi = require('../../lib/config-md.js')();
+const mdi2 = require('../../lib/config-md.js')();
 
 
 mdi.render('hello'); //?
