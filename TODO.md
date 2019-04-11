@@ -1,3 +1,20 @@
+## browsersync fullscreen messages
+
+Basically use the socket.emit() function to add and clear messages from the screen!
+
+https://github.com/Kikobeats/bs-pretty-message
+
+...based on:
+https://github.com/shakyShane/bs-fullscreen-message
+https://github.com/BrowserSync/recipes/blob/master/recipes/webpack.babel/app.js
+https://github.com/shakyShane/bs-fullscreen-message/issues/6
+
+* also look at this
+https://github.com/BrowserSync/bs-console-info
+
+...also see these, for more insight on client-side scripts
+https://github.com/BrowserSync/browser-sync-client
+
 ## even more new
 
 steal parcel.js' module resolution algorith, plug in to webpack config https://parceljs.org/module_resolution.html
