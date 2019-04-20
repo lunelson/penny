@@ -3,7 +3,8 @@
     "es6": true,
     "node": true,
     "jest": true,
-    "commonjs": true
+    "commonjs": true,
+    "browser": true
   },
   "parserOptions": {
     "sourceType": "module",
