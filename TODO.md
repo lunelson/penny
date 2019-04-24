@@ -1,3 +1,8 @@
+## running
+
+watch-js:
+- test the webpack config file/path resolutions, in config and in callbacks
+
 ## browsersync fullscreen messages
 
 Basically use the socket.emit() function to add and clear messages from the screen!
@@ -25,32 +30,6 @@ steal parcel.js' module resolution algorith, plug in to webpack config https://p
 
   - implement a worker pool for each src type, 3-5 workers, with queue
     https://blog.logrocket.com/a-complete-guide-to-threads-in-node-js-4fa3898fe74f
-
-  - do everything with async/await and bubble errors through
-    see: https://courses.wesbos.com/account/access/5849bdbb8dab401bac1a3962/view/235537238
-
-    lib/
-      serve
-      build
-      compile-styl
-      compile-scss
-      compile-css
-      compile-html
-      compile-pug
-      compile-njk
-      compile-ejs
-      compile-js
-      watch-data
-      watch-html
-      watch-css
-      watch-js
-      worker-css
-      worker-html
-      worker-pug
-      worker-njk
-      worker-ejs
-      worker-scss
-      worker-styl
 
 
 1. separate watching by type, combine meta and page under html to avoid double reload signal, i.e. avoid need to debounce
