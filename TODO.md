@@ -215,17 +215,10 @@ data manip / gen
   _, _dayjs, _moment, _dateFns
   _faker, _chance, _casual
 
-props & methods
-  dump
-  $page
-    filename
-    dirname
-    pathname
-  $options
-    basedir
-    filename
-    pretty
-    doctype.. etc.
+## multi-language
+
+see how it is done with eleventy
+https://www.webstoemp.com/blog/multilingual-sites-eleventy/
 
 bound methods
   require
