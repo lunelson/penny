@@ -1,3 +1,10 @@
+## error handling and formatting
+
+see the author of these libs, also logging thing called 'ololog'
+https://github.com/xpl/panic-overlay#vs-code-notes
+https://github.com/xpl/stacktracey
+
+
 ## running
 
 watch-js:
