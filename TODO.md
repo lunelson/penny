@@ -1,3 +1,49 @@
+## advanced routing
+
+1. allow matching of dynamic routes
+  - in watch-meta, store all routes which are prefixed with $ (the _ prefixe denotes hidden routes)
+  - turn these in to matchers
+  - for a given request, if it doesn't match any physical files, try the matchers
+  - if the matcher matches, serve the dynamic route file
+
+2. add a .match() method to $page and $pages to parse parameters and filter results
+  - not sure at what point this should be set, and how to keep the other content dynamic while not erasing this method
+
+  $data
+  $page
+  $pages
+
+    $pages.match()
+    $page.match('/posts/:slug')
+
+```js
+const url = require('url');
+
+const UrlPattern = require('url-pattern');
+
+const patterns = ['/some/$shit/$thing', 'https://whatever.com/posts/$post'].map(
+  urlPath => url.parse(urlPath).pathname.replace(/\$/g, ':')
+); //?
+
+const matchers = patterns.map(pat => new UrlPattern(pat)); //?
+
+matchers
+  .find(matcher => matcher.match('/posts/whatever'))
+  .match('/posts/whatever'); //?
+
+matchers
+  .find(matcher => matcher.match('/posts/whatever'))
+  .stringify({ post: 'wtf' }); //?
+
+/*
+    NOTE regexparam has much higher performance
+    https://github.com/lukeed/regexparam
+
+    the README there explains how to do the same as above.
+
+  */
+```
+
 ## ARCHITECTURE CHANGES, URGENT
 
 0. re-think the rendering using `worker_threads`

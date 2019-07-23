@@ -7,10 +7,13 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:node/recommended"
+    "plugin:node/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
   ],
   "plugins": [
-    "node"
+    "node",
+    "import"
   ],
   "parserOptions": {
     "sourceType": "module",

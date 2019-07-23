@@ -4,8 +4,8 @@ const mdiMentions = require('markdown-it-mentions');
 const mdiPrism = require('markdown-it-prism');
 
 module.exports = {
-  browsers: [ '>1% in DE', 'last 5 years' ],
-  logLevel: 'debug',
+  // browsers: ['>1% in DE', 'last 5 years'],
+  // logLevel: 'warn',
   webRoot: '_root',
   markdownItPlugins(mdi) {
     return mdi
@@ -16,7 +16,7 @@ module.exports = {
       // .use(require('markdown-it-implicit-figures'), { figcaption: true })
 
       .use(mdiContainer, 'figure', {
-        render: function(tokens, idx, _options, env, self) {
+        render: function (tokens, idx, _options, env, self) {
           const token = tokens[idx];
           var m = token.info.trim().match(/^spoiler\s+(.*)$/);
           token.attrs;
@@ -31,8 +31,8 @@ module.exports = {
         /* CUSTOM BLOCKS
           img, imgix, svg, video, youtube, twitter, codepen, codesandbox
         */
-        example (arg) { return `<example-${arg}/>`; },
-        video (url) {
+        example(arg) { return `<example-${arg}/>`; },
+        video(url) {
           return `<video controls><source src="${url}" type="video/mp4"></video>`;
         },
       })
@@ -41,6 +41,6 @@ module.exports = {
       .use(require('markdown-it-deflist'))
       .use(require('markdown-it-emoji'))
       .use(require('markdown-it-mark'))
-    ;
-    }
+      ;
+  }
 }

@@ -10,105 +10,40 @@
   "test": {
     "title": "hello world you custard"
   },
-  "nested": {},
   "test2": {
     "otherwise": {
       "this": "is some data"
     }
-  }
-}</pre><h2>matchRoute</h2><pre>{
-  "route": "/index.html",
-  "title": "So this is pretty compact",
-  "tags": [
-    "foo",
-    "bar"
-  ],
-  "_": "index"
-}</pre><pre>[
-  {
-    "route": "/foo.html",
-    "_": "foo"
   },
-  {
-    "route": "/index.html",
-    "title": "So this is pretty compact",
-    "tags": [
-      "foo",
-      "bar"
-    ],
-    "_": "index"
-  },
+  "nested": {}
+}</pre><h2>matchRoute</h2><pre>null</pre><pre>[
   {
     "route": "/md/index.html",
     "title": "Index",
     "layout": "_layout.pug",
-    "_": "md/index"
+    "slug": "index",
+    "_": ""
   },
   {
     "route": "/md/no-layout.html",
     "title": "No Layout",
-    "_": "md/no-layout"
+    "slug": "no-layout",
+    "_": ""
   },
   {
     "route": "/md/no-publish.html",
     "title": "No Publish",
     "layout": "_layout.pug",
     "publish": false,
-    "_": "md/no-publish"
+    "slug": "no-publish",
+    "_": ""
   },
   {
     "route": "/md/plugins.html",
     "title": "Plugin Testing",
     "layout": "_layout.pug",
-    "_": "md/plugins"
-  },
-  {
-    "route": "/pug/data.html",
-    "_": "pug/data"
-  },
-  {
-    "route": "/pug/dummy.html",
-    "_": "pug/dummy"
-  },
-  {
-    "route": "/pug/filters.html",
-    "_": "pug/filters"
-  },
-  {
-    "route": "/pug/read-write.html",
-    "title": "Pug Read/Write Function Testing",
-    "_": "pug/read-write"
-  },
-  {
-    "route": "/pug/render.html",
-    "title": "Pug Render Testing",
-    "_": "pug/render"
-  },
-  {
-    "route": "/pug/utilities.html",
-    "_": "pug/utilities"
-  },
-  {
-    "route": "/pug/read-sources/dummy.html",
-    "title": "Dummy File",
-    "tags": [
-      "what",
-      "the",
-      "fuck"
-    ],
-    "_": "pug/read-sources/dummy"
-  },
-  {
-    "route": "/_hide/fail/js/index.html",
-    "_": "_hide/fail/js/index"
-  },
-  {
-    "route": "/_hide/fail/pug/index.html",
-    "_": "_hide/fail/pug/index"
-  },
-  {
-    "route": "/_hide/fail/scss/index.html",
-    "_": "_hide/fail/scss/index"
+    "slug": "plugins",
+    "_": ""
   }
 ]</pre><h2>$page, $pages</h2><pre>{
   "route": "/index.html",
@@ -116,13 +51,11 @@
   "tags": [
     "foo",
     "bar"
-  ],
-  "_": "index"
+  ]
 }</pre><pre>[
   {},
   {
-    "route": "/foo.html",
-    "_": "foo"
+    "route": "/foo.html"
   },
   {
     "route": "/index.html",
@@ -130,58 +63,60 @@
     "tags": [
       "foo",
       "bar"
-    ],
-    "_": "index"
+    ]
+  },
+  {
+    "route": "/md-test.html",
+    "title": "Index",
+    "layout": "md/_layout.pug"
+  },
+  {
+    "route": "/pug/data.html"
+  },
+  {
+    "route": "/pug/dummy.html"
+  },
+  {
+    "route": "/pug/filters.html"
+  },
+  {
+    "route": "/pug/read-write.html",
+    "title": "Pug Read/Write Function Testing"
+  },
+  {
+    "route": "/pug/render.html",
+    "title": "Pug Render Testing"
+  },
+  {
+    "route": "/pug/utilities.html"
   },
   {
     "route": "/md/index.html",
     "title": "Index",
     "layout": "_layout.pug",
-    "_": "md/index"
+    "slug": "index",
+    "_": ""
   },
   {
     "route": "/md/no-layout.html",
     "title": "No Layout",
-    "_": "md/no-layout"
+    "slug": "no-layout",
+    "_": ""
   },
   {
     "route": "/md/no-publish.html",
     "title": "No Publish",
     "layout": "_layout.pug",
     "publish": false,
-    "_": "md/no-publish"
+    "slug": "no-publish",
+    "_": ""
   },
   {
     "route": "/md/plugins.html",
     "title": "Plugin Testing",
     "layout": "_layout.pug",
-    "_": "md/plugins"
-  },
-  {
-    "route": "/pug/data.html",
-    "_": "pug/data"
-  },
-  {
-    "route": "/pug/dummy.html",
-    "_": "pug/dummy"
-  },
-  {
-    "route": "/pug/filters.html",
-    "_": "pug/filters"
-  },
-  {
-    "route": "/pug/read-write.html",
-    "title": "Pug Read/Write Function Testing",
-    "_": "pug/read-write"
-  },
-  {
-    "route": "/pug/render.html",
-    "title": "Pug Render Testing",
-    "_": "pug/render"
-  },
-  {
-    "route": "/pug/utilities.html",
-    "_": "pug/utilities"
+    "slug": "plugins",
+    "_": ""
   },
   {
     "route": "/pug/read-sources/dummy.html",
@@ -190,19 +125,15 @@
       "what",
       "the",
       "fuck"
-    ],
-    "_": "pug/read-sources/dummy"
+    ]
   },
   {
-    "route": "/_hide/fail/js/index.html",
-    "_": "_hide/fail/js/index"
+    "route": "/_hide/fail/scss/index.html"
   },
   {
-    "route": "/_hide/fail/pug/index.html",
-    "_": "_hide/fail/pug/index"
+    "route": "/_hide/fail/pug/index.html"
   },
   {
-    "route": "/_hide/fail/scss/index.html",
-    "_": "_hide/fail/scss/index"
+    "route": "/_hide/fail/js/index.html"
   }
 ]</pre><script src="main.js"></script></body></html>
