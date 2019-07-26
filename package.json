@@ -74,6 +74,7 @@
     "eazy-logger": "^3.0.2",
     "faker": "^4.1.0",
     "file-loader": "^4.1.0",
+    "findup-sync": "^4.0.0",
     "fs-readfile-promise": "^3.0.1",
     "gray-matter": "^4.0.2",
     "http2": "^3.3.7",

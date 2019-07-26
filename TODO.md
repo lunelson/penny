@@ -1,3 +1,49 @@
+## COMPILERS
+
+  COMPILER
+    options
+      onCompile
+    srcFile
+    depFiles
+    constructor()
+    checkdep()
+    reset()
+
+  HTML-COMPILER
+    route
+    constructor()
+      super()
+    compile()
+
+  CSS-COMPILER
+    constructor()
+      super()
+    compile()
+
+  SCSS COMPILER
+    constructor
+      super
+    compile
+      (do compile)
+      super.compile(result)
+
+  sourceCache = compiled fn
+  renderCache = rendered string
+
+  render
+    renderCache
+  output
+    outputCache
+
+  source()
+    // this would compile, in the case of pug/others
+    return fs.readFileSync(this.srcFile, utf8)
+  render()
+    if (sourceCache in this) return
+  output()
+    if (outputCache in this) return this.outputCache
+    return this.render()
+
 ## error handling and formatting
 
 see the author of these libs, also logging thing called 'ololog'
