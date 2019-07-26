@@ -2,37 +2,48 @@
   "env": {
     "es6": true,
     "node": true,
-    "jest": true,
     "commonjs": true,
     "browser": true
   },
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": 2018,
-    "ecmaFeatures": {
-      "impliedStrict": true
-    }
+    "ecmaVersion": 2019
   },
   "plugins": [
+    "ava",
     "import",
     "prettier"
   ],
   "extends": [
     "eslint:recommended",
+    "plugin:ava/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
     "prettier"
   ],
   "rules": {
-    "no-bitwise": ["error", { "allow": ["~"] }],
+    "no-bitwise": [
+      "error",
+      {
+        "allow": [
+          "~"
+        ]
+      }
+    ],
     "no-unused-vars": "off",
     "no-console": "off",
     "import/order": [
-      "error", {
+      "error",
+      {
         "newlines-between": "always",
-        "groups": ["builtin", "external"]
+        "groups": [
+          "builtin",
+          "external"
+        ]
       }
     ],
-    "prettier/prettier": ["error"]
+    "prettier/prettier": [
+      "error"
+    ]
   }
 }
