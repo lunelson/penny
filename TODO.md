@@ -33,7 +33,7 @@
   render
     renderCache
   output
-    outputCache
+    outcache
 
   source()
     // this would compile, in the case of pug/others
@@ -41,7 +41,7 @@
   render()
     if (sourceCache in this) return
   output()
-    if (outputCache in this) return this.outputCache
+    if (outcache in this) return this.outcache
     return this.render()
 
 ## error handling and formatting
