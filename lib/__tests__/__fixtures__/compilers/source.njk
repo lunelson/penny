@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Webpage</title>
+</head>
+<body>
+    <ul id="navigation">
+    {% for item in navigation %}
+        <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+    {% endfor %}
+    </ul>
+
+    {# a comment #}
+    <h1>My Webpage</h1>
+    <p>{{ _chance.paragraph() }}</p>
+    <p>{{ _chance.paragraph() }}</p>
+    <p>{{ _chance.paragraph() }}</p>
+
+    <pre>{{ dump(_chance.sentence()) }}</pre>
+    <pre>{{ dump(_chance.sentence()) | safe }}</pre>
+    <pre>{{ 'hello world' | markdown | safe }}</pre>
+    <pre>{{ 'hello [world](#)' | markdownInline | safe }}</pre>
+</body>
+</html>
