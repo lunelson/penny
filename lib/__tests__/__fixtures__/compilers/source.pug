@@ -5,6 +5,27 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
     title Document
+    style
+      :scss
+        nav {
+          ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+          }
+
+          li { display: inline-block; }
+
+          a {
+            display: block;
+            padding: 6px 12px;
+            text-decoration: none;
+          }
+          display: grid;
+          transition: all .5s;
+          user-select: none;
+          background: linear-gradient(to bottom, red, black);
+        }
   body
     // This is an HTML comment
     main
@@ -13,3 +34,8 @@ html(lang="en")
       pre!= markdown('# hello world')
       pre= pretty
       pre= doctype
+      :markdown
+        this is a p tag
+      h4
+        :markdown(inline=true)
+          this is __inline__ [text](http://nowhere.com)

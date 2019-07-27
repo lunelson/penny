@@ -5,16 +5,42 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>nav {
+  display: -ms-grid;
+  display: grid;
+  transition: all 0.5s;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background: linear-gradient(to bottom, red, black);
+}
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+nav li {
+  display: inline-block;
+}
+nav a {
+  display: block;
+  padding: 6px 12px;
+  text-decoration: none;
+}
+    </style>
   </head>
   <body>
     
     <main>
       <h1>This come from a pug source</h1>
-      <pre>Velit esse quidem perferendis libero mollitia quidem et aliquid provident.</pre>
+      <pre>Ab architecto et mollitia animi architecto ea et.</pre>
       <pre>
 <h1>hello world</h1></pre>
       <pre></pre>
-      <pre></pre>
+      <pre></pre><p>this is a p tag</p>
+
+      <h4>this is <strong>inline</strong> <a href="http://nowhere.com">text</a></h4>
     </main>
   </body>
 </html>
