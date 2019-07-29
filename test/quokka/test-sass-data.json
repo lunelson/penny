@@ -1,0 +1,19 @@
+{
+  "root": {
+    "font-size": "1em"
+  },
+  "media": {
+    "a": {
+      "breakpoint": "32em"
+    },
+    "b": {
+      "breakpoint": "32em"
+    },
+    "c": {
+      "breakpoint": "32em"
+    },
+    "d": {
+      "breakpoint": "32em"
+    }
+  }
+}

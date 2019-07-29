@@ -30,6 +30,7 @@
         ]
       }
     ],
+    "no-prototype-builtins": "off",
     "no-unused-vars": "off",
     "no-console": "off",
     "import/order": [
