@@ -115,6 +115,7 @@
     "posthtml-collect-styles": "0.0.1",
     "posthtml-doctype": "^1.1.1",
     "posthtml-minifier": "^0.1.0",
+    "posthtml-postcss": "^0.2.6",
     "prevent-widows": "^1.0.2",
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",
