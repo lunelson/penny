@@ -134,7 +134,6 @@
     "@lunelson/sass-maps-next": "latest",
     "@lunelson/sass-throw": "latest",
     "@lunelson/sass-u": "latest",
-    "mathsass": "latest",
     "ava": "^2.1.0",
     "eslint": "^6.0.1",
     "eslint-plugin-import": "^2.18.0",
@@ -142,7 +141,8 @@
     "markdown-it-container": "^2.0.0",
     "markdown-it-custom-block": "^0.1.1",
     "markdown-it-implicit-figures": "^0.9.0",
-    "markdown-it-prism": "^2.0.2"
+    "markdown-it-prism": "^2.0.2",
+    "mathsass": "latest"
   },
   "engines": {
     "node": ">=9"
