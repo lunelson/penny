@@ -1,3 +1,16 @@
+## better prefixing??
+
+consider using postcss-preset-env rather than autoprefixer
+
+https://github.com/csstools/postcss-preset-env
+https://preset-env.cssdb.org/playground
+
+## better sass (maybe styl) importer
+
+1. importer should resolve root-relative paths (example of similar):
+https://github.com/matthewdavidson/node-sass-tilde-importer/blob/master/index.js
+2. importer should resolve node_modules by the correct algorithm, using require.resolve or the substack resolve pkg
+
 ## COMPILERS
 
   COMPILER
