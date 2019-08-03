@@ -1,11 +1,11 @@
 const path = require('path');
 const _ = require('lodash');
-const readData = require('read-data'); // NB: this should be replacee with own read-data
 
 const nodeSass = require('node-sass');
 const dartSass = require('dart-sass');
-
 const configSassUtils = require('node-sass-utils');
+
+const readData = require('./../../lib/config-data');
 
 const srcFile = '/foo/bar/src/source.styl';
 const outFile = '/foo/bar/out/output.css';
