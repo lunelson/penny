@@ -5,7 +5,6 @@
 // | |                      __/ |
 // |_|                     |___/
 
-const path = require('path');
 const { join, relative } = require('path');
 const { statSync } = require('fs');
 
@@ -26,12 +25,6 @@ const defaults = {
   exclude: [],
 
   browserSyncOptions: null, // NB we are only accepting *some* options here; see serve.js
-  markdownItOptions: null,
-  markdownItPlugins: null,
-  posthtmlPlugins: null,
-  postcssPlugins: null,
-
-  onStart: null,
 };
 
 // penny config explorer

@@ -1,9 +1,10 @@
-## better prefixing??
+## bound filters in templates
 
-consider using postcss-preset-env rather than autoprefixer
+- test whether the pug, ejs, njk filters are correctly outputting locals from host compiler
 
-https://github.com/csstools/postcss-preset-env
-https://preset-env.cssdb.org/playground
+## date and case filters
+
+? how to make formatting filters for date strings?
 
 ## better sass (maybe styl) importer
 
