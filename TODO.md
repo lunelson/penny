@@ -1,3 +1,33 @@
+## thoughts on GraphQL, Nuxt, Vue, Wordpress
+
+scenarios
+  nuxt(stable): SSR or generate
+    wp-json
+    wp-graphql, apollo
+      creates /graphql endpoint, optimizes WP Queries
+      works with ACF
+    * graphql can take over most functions; json API might be necessary for some stuff
+
+  gridsome(new): generate
+    wp-json is supported, but
+    wp-graphql is only viable option
+
+process
+  install wp-graphql
+  explore, figure out how data is shaped
+  routing logic depends on you
+    -- explain dynamic routes in Nuxt
+    -- show how to use query params
+
+links
+  syntax episode on WP graphql
+
+## more data passed in to templates
+
+$compiler
+  srcFile
+  reqFile -> relSrcFile
+
 ## bound filters in templates
 
 - test whether the pug, ejs, njk filters are correctly outputting locals from host compiler
@@ -5,6 +35,30 @@
 ## date and case filters
 
 ? how to make formatting filters for date strings?
+
+## localisation
+
+```js
+{ locales: ['en', 'de'] }
+$locales: locales
+$locale: ...
+```
+`locales` option supplies Array
+minimum of two are required to activate the feature
+first one in the Array is considered default
+subsequent locales result in dynamic route matchers for /:locale/...
+$locale and $locales are injected in to templates
+build step will build new subdirs for each non-default locale
+
+```pug
+a(href=link('/path/to/page.html'))
+```
+
+## baseurl option
+
+- explanation https://byparker.com/blog/2014/clearing-up-confusion-around-baseurl/
+- could also benefit from a link() function
+
 
 ## better sass (maybe styl) importer
 
