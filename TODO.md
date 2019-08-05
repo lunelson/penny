@@ -1,3 +1,18 @@
+## webpack options documentation
+
+`webpackConfig` object in penny options may supply "module" and "plugin" sections
+          // NB: noParse option is interesting
+          // noParse: (content) => /jquery|lodash/.test(content),
+
+  /*
+  TODO: add option
+  (A) array of configs (multi-compiler)
+  (B) single config with entry -> array||object of entries
+  NB: the syntax is super fucking tricky
+  review https://webpack.js.org/concepts/output#multiple-entry-points
+  */
+
+
 ## thoughts on GraphQL, Nuxt, Vue, Wordpress
 
 scenarios

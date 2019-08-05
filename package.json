@@ -41,8 +41,8 @@
     "eslint-check": "eslint --print-config .eslintrc | eslint-config-prettier-check",
     "reinstall": "rm -rf node_modules && npm i",
     "start": "npm run serve",
-    "serve": "node-dev --respawn --no-deps bin/cli.js serve test/penny/src",
-    "build": "node-dev --respawn --no-deps bin/cli.js build test/penny/src test/penny/out",
+    "serve": "node-dev --respawn --no-deps --inspect bin/cli.js serve test/penny/src",
+    "build": "node-dev --respawn --no-deps --inspect bin/cli.js build test/penny/src test/penny/out",
     "serve:dumb": "node bin/cli.js serve test/penny/src",
     "build:dumb": "node bin/cli.js build test/penny/src test/penny/out"
   },
@@ -131,6 +131,7 @@
     "vue-loader": "^15.7.1",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.39.1",
+    "webpack-merge": "^4.2.1",
     "write": "^1.0.3"
   },
   "devDependencies": {

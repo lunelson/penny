@@ -1,3 +1,18 @@
+/**
+ * DYNAMIC ROUTING
+ *
+ * 1. in srcWatcher, keep dynReqSrcMap up to date; export
+ * 2. in server, normalize each reqPath to normReqPath:
+ *   * for HTML: baseurl/locale/ -> collect {locale} if found
+ *   * for others: baseurl/
+ * 3. if HTML, match normReqPath against dynReqSrcMap
+ *   * if src found in dynamic sources
+ *     store params from match
+ *     find compiler, invoke .output({ locale, params })
+ *   * if not found, find src by priority algorithm
+ *
+ */
+
 const path = require('path');
 
 // https://github.com/lukeed/regexparam
@@ -29,6 +44,7 @@ const srcFiles = [
 ];
 
 const dynReqSrcMap = srcFiles.reduce((map, srcFile) => {
+  // CODE TO TRACK DYNAMIC SOURCES
   const srcExt = path.extname(srcFile);
   const isHTML = srcOutExts[srcExt] == '.html';
   const isDynamic = srcFile.match(/\/\$/);
@@ -40,18 +56,6 @@ const dynReqSrcMap = srcFiles.reduce((map, srcFile) => {
   return map;
 }, new Map());
 
-
-// dynMatcher
-function dynMatch(reqPath) {
-  const matchers = [...dynReqSrcMap.keys()];
-  let match;
-  const index = matchers.findIndex(matcher => (match = matcher.pattern.exec(reqPath)));
-  if (!match) return null;
-  return matchers[index].keys.reduce((obj, key, i) => {
-    obj[key] = match[i + 1]
-    return obj;
-  }, {})
-}
 
 // incoming requests
 const reqPaths = [
@@ -75,11 +79,24 @@ const baseRE = `^/(${baseurl.replace(/\//g, '')}/)?((${locales.slice(1).join('|'
 const baseMatch = new RegExp(baseRE);
 
 const normReqPaths = reqPaths.map(reqPath => {
+  // FUNCTION TO NORMALIZE REQ PATH
   const locale = baseMatch.exec(reqPath)[2];
   return {
     locale: locale ? locale.slice(0, -1) : locale,
     route: reqPath.replace(baseMatch, '/')
   }
 }); //?
+
+// dynMatcher
+function dynMatch(reqPath) {
+  const matchers = [...dynReqSrcMap.keys()];
+  let match;
+  const index = matchers.findIndex(matcher => (match = matcher.pattern.exec(reqPath)));
+  if (!match) return null;
+  return matchers[index].keys.reduce((obj, key, i) => {
+    obj[key] = match[i + 1]
+    return obj;
+  }, {})
+}
 
 normReqPaths.map(({ route }) => dynMatch(route)); //?

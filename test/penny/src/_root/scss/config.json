@@ -1,26 +1,31 @@
 {
   "foo": 1,
-  "bar": [2,3,4,5],
+  "bar": [
+    2,
+    3,
+    4,
+    5
+  ],
   "media": {
-    "sm":{
+    "sm": {
       "breakpoint": "24em",
       "grid-columns": 8,
       "outer": 20,
       "inner-x": "15px"
     },
-    "md":{
+    "md": {
       "breakpoint": "40em",
       "grid-columns": 12,
       "outer": 40,
       "inner-x": "20px"
     },
-    "lg":{
+    "lg": {
       "breakpoint": "72em",
       "grid-columns": 14,
       "outer": 80,
       "inner-x": "30px"
     },
-    "xl":{
+    "xl": {
       "breakpoint": "104em",
       "grid-columns": 14,
       "outer": 160,
