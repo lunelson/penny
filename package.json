@@ -40,7 +40,8 @@
     "eslint": "eslint .",
     "start": "npm run server",
     "serve": "cross-env NODE_ENV=development node-dev --respawn --no-deps --inspect bin/cli.js serve test/penny/src",
-    "build": "cross-env NODE_ENV=production node-dev --respawn --no-deps --inspect bin/cli.js build test/penny/src test/penny/out"
+    "build": "cross-env NODE_ENV=production node-dev --respawn --no-deps --inspect bin/cli.js build test/penny/src test/penny/out",
+    "reinstall": "rm -rf node_modules && npm i"
   },
   "dependencies": {
     "@babel/core": "^7.4.5",
