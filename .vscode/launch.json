@@ -6,59 +6,12 @@
   "configurations": [
     {
       "type": "node",
-      "request": "launch",
-      "name": "Serve Test",
-      "program": "${workspaceFolder}/bin/cli.js",
-      "args": [
-        "serve",
-        "./test/penny/src"
-        // "/Users/lunelson/Git/projects/nova-nm2/src"
-      ],
-      "runtimeArgs": [
-        "--trace-warnings",
-        "--preserve-symlinks"
-      ],
+      "request": "attach",
+      "name": "Attach",
+      "port": 9229,
       "skipFiles": [
-        "${workspaceFolder}/node_modules/**/*.js",
-        "<node_internals>/**/*.js"
+        "<node_internals>/**"
       ]
     },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Real World Test",
-      "program": "${workspaceFolder}/bin/cli.js",
-      "args": [
-        "serve",
-        "/Users/lunelson/Downloads/prism-test/visual-test"
-      ],
-      "runtimeArgs": [
-        "--trace-warnings",
-        "--preserve-symlinks"
-      ],
-      "skipFiles": [
-        "${workspaceFolder}/node_modules/**/*.js",
-        "<node_internals>/**/*.js"
-      ]
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Build Test",
-      "program": "${workspaceFolder}/bin/cli.js",
-      "args": [
-        "build",
-        "./test/penny/src",
-        "./test/penny/out",
-      ],
-      "runtimeArgs": [
-        "--trace-warnings",
-        "--preserve-symlinks"
-      ],
-      "skipFiles": [
-        "${workspaceFolder}/node_modules/**/*.js",
-        "<node_internals>/**/*.js"
-      ]
-    }
   ]
 }

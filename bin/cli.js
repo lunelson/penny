@@ -4,14 +4,14 @@
 
 const path = require('path');
 
-const cli = require('commander');
-const up = require('update-notifier');
+const cmd = require('commander');
+const upd = require('update-notifier');
 
+const pkg = require('../package.json');
 const { logger } = require('../lib/util-loggers.js');
 const { serve, build } = require('../index.js');
-const pkg = require('../package.json');
 
-up({ pkg }).notify();
+upd({ pkg }).notify();
 
 var banner = `
        XXXX    XXXX
@@ -36,10 +36,10 @@ function print() {
 }
 
 // version
-cli.version(pkg.version, '-v, --version');
+cmd.version(pkg.version, '-v, --version');
 
 // serve
-cli
+cmd
   .command('serve [src]')
   .description('serve source directory')
   .action((src = '.') => {
@@ -48,7 +48,7 @@ cli
   });
 
 // build
-cli
+cmd
   .command('build <src> <out>')
   .description('build source directory to output directory')
   .action((src, out) => {
@@ -57,5 +57,5 @@ cli
   });
 
 // parse
-cli.parse(process.argv);
-if (cli.args.length < 1) cli._events['command:serve'](); // default command
+cmd.parse(process.argv);
+if (cmd.args.length < 1) cmd._events['command:serve'](); // default command

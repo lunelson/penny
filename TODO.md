@@ -1,3 +1,8 @@
+## sass eyeglass integration
+
+this might be the best option for a good sass custom importer, WRT npm modules
+https://github.com/linkedin/eyeglass/blob/master/packages/eyeglass/README.md#building-sass-files-with-eyeglass-support
+
 ## webpack options documentation
 
 `webpackConfig` object in penny options may supply "module" and "plugin" sections

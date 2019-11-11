@@ -8,7 +8,7 @@
 const { join, relative } = require('path');
 const { statSync } = require('fs');
 
-const cosmiconfig = require('cosmiconfig');
+const { cosmiconfig } = require('cosmiconfig');
 
 const { pennyLogger } = require('./lib/util-loggers.js');
 const doServe = require('./lib/serve.js');
@@ -30,7 +30,7 @@ const defaults = {
 // penny config explorer
 const configExplorer = cosmiconfig('penny', {
   stopDir: process.cwd(),
-  searchPlaces: ['package.json', '.pennyrc', 'penny.config.js'],
+  // searchPlaces: ['package.json', '.pennyrc', 'penny.config.js'], // these are pretty much the defaults anyway !
 });
 
 async function init(srcDir, cb) {
