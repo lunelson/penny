@@ -7,6 +7,7 @@ const path = require('path');
 const cmd = require('commander');
 const upd = require('update-notifier');
 
+// @ts-ignore
 const pkg = require('../package.json');
 const { logger } = require('../lib/util-loggers.js');
 const { serve, build } = require('../index.js');

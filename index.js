@@ -14,6 +14,8 @@ const { pennyLogger } = require('./lib/util-loggers.js');
 const doServe = require('./lib/serve.js');
 const doBuild = require('./lib/build.js');
 
+//#region setup
+
 // penny defaults
 const defaults = {
   logLevel: 'warn', // [error, info, warn, debug, trace] (ascending verbosity)
@@ -33,6 +35,8 @@ const configExplorer = cosmiconfig('penny', {
   // searchPlaces: ['package.json', '.pennyrc', 'penny.config.js'], // these are pretty much the defaults anyway !
 });
 
+//#endregion
+
 async function init(srcDir, cb) {
   const { filepath: configFile = '', config = {} } = await configExplorer.search(srcDir);
   const options = Object.assign({}, defaults, config);
@@ -47,8 +51,8 @@ async function init(srcDir, cb) {
   pennyLogger.debug('{yellow:index.js}: merged configuration:\n', options);
 
   let pubDir = srcDir;
-
   const { webRoot } = options;
+
   if (webRoot.length) {
     try {
       pubDir = join(srcDir, webRoot);

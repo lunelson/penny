@@ -41,8 +41,8 @@
     "eslint-check": "eslint --print-config .eslintrc | eslint-config-prettier-check",
     "reinstall": "rm -rf node_modules && npm i",
     "start": "npm run serve",
-    "serve": "node-dev --respawn --no-deps --inspect bin/cli.js serve test/penny/src",
-    "build": "node-dev --respawn --no-deps --inspect bin/cli.js build test/penny/src test/penny/out",
+    "serve": "node-dev --respawn --no-deps bin/cli.js serve test/penny/src",
+    "build": "node-dev --respawn --no-deps bin/cli.js build test/penny/src test/penny/out",
     "serve:dumb": "node bin/cli.js serve test/penny/src",
     "build:dumb": "node bin/cli.js build test/penny/src test/penny/out"
   },
