@@ -1,3 +1,7 @@
+/*
+
+*/
+
 function setHeaders(res, ext) {
   // res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Content-Type', outExtContentTypes[ext] || 'application/octet-stream');
@@ -24,7 +28,8 @@ function srcController(req, res, next) {
 
   // webpack: try memoryFs
   let memFile = false;
-  try { memFile = memoryFs.statSync(outFile).isFile(); } catch (_) { /* memFile will remain false! */ }
+  try { memFile = memoryFs.statSync(outFile).isFile(); }
+  catch (_) { /* memFile will remain false! */ }
   if (memFile) {
     setHeaders(res, outExt); // set headers
     pennyLogger.debug(`Served from memoryFs: {magenta:${outFile}}`);
