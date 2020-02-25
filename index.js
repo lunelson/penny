@@ -5,6 +5,8 @@
 // | |                      __/ |
 // |_|                     |___/
 
+require('dotenv').config();
+
 // built-in
 const { join } = require('path');
 const { statSync } = require('fs');
@@ -36,10 +38,10 @@ const defaults = {
 
 const configExplorer = cosmiconfig('penny', {
   stopDir: process.cwd(),
-  searchPlaces: [ 'package.json', '.pennyrc', 'penny.config.js' ]
+  searchPlaces: ['package.json', '.pennyrc', 'penny.config.js']
 });
 
-function init(srcDir, doAction) {
+function init (srcDir, doAction) {
   configExplorer
     .search(srcDir)
     .then((result) => {
@@ -65,14 +67,14 @@ function init(srcDir, doAction) {
     .catch(err => pennyLogger.error(err.toString()));
 }
 
-function serve(srcDir) {
+function serve (srcDir) {
   init(srcDir, ([pubDir, options]) => {
     Object.assign(options, { isDev: true });
     doServe(srcDir, pubDir, options);
   });
 }
 
-function build(srcDir, outDir) {
+function build (srcDir, outDir) {
   init(srcDir, ([pubDir, options]) => {
     // Object.assign(options, { isDev: process.env.NODE_ENV == 'development' });
     Object.assign(options, { isDev: false });
