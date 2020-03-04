@@ -24,5 +24,5 @@ more markdown here
 testStr.replace(/\[\[\[([\s\S]+?)\]\]\]/gm, (match, group, offset, src) => {
   console.log(match);
   console.log(group);
-  return "\<h1>HTML HERE</h1>\n";
+  return "\<h1>HTML HERE</h1>";
 }); //?
