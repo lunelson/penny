@@ -6,13 +6,15 @@
   "configurations": [
     {
       "type": "node",
+      // "runtimeVersion": "default",
+      "runtimeExecutable": "/Users/lunelson/.nvm/versions/node/v10.15.1/bin/node",
       "request": "launch",
       "name": "Serve Test",
       "program": "${workspaceFolder}/bin/cli.js",
       "args": [
         "serve",
-        "./test/penny/src"
-        // "/Users/lunelson/Git/projects/nova-nm2/src"
+        // "./test/penny/src"
+        "/Users/lunelson/Git/projects/lunelson-xyz/source"
       ],
       "runtimeArgs": [
         "--trace-warnings",
@@ -43,6 +45,7 @@
     },
     {
       "type": "node",
+      "runtimeVersion": "default",
       "request": "launch",
       "name": "Build Test",
       "program": "${workspaceFolder}/bin/cli.js",

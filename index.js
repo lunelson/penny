@@ -5,10 +5,10 @@
 // | |                      __/ |
 // |_|                     |___/
 
-require('dotenv').config();
+const dotEnv = require('dotenv');
 
 // built-in
-const { join } = require('path');
+const { join, dirname, resolve } = require('path');
 const { statSync } = require('fs');
 
 // npm
@@ -46,6 +46,10 @@ function init (srcDir, doAction) {
     .search(srcDir)
     .then((result) => {
       const options = Object.assign({}, defaults, result ? result.config : {});
+      options.configPath = result.filepath;
+      options.configDir = dirname(result.filepath);
+      // load .env config from config directory; fall back to process directory
+      dotEnv.config({ path: resolve(result ? options.configDir : process.cwd(), '.env') });
       eazyLogger.setLevel(options.logLevel);
       let pubDir = srcDir;
       if ('webRoot' in options) {
